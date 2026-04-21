@@ -2,13 +2,13 @@
 
 Uses the country's profile (profiles.py) to tailor the prompt, then queries
 Opus 4.7 to generate a structured CountryReport. One agent instance handles
-one country; parallel dispatch happens at the orchestrator level.
+one country; parallel dispatch happens at the pipeline level.
 """
 
 import json
 import os
 
-from anthropic import Anthropic
+from anthropic import AsyncAnthropic
 from dotenv import load_dotenv
 
 from backend.countries.profiles import CountryProfile, get_profile
@@ -70,13 +70,15 @@ Rules:
 - If uncertain, lower the confidence and flag in the detail.
 - Include 3-7 findings covering the most important compliance dimensions.
 - The overall_risk should reflect the MAXIMUM risk across findings (one high → overall high).
+- Account for current geopolitical context (Iran-Israel tensions, strait/route disruptions,
+  recent sanctions updates) if relevant to this country's trade with the origin.
 - Output ONLY valid JSON. No prose before or after."""
 
 
-def analyze_country(product: Product, country: CountryCode) -> CountryReport:
-    """Run a Country Agent for a single target country."""
+async def analyze_country(product: Product, country: CountryCode) -> CountryReport:
+    """Run a Country Agent for a single target country (async)."""
     profile = get_profile(country.value)
-    client = Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
+    client = AsyncAnthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
 
     system_prompt = _build_system_prompt(profile)
 
@@ -90,7 +92,7 @@ Estimated value (USD): {product.estimated_value_usd or 'unspecified'}
 
 Produce the compliance JSON report now."""
 
-    response = client.messages.create(
+    response = await client.messages.create(
         model=MODEL,
         max_tokens=2048,
         system=system_prompt,
@@ -117,6 +119,8 @@ Produce the compliance JSON report now."""
 
 
 if __name__ == "__main__":
+    import asyncio
+
     test_product = Product(
         name="leather wallet",
         description="Genuine cowhide leather wallet, handcrafted, chrome-tanned",
@@ -125,18 +129,14 @@ if __name__ == "__main__":
         estimated_value_usd=45.0,
     )
 
-    print("🌍 Testing Country Agent — Germany (DE)")
-    print("=" * 60)
-    report = analyze_country(test_product, CountryCode.DE)
-    print(f"HS Code: {report.hs_code}")
-    print(f"Tariff: {report.tariff_rate}")
-    print(f"Overall Risk: {report.overall_risk.value}")
-    print(f"\nFindings ({len(report.findings)}):")
-    for i, f in enumerate(report.findings, 1):
-        print(f"  {i}. [{f.risk_level.value}] {f.category}: {f.title}")
-        print(f"     {f.detail}")
-    print(f"\nRecommended Actions:")
-    for i, action in enumerate(report.recommended_actions, 1):
-        print(f"  {i}. {action}")
-    print("=" * 60)
-    print("✅ Country Agent test complete")
+    async def main():
+        print("🌍 Testing Async Country Agent — Germany (DE)")
+        print("=" * 60)
+        report = await analyze_country(test_product, CountryCode.DE)
+        print(f"HS Code: {report.hs_code}")
+        print(f"Overall Risk: {report.overall_risk.value}")
+        print(f"Findings: {len(report.findings)}")
+        print("=" * 60)
+        print("✅ Async Country Agent works")
+
+    asyncio.run(main())
