@@ -18,6 +18,12 @@ const LocaleContext = createContext<LocaleContextValue>({
   t: dictionaries.en,
 });
 
+// Default is always English. Locale changes only when:
+//   1) The user explicitly picks a language from the dropdown (writes to localStorage)
+//   2) The URL contains ?lang=XX (e.g. a shared link)
+//
+// We deliberately DO NOT honor navigator.language here: the judges are English
+// speakers, and a cold first visit should always present the app in English.
 function detectLocale(): Locale {
   if (typeof window === "undefined") return "en";
   try {
@@ -32,22 +38,12 @@ function detectLocale(): Locale {
     const saved = localStorage.getItem(STORAGE_KEY) as Locale | null;
     if (saved && LOCALES.includes(saved)) return saved;
   } catch {}
-  if (typeof navigator !== "undefined") {
-    const browser = navigator.language.split("-")[0] as Locale;
-    if (LOCALES.includes(browser)) return browser;
-  }
   return "en";
 }
 
 const useIsoLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
 export function LocaleProvider({ children }: { children: ReactNode }) {
-  // Lazy initializer runs synchronously on the FIRST render.
-  // On the server it returns "en" (no window). On the client the very first
-  // render already picks up the URL / localStorage / navigator value. With
-  // suppressHydrationWarning on <html>, the mismatch between the SSR markup
-  // and the client's first render is treated as expected, and React keeps
-  // the client-side value instead of resetting it to the server version.
   const [locale, setLocaleState] = useState<Locale>(() => detectLocale());
 
   useIsoLayoutEffect(() => {
