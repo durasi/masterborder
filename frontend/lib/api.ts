@@ -11,6 +11,7 @@ import type {
   CountryCode,
   RecommendRequest,
   RecommendResponse,
+  UsageStats,
 } from "./types";
 
 const API_URL =
