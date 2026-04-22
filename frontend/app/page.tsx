@@ -125,11 +125,6 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-background py-10 px-4">
       <div className="mx-auto max-w-3xl">
-        {/* Top bar with language picker */}
-        <div className="mb-6 flex justify-end">
-          <LanguagePicker />
-        </div>
-
         {/* Hero */}
         <header className="mb-10 text-center">
           <div className="mb-5 flex items-center justify-center gap-3">
@@ -145,13 +140,16 @@ export default function HomePage() {
               MasterBorder
             </span>
           </div>
-          <span className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-muted/40 px-3 py-1 text-xs font-mono mb-5">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500"></span>
+          <div className="mb-5 flex items-center justify-center gap-2 flex-wrap">
+            <span className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-muted/40 px-3 py-1 text-xs font-mono">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500"></span>
+              </span>
+              {t.hero.livePill}
             </span>
-            {t.hero.livePill}
-          </span>
+            <LanguagePicker />
+          </div>
           <h1 className="text-4xl sm:text-5xl font-bold tracking-tight">
             {t.hero.titleLine1}
             <br />
