@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState, ReactNode } from "react";
+import { createContext, useContext, useEffect, useLayoutEffect, useState, ReactNode } from "react";
 import { dictionaries, Locale, LOCALES, isRTL } from "./index";
 import type { Translations } from "./en";
 
@@ -20,7 +20,6 @@ const LocaleContext = createContext<LocaleContextValue>({
 
 function detectLocale(): Locale {
   if (typeof window === "undefined") return "en";
-
   try {
     const url = new URL(window.location.href);
     const urlLang = url.searchParams.get("lang") as Locale | null;
@@ -29,30 +28,31 @@ function detectLocale(): Locale {
       return urlLang;
     }
   } catch {}
-
   try {
     const saved = localStorage.getItem(STORAGE_KEY) as Locale | null;
     if (saved && LOCALES.includes(saved)) return saved;
   } catch {}
-
   if (typeof navigator !== "undefined") {
     const browser = navigator.language.split("-")[0] as Locale;
     if (LOCALES.includes(browser)) return browser;
   }
-
   return "en";
 }
 
+const useIsoLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
+
 export function LocaleProvider({ children }: { children: ReactNode }) {
-  // Use lazy initializer — runs ONCE on first render, picks correct locale immediately
+  // Lazy initializer runs synchronously on the FIRST render.
+  // On the server it returns "en" (no window). On the client the very first
+  // render already picks up the URL / localStorage / navigator value. With
+  // suppressHydrationWarning on <html>, the mismatch between the SSR markup
+  // and the client's first render is treated as expected, and React keeps
+  // the client-side value instead of resetting it to the server version.
   const [locale, setLocaleState] = useState<Locale>(() => detectLocale());
 
-  // After mount, sync DOM attributes
-  useEffect(() => {
-    if (typeof document !== "undefined") {
-      document.documentElement.setAttribute("lang", locale);
-      document.documentElement.setAttribute("dir", isRTL(locale) ? "rtl" : "ltr");
-    }
+  useIsoLayoutEffect(() => {
+    document.documentElement.setAttribute("lang", locale);
+    document.documentElement.setAttribute("dir", isRTL(locale) ? "rtl" : "ltr");
   }, [locale]);
 
   const setLocale = (next: Locale) => {
