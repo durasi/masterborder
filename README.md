@@ -10,6 +10,7 @@
 [![Built with Opus 4.7](https://img.shields.io/badge/Built%20with-Opus%204.7-9333ea.svg)](https://www.anthropic.com)
 [![Next.js 16](https://img.shields.io/badge/Next.js-16-black.svg)](https://nextjs.org)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.136-009688.svg)](https://fastapi.tiangolo.com)
+[![Tests](https://github.com/durasi/masterborder/actions/workflows/tests.yml/badge.svg)](https://github.com/durasi/masterborder/actions/workflows/tests.yml)
 
 </div>
 
