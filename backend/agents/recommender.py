@@ -16,6 +16,7 @@ from dotenv import load_dotenv
 
 from backend.countries.profiles import get_profile
 from backend.schemas.models import (
+from backend.utils.languages import get_language_name
     AnalysisResponse,
     CountryCode,
     CountryReport,
