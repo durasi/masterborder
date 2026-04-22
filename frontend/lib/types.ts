@@ -48,6 +48,7 @@ export interface AnalysisResponse {
   request: AnalysisRequest;
   country_reports: CountryReport[];
   summary?: string | null;
+  token_usage?: TokenUsage;
 }
 
 export interface RecommendRequest {
@@ -98,4 +99,12 @@ export interface UsageStats {
   last_7d: number;
   top_countries: { country: string; count: number }[];
   server_time: string;
+}
+
+
+/** Aggregate Opus 4.7 usage + estimated USD cost for one analysis job. */
+export interface TokenUsage {
+  input_tokens: number;
+  output_tokens: number;
+  estimated_cost_usd: number;
 }

@@ -59,7 +59,7 @@ def _format_reports_for_prompt(reports: list[CountryReport]) -> str:
     return "\n".join(lines)
 
 
-async def harmonize(response: AnalysisResponse) -> str:
+async def harmonize(response: AnalysisResponse) -> tuple[str, tuple[int, int]]:
     """Generate an executive summary across all country reports."""
     client = AsyncAnthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
 
@@ -84,7 +84,9 @@ Produce the executive summary now."""
         messages=[{"role": "user", "content": user_message}],
     )
 
-    return result.content[0].text
+    usage_in = getattr(result.usage, "input_tokens", 0) or 0
+    usage_out = getattr(result.usage, "output_tokens", 0) or 0
+    return result.content[0].text, (usage_in, usage_out)
 
 
 if __name__ == "__main__":

@@ -157,7 +157,14 @@ async def analyze(
     """
     try:
         response = await run_pipeline(body)
-        response.summary = await harmonize(response)
+        summary_text, (harm_in, harm_out) = await harmonize(response)
+        response.summary = summary_text
+        # Add harmonizer's token usage to the pipeline's aggregate
+        if response.token_usage:
+            response.token_usage = TokenUsage.from_counts(
+                response.token_usage.input_tokens + harm_in,
+                response.token_usage.output_tokens + harm_out,
+            )
     except Exception as exc:
         raise HTTPException(status_code=500, detail=f"Analysis failed: {exc}") from exc
 

@@ -106,7 +106,7 @@ Each finding MUST cite the primary regulatory source it is based on.
 - Output ONLY valid JSON. No prose before or after."""
 
 
-async def analyze_country(product: Product, country: CountryCode) -> CountryReport:
+async def analyze_country(product: Product, country: CountryCode) -> tuple["CountryReport", tuple[int, int]]:
     """Run a Country Agent for a single target country (async)."""
     profile = get_profile(country.value)
     client = AsyncAnthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
@@ -150,7 +150,7 @@ Return the JSON report."""
         for f in data["findings"]
     ]
 
-    return CountryReport(
+    report = CountryReport(
         country=country,
         hs_code=data.get("hs_code"),
         tariff_rate=data.get("tariff_rate"),
@@ -158,3 +158,8 @@ Return the JSON report."""
         overall_risk=RiskLevel(data["overall_risk"]),
         recommended_actions=data.get("recommended_actions", []),
     )
+
+    # Token accounting (pipeline aggregates these across all agents)
+    usage_in = getattr(response.usage, "input_tokens", 0) or 0
+    usage_out = getattr(response.usage, "output_tokens", 0) or 0
+    return report, (usage_in, usage_out)

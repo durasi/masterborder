@@ -28,6 +28,7 @@ import {
   type CountryReport,
   type RiskLevel,
 } from "@/lib/types";
+import { TokenUsageBadge } from "@/components/TokenUsageBadge";
 
 export default function ResultsPage() {
   const params = useParams<{ jobId: string }>();
@@ -152,8 +153,13 @@ export default function ResultsPage() {
           </Card>
         )}
 
+        {/* Token usage transparency badge */}
+        {response.token_usage && (
+          <TokenUsageBadge usage={response.token_usage} />
+        )}
+
         {/* Per-country reports */}
-        <div className="space-y-4">
+        <div className="space-y-4 mt-6">
           <h2 className="text-xl font-semibold">Country Reports</h2>
           {response.country_reports.map((report) => (
             <CountryCard

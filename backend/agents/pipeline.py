@@ -29,18 +29,24 @@ async def run_pipeline(request: AnalysisRequest) -> AnalysisResponse:
     print(f"[pipeline] Starting job {job_id[:8]}... "
           f"dispatching {len(request.target_countries)} Country Agents in parallel")
 
-    # Parallel dispatch — all Country Agents run concurrently
+    # Parallel dispatch — all Country Agents run concurrently.
+    # Each agent returns (CountryReport, (input_tokens, output_tokens)).
     tasks = [
         analyze_country(request.product, country)
         for country in request.target_countries
     ]
 
-    reports: list[CountryReport] = await asyncio.gather(*tasks, return_exceptions=False)
+    results = await asyncio.gather(*tasks, return_exceptions=False)
+
+    reports: list[CountryReport] = [r[0] for r in results]
+    total_in = sum(r[1][0] for r in results)
+    total_out = sum(r[1][1] for r in results)
 
     completed_at = datetime.utcnow()
     duration = (completed_at - created_at).total_seconds()
 
-    print(f"[pipeline] Job {job_id[:8]} completed in {duration:.1f}s")
+    print(f"[pipeline] Job {job_id[:8]} completed in {duration:.1f}s "
+          f"({total_in} in / {total_out} out tokens)")
 
     return AnalysisResponse(
         job_id=job_id,
@@ -49,6 +55,7 @@ async def run_pipeline(request: AnalysisRequest) -> AnalysisResponse:
         request=request,
         country_reports=reports,
         summary=None,  # Filled by Harmonization Agent (next step)
+        token_usage=TokenUsage.from_counts(total_in, total_out),
     )
 
 
