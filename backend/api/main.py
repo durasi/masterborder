@@ -206,6 +206,10 @@ class RecommendRequest(BaseModel):
         default=False,
         description="If true, clears the conversation history for this (job, country) pair.",
     )
+    preferred_language: str = Field(
+        default="en",
+        description="ISO 639-1 language code (en, tr, es, fr, de, etc.) for the response.",
+    )
 
 
 class RecommendResponse(BaseModel):
