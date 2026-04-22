@@ -1,152 +1,270 @@
-<div align="center">
-
 # MasterBorder
 
-### Open-source cross-border trade compliance, powered by Opus 4.7
+**Cross-border trade compliance, in minutes instead of weeks.**
 
-**[🌐 Live demo](https://masterborder.vercel.app)** · **[📖 API Docs](https://masterborder-production.up.railway.app/docs)** · **[🎬 Demo Video](#demo)**
+Built for the [Cerebral Valley × Anthropic "Built with Opus 4.7" hackathon](https://cerebralvalley.ai/e/built-with-4-7-hackathon) (21–26 April 2026).
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Built with Opus 4.7](https://img.shields.io/badge/Built%20with-Opus%204.7-9333ea.svg)](https://www.anthropic.com)
-[![Next.js 16](https://img.shields.io/badge/Next.js-16-black.svg)](https://nextjs.org)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.136-009688.svg)](https://fastapi.tiangolo.com)
 [![Tests](https://github.com/durasi/masterborder/actions/workflows/tests.yml/badge.svg)](https://github.com/durasi/masterborder/actions/workflows/tests.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Built with Opus 4.7](https://img.shields.io/badge/Built%20with-Claude%20Opus%204.7-blue)](https://www.anthropic.com)
 
-</div>
+🌍 **UI available in 16 languages** — English · Türkçe · Español · Français · Deutsch · Português · العربية (RTL) · 中文 · 日本語 · 한국어 · Русский · Italiano · Nederlands · हिन्दी · Bahasa · Polski. Select from the picker at [masterborder.vercel.app](https://masterborder.vercel.app); Opus 4.7 generates the executive summary, findings, and deep-dive in the chosen language while keeping regulation identifiers (e.g. `19 CFR Part 134`, `Regulation (EU) 2023/1115`) in their canonical form.
 
 ---
 
 ## The problem
 
-Small exporters face an impossible choice: spend weeks manually checking tariffs, sanctions, HS codes, and regulations across countries — or pay \$50,000+/year for enterprise compliance platforms that are out of reach for small sellers.
+A small exporter shipping a leather wallet from Istanbul to the US, Germany, and the UK has to answer questions like:
 
-**MasterBorder makes enterprise-grade cross-border trade compliance available to everyone.** Paste your product description, pick target markets, get a harmonized report with per-country risk analysis, official regulatory citations, and an interactive deep-dive agent that can answer follow-up questions in real time.
+- What's the HS code, and what tariff applies?
+- Does California Prop 65 require a Cr VI warning?
+- Is my supplier on an OFAC or BIS list?
+- Does EU REACH Annex XVII restrict my tannery's dyes?
+- Does the UK need an EORI number or a separate customs declaration post-Brexit?
 
-## What it does
+Today, answering all of these means days of research across government portals, paid compliance databases that cost **$50K+/year** (Thomson Reuters World-Check, Refinitiv), and a customs broker on retainer. Most small exporters don't have any of that. They guess, ship, and hope.
 
-1. **Multi-country parallel analysis** — dispatches a Country Agent per target market (US, DE, GB, TR, JP), each running against a country-specific compliance profile. Five parallel Opus 4.7 calls complete in ~25 seconds.
-2. **Harmonization Agent** — synthesizes all country reports into an executive summary with market ranking, shared vs. divergent requirements, geopolitical context, and a concrete "first step" recommendation.
-3. **Interactive deep-dive** — pick a country and get a full go-to-market plan. Follow-up questions keep the analysis context, so you can drill into freight options, lab selection, document timelines, or anything else.
-4. **Official PDF report** — one-click download produces a vector, text-searchable A4 report with a verification QR code, regulatory source citations, and footnotes linking back to primary legal sources.
-5. **Rate-limited public demo** — 5 analyses + 20 deep-dives per IP per day so you can try it without running up anyone's API bill.
+## The solution
+
+**MasterBorder** runs one specialized Opus 4.7 agent **per target market in parallel**, synthesizes the findings into a single harmonized executive summary, and lets the exporter drill into any country for a week-by-week go-to-market plan with document names, test labs, and cost estimates. Every finding cites a primary regulatory source (HTS code, CFR section, EU regulation number, official URL).
+
+One product + N target markets → one professional PDF report in under 30 seconds.
+
+---
+
+## Live
+
+- **App**: https://masterborder.vercel.app
+- **API**: https://masterborder-production.up.railway.app
+- **API docs (Swagger)**: https://masterborder-production.up.railway.app/docs
+- **Health**: https://masterborder-production.up.railway.app/health
+
+Try a sample: click **Try sample** on the landing page — it fills in a leather wallet from Türkiye targeting the US, Germany, and the UK.
+
+---
 
 ## Architecture
 
 ```
-┌──────────────────────────┐        ┌─────────────────────────────┐
-│  Next.js 16 (Vercel)     │        │  FastAPI (Railway)          │
-│  · Analysis form         │◄──────►│  · Orchestrator             │
-│  · Results dashboard     │  HTTP  │  · 5× Country Agents (async)│
-│  · Deep-dive chat UI     │        │  · Harmonization Agent      │
-│  · PDF export (vector)   │        │  · Recommendation Agent     │
-└──────────────────────────┘        │  · Per-IP rate limiter      │
-                                     └────────────┬────────────────┘
-                                                  │
-                                                  ▼
-                                     ┌─────────────────────────────┐
-                                     │  Anthropic API · Opus 4.7   │
-                                     └─────────────────────────────┘
+┌──────────────────────────┐      ┌───────────────────────────────────────────┐
+│  Next.js 16 (Vercel)     │      │  FastAPI (Railway, Docker, Python 3.12)   │
+│  React 19 + shadcn/ui    │ ───> │  AsyncAnthropic + slowapi rate limiting   │
+│  @react-pdf/renderer     │ <─── │  In-memory job + conversation cache       │
+│  16-language i18n        │      └───────────────────────────────────────────┘
+└──────────────────────────┘                            │
+                                                        ▼
+                        ┌───────────────────────────────────────────────────┐
+                        │  asyncio.gather — N parallel Country Agents       │
+                        │  ┌─────────┐ ┌─────────┐ ┌─────────┐              │
+                        │  │ US agt  │ │ DE agt  │ │ UK agt  │ … + TR, JP   │
+                        │  └─────────┘ └─────────┘ └─────────┘              │
+                        └───────────────────────────────────────────────────┘
+                                                        │
+                                                        ▼
+                        ┌───────────────────────────────────────────────────┐
+                        │  Harmonization Agent  — cross-market synthesis    │
+                        │  Markdown executive summary, ranking, shared vs.  │
+                        │  divergent requirements, first-move recommendation│
+                        └───────────────────────────────────────────────────┘
+                                                        │
+                                                        ▼
+                        ┌───────────────────────────────────────────────────┐
+                        │  Recommendation Agent — interactive deep-dive     │
+                        │  Multi-turn chat, mirrors user's language, full   │
+                        │  context preserved across turns                   │
+                        └───────────────────────────────────────────────────┘
 ```
 
-### Agent pipeline
+**Why it's more than a prompt chain:** the Country Agents run **truly in parallel** via `asyncio.gather`, each with a jurisdiction-tailored system prompt built from a `CountryProfile` (official sources, key regulations, FTA status with origin country, sanctions regimes). Five markets finish in ~25 seconds — the same query serialized would be ~2 minutes. The Harmonizer then has all N reports in a single context window to reason across.
 
-- **Country Agent** — produces a structured `CountryReport` for one jurisdiction using a profile with official sources, key regulations, FTAs, and sanctions regimes. Every finding must cite a primary legal source (HTS code, CFR section, EU regulation number, etc.) with a canonical URL when available.
-- **Harmonization Agent** — reads all country reports and produces a markdown executive summary with ranking, shared requirements, divergent traps, and geopolitical context.
-- **Recommendation Agent** — stateful multi-turn agent that generates a country-specific go-to-market plan and answers follow-up questions, maintaining conversation history server-side.
+---
 
-All three agents use the same Opus 4.7 model (`claude-opus-4-7`); the prompts differ.
+## Agents
 
-## Tech stack
+| Agent | File | Responsibility |
+|---|---|---|
+| **Country Agent** | `backend/countries/agent.py` | Produces one `CountryReport` for one target market. JSON-structured output: HS code, tariff rate, 4–8 findings, recommended actions, overall risk level. Every finding cites a primary source. |
+| **Pipeline** | `backend/agents/pipeline.py` | Dispatches one Country Agent per target market in parallel via `asyncio.gather`, aggregates token usage. |
+| **Harmonizer** | `backend/agents/harmonizer.py` | Consumes all Country Reports in a single context window, produces a Markdown executive summary: ranked recommendation, shared vs. divergent requirements, geopolitical context, first concrete action. |
+| **Recommender** | `backend/agents/recommender.py` | Interactive deep-dive for one chosen country. First turn: full week-by-week plan (timeline, documents, test labs, costs, risks). Follow-ups: multi-turn conversation with full context preservation. Mirrors the user's language if they switch mid-conversation. |
 
-**Backend** — Python 3.12, FastAPI, Anthropic SDK (AsyncAnthropic), Pydantic, SlowAPI (rate limiting), Docker, Railway
+All four agents use `claude-opus-4-7`. The Harmonizer's `max_tokens` is set to 8192 for long-form synthesis; the Country Agents use structured JSON output.
 
-**Frontend** — Next.js 16.2 (App Router, Turbopack), React 19, TypeScript, Tailwind CSS v4, shadcn/ui (Radix + Nova preset), `@react-pdf/renderer`, `qrcode`, `lucide-react`
+---
 
-**Deployment** — Vercel (frontend) + Railway (backend), auto-deploy on git push
+## Country coverage
 
-## Try it
+Five shipped market profiles:
 
-### Live demo
-Visit **[masterborder.vercel.app](https://masterborder.vercel.app)** and analyze any product. Rate-limited to 5 analyses per IP per day.
+- 🇺🇸 **United States** — HTS, Section 301, CBP, OFAC SDN, BIS Entity List, Prop 65, FTC Leather Guides
+- 🇩🇪 **Germany / EU** — TARIC, REACH Annex XVII, CITES, EUDR, VerpackG / LUCID, GPSR
+- 🇬🇧 **United Kingdom** — UKGT, BTOM, IPAFFS, CITES UK, UKCA, Private Attestation
+- 🇹🇷 **Türkiye** — Gümrük Kanunu, DİİB, TSE, KVKK, A.TR / EUR.1
+- 🇯🇵 **Japan** — customs.go.jp, Industrial Safety and Health Act, JIS, food labeling
 
-### Run locally
+Each profile is a `CountryProfile` dataclass (`backend/countries/profiles.py`) with:
+- Official source list (what URLs the agent trusts)
+- Key regulations (what texts the agent cites)
+- FTA status with Türkiye (origin-dependent preferential rate)
+- Sanctions regimes the agent screens against
+- Unique concerns per jurisdiction (e.g. Prop 65 for the US, EUDR for the EU)
 
-```bash
-# Clone and set up
-git clone https://github.com/durasi/masterborder.git
-cd masterborder
+Adding a sixth country = one dataclass entry. See `profiles.py` for the template.
 
-# Backend
-python3.12 -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
-echo "ANTHROPIC_API_KEY=sk-ant-..." > .env
-uvicorn backend.api.main:app --reload --port 8000
+---
 
-# Frontend (in a new terminal)
-cd frontend
-npm install
-echo "NEXT_PUBLIC_API_URL=http://localhost:8000" > .env.local
-npm run dev
-```
+## Features
 
-Open [http://localhost:3000](http://localhost:3000).
+- ✅ **Parallel country agents** — one Opus 4.7 agent per target market, dispatched concurrently
+- ✅ **Primary-source citations** — every finding links to HTS code, CFR section, EU regulation number, or official URL
+- ✅ **Interactive deep-dive** — multi-turn chat with full context preservation, week-by-week go-to-market plan
+- ✅ **Professional PDF export** — vector PDFs with shield logo, footnote markers, dedicated regulatory sources page, verification QR code
+- ✅ **Deep-dive PDF** — separate template for exporting the chat transcript as a country-specific brief
+- ✅ **Live usage counter** — privacy-preserving (SHA256-hashed IPs), rolling 24h / 7d windows, top-country tracking
+- ✅ **Per-job cost transparency** — token counts + estimated USD cost for every analysis (Opus 4.7 rate: $15/M input + $75/M output)
+- ✅ **Test suite + CI** — 17 pytest tests (schemas, profiles, stats), GitHub Actions workflow, <1 second runtime
+- ✅ **16-language UI + report generation** — dropdown picker, RTL support (Arabic), URL-param locale override (`?lang=tr`)
+- ✅ **Rate limiting** — 5 analyses/day + 20 recommendations/day per IP (SlowAPI), to protect the hackathon API credit budget
 
-## Why this was interesting to build
+## Roadmap (not in scope for hackathon)
 
-- **Parallel dispatch** matters: running 5 Country Agents in parallel via `asyncio.gather` turns a 2-minute sequential analysis into a ~25-second one.
-- **Harmonization is the real product** — individual country reports are useful, but the synthesis ("where do all these rules agree, where do they diverge, what should I do first?") is what makes the tool worth opening.
-- **Structured outputs with citations** force Opus 4.7 to be specific. Requiring a `citation` field for each finding turned vague guidance into auditable regulatory references.
-- **Human-in-the-loop is the right pattern** for compliance advice: the agent proposes, the human decides. Every recommendation ends with *"You decide."*
-
-## Project status
-
-- ✅ Five country profiles (US, DE, GB, TR, JP) — extensible via `backend/countries/profiles.py`
-- ✅ Multi-turn deep-dive chat with conversation cache
-- ✅ Vector PDF export with QR verification + regulatory source citations
-- ✅ Rate limiting (5 analyses/day/IP, 20 recommendations/day/IP)
-- ✅ CORS-protected API with typed Pydantic schemas
-- ✅ Live deployment on Vercel + Railway
-- ✅ Live usage counter on the landing page (hashed-IP, GDPR-friendly)
-- ✅ Per-job token + USD cost tracker (Opus 4.7 rates, transparent to users)
-- ✅ pytest suite + GitHub Actions CI (17 tests, mock-free, <1 second)
 - 🚧 More country profiles (China, Canada, UAE, Saudi Arabia — contributions welcome)
-- 🚧 Multi-language UI + translated reports (EN, TR, DE, JA, HI, RU, AR)
 - 🚧 CLI tool (`masterborder analyze --product X --to US,DE`)
-- 🚧 Integration with Claude Managed Agents
+- 🚧 Integration with Claude Managed Agents (evaluating after the Michael Cohen talk on 23 April)
+- 🚧 PDF font registration for non-Latin scripts (Noto Sans SC/JP/KR, Noto Naskh Arabic, Noto Sans Devanagari) — currently PDFs are Latin-script only
+
+---
 
 ## Repository layout
 
 ```
 masterborder/
 ├── backend/
-│   ├── agents/              # Orchestrator, harmonizer, recommender
-│   ├── api/main.py          # FastAPI entrypoint (HTTP endpoints)
-│   ├── countries/           # Per-country profiles + Country Agent
-│   └── schemas/models.py    # Pydantic request/response types
+│   ├── agents/
+│   │   ├── pipeline.py        # parallel dispatch
+│   │   ├── harmonizer.py      # executive summary
+│   │   └── recommender.py     # deep-dive chat
+│   ├── api/
+│   │   ├── main.py            # FastAPI app
+│   │   └── stats.py           # in-memory usage counter
+│   ├── countries/
+│   │   ├── agent.py           # Country Agent template
+│   │   └── profiles.py        # 5 shipped country profiles
+│   ├── schemas/
+│   │   └── models.py          # Pydantic schemas
+│   └── utils/
+│       └── languages.py       # ISO → English name mapping for prompts
 ├── frontend/
-│   ├── app/                 # Next.js App Router pages
-│   ├── components/          # UI components + PDF template
-│   └── lib/                 # API client, TS types, helpers
-├── Dockerfile               # Railway deployment
-├── requirements.txt         # Python dependencies
+│   ├── app/
+│   │   ├── page.tsx           # landing
+│   │   ├── layout.tsx         # LocaleProvider wrap
+│   │   └── results/[jobId]/
+│   │       ├── page.tsx       # results dashboard
+│   │       └── [country]/
+│   │           └── page.tsx   # deep-dive chat
+│   ├── components/
+│   │   ├── LanguagePicker.tsx
+│   │   ├── MasterBorderReport.tsx   # analysis PDF
+│   │   ├── DeepDiveReport.tsx       # deep-dive PDF
+│   │   ├── TokenUsageBadge.tsx
+│   │   └── UsageStatsFooter.tsx
+│   └── lib/
+│       ├── api.ts             # typed fetch client
+│       ├── types.ts           # shared TS types
+│       └── i18n/
+│           ├── en.ts          # base dictionary (35 keys)
+│           ├── tr.ts, es.ts, fr.ts, de.ts, pt.ts, ar.ts,
+│           ├── zh.ts, ja.ts, ko.ts, ru.ts, it.ts, nl.ts,
+│           ├── hi.ts, id.ts, pl.ts
+│           ├── index.ts       # central dictionaries map
+│           └── context.tsx    # LocaleProvider + useLocale
+├── tests/                     # pytest suite (17 tests)
+├── .github/workflows/tests.yml
+├── Dockerfile                 # Railway backend image
 └── README.md
 ```
 
-## Author
+---
 
-**Seçkin Sefa Durası** — software developer, musician, and occasional compliance researcher based in Istanbul, Turkey.
+## Running locally
 
-- 🌐 Website: [seckin.ws](https://seckin.ws)
-- 📧 Email: [i@seckin.ws](mailto:i@seckin.ws)
-- 💼 LinkedIn: [linkedin.com/in/durasi](https://www.linkedin.com/in/durasi)
-- 🐙 GitHub: [github.com/durasi](https://github.com/durasi)
-- 𝕏 / Twitter: [x.com/seckinws](https://x.com/seckinws)
-- 💬 Discord: `seckin.ws`
+```bash
+# Clone
+git clone https://github.com/durasi/masterborder.git
+cd masterborder
 
-## License
+# Backend
+python3.12 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env
+# Add your ANTHROPIC_API_KEY to .env
+uvicorn backend.api.main:app --reload --port 8000
 
-MIT — see [LICENSE](./LICENSE). You can use, modify, fork, and ship this commercially; attribution appreciated but not required.
+# Frontend (new terminal)
+cd frontend
+npm install
+echo "NEXT_PUBLIC_API_URL=http://localhost:8000" > .env.local
+npm run dev
+```
+
+Open http://localhost:3000, click **Try sample**, submit. The analysis runs against your Anthropic API key.
+
+### Tests
+
+```bash
+pytest                 # 17 tests, <1 second
+cd frontend && npm run build   # Next.js type check + build
+```
 
 ---
 
-Built with [Claude Code](https://www.anthropic.com/claude-code) + Opus 4.7 for the [Cerebral Valley × Anthropic hackathon](https://cerebralvalley.ai/e/built-with-4-7-hackathon), April 2026.
+## Tech stack
+
+**Backend**
+- Python 3.12, FastAPI, AsyncAnthropic SDK, Pydantic v2
+- SlowAPI (rate limiting)
+- pytest + pytest-asyncio
+- Hosted on Railway (Docker)
+
+**Frontend**
+- Next.js 16.2.4 (Turbopack) + React 19
+- shadcn/ui (Radix + Nova preset) + Tailwind CSS
+- @react-pdf/renderer 4.5.1 (vector PDFs)
+- qrcode (verification QR)
+- Hosted on Vercel
+
+**Deployment**
+- GitHub → auto-deploy to Vercel (frontend) + Railway (backend) on push to `main`
+- `NEXT_PUBLIC_API_URL` env var links the two
+- CORS regex `https://.*\.vercel\.app` for preview deployments
+
+---
+
+## Security & privacy
+
+- No user data is stored server-side beyond the analysis cache (in-memory, cleared on restart)
+- Usage counter stores **SHA256 hashes of IP addresses only** — no raw IPs, no fingerprints
+- No third-party analytics, no tracking cookies
+- `ANTHROPIC_API_KEY` lives in `.env` / Railway env vars, never in the repo
+- Rate limits (5 analyses/day, 20 recommendations/day per IP) protect the hackathon API credit budget
+
+---
+
+## Author
+
+**Seçkin Sefa Durası**
+Digital Processes Executive @ BSH Türkiye (Bosch) · solo developer with 7+ live App Store apps
+- Web: https://seckin.ws
+- Email: i@seckin.ws
+- GitHub: https://github.com/durasi
+- LinkedIn: https://linkedin.com/in/durasi
+- X: https://x.com/seckinws
+
+## License
+
+MIT — see [LICENSE](LICENSE). Free for commercial use, modification, distribution, private use. Attribution appreciated, not required.
+
+---
+
+*Built with Claude Code + Opus 4.7. The agent proposes, you decide.*
