@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 
+import { DownloadPdfButton } from "@/components/DownloadPdfButton";
 import { api, APIError } from "@/lib/api";
 import {
   COUNTRY_LABELS,
@@ -100,10 +101,10 @@ export default function ResultsPage() {
 
   return (
     <div className="min-h-screen bg-background py-8 px-4">
-      <div className="mx-auto max-w-4xl">
+      <div id="pdf-target" className="mx-auto max-w-4xl bg-background">
         {/* Header */}
         <header className="mb-6">
-          <div className="flex items-center justify-between">
+          <div className="flex items-start justify-between gap-4">
             <div>
               <Link
                 href="/"
@@ -121,6 +122,12 @@ export default function ResultsPage() {
                   .join(", ")}{" "}
                 · Origin: {COUNTRY_LABELS[product.origin_country]}
               </p>
+            </div>
+            <div className="pt-8 print-hidden" data-pdf-hide="true">
+              <DownloadPdfButton
+                data={response}
+                filename={product.name}
+              />
             </div>
           </div>
         </header>
@@ -157,7 +164,7 @@ export default function ResultsPage() {
           ))}
         </div>
 
-        <footer className="mt-10 text-center text-xs text-muted-foreground">
+        <footer data-pdf-hide="true" className="print-hidden mt-10 text-center text-xs text-muted-foreground">
           <p>
             Job ID: <code className="font-mono">{response.job_id}</code>
           </p>

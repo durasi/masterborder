@@ -19,8 +19,10 @@ import {
 import { api, APIError } from "@/lib/api";
 import {
   COUNTRY_LABELS,
+  type AnalysisResponse,
   type CountryCode,
 } from "@/lib/types";
+import { DownloadDeepDivePdfButton } from "@/components/DownloadDeepDivePdfButton";
 
 type ChatMessage = {
   role: "user" | "assistant";
@@ -39,6 +41,7 @@ export default function DeepDivePage() {
   const [loading, setLoading] = useState(false);
   const [initialLoading, setInitialLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [analysis, setAnalysis] = useState<AnalysisResponse | null>(null);
 
   const bottomRef = useRef<HTMLDivElement>(null);
 
@@ -49,16 +52,20 @@ export default function DeepDivePage() {
 
     async function fetchInitial() {
       try {
-        const res = await api.recommend(jobId, country, {
-          reset_conversation: true,
-        });
+        // Fetch both the cached analysis (for the PDF export) and the first
+        // deep-dive response in parallel.
+        const [jobRes, recRes] = await Promise.all([
+          api.getJob(jobId),
+          api.recommend(jobId, country, { reset_conversation: true }),
+        ]);
         if (cancelled) return;
+        setAnalysis(jobRes);
         setMessages([
           {
             role: "user",
             content: `I've chosen to focus on ${country}. Give me the full go-to-market plan.`,
           },
-          { role: "assistant", content: res.message },
+          { role: "assistant", content: recRes.message },
         ]);
       } catch (err) {
         if (cancelled) return;
@@ -171,20 +178,31 @@ export default function DeepDivePage() {
     <div className="min-h-screen bg-background">
       <div className="mx-auto max-w-3xl px-4 py-6">
         {/* Header */}
-        <header className="mb-6">
-          <Link
-            href={`/results/${jobId}`}
-            className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
-          >
-            <ArrowLeft className="h-3.5 w-3.5" />
-            Back to results
-          </Link>
-          <h1 className="text-2xl font-semibold tracking-tight mt-2">
-            Deep dive: {COUNTRY_LABELS[country]}
-          </h1>
-          <p className="text-sm text-muted-foreground mt-1">
-            Ask follow-up questions. The agent has the full analysis context.
-          </p>
+        <header className="mb-6 flex items-start justify-between gap-4">
+          <div>
+            <Link
+              href={`/results/${jobId}`}
+              className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
+            >
+              <ArrowLeft className="h-3.5 w-3.5" />
+              Back to results
+            </Link>
+            <h1 className="text-2xl font-semibold tracking-tight mt-2">
+              Deep dive: {COUNTRY_LABELS[country]}
+            </h1>
+            <p className="text-sm text-muted-foreground mt-1">
+              Ask follow-up questions. The agent has the full analysis context.
+            </p>
+          </div>
+          {analysis && messages.length > 0 && (
+            <div className="pt-6">
+              <DownloadDeepDivePdfButton
+                data={analysis}
+                country={country}
+                messages={messages}
+              />
+            </div>
+          )}
         </header>
 
         {/* Messages */}

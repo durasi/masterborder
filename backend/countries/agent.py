@@ -57,86 +57,104 @@ Your output must be a JSON object matching this schema exactly:
       "title": "short title",
       "detail": "1-2 sentences of actionable detail",
       "risk_level": "low|medium|high|blocked",
-      "source_url": "official URL if known, else null",
-      "citation": "specific article/section if known, else null"
+      "source_url": "MANDATORY when a primary-source URL exists — see rules below",
+      "citation": "specific article/section/proclamation identifier — e.g. '19 CFR Part 134' or 'Regulation (EU) 2023/1115, Art. 3'"
     }}
   ],
   "overall_risk": "low|medium|high|blocked",
   "recommended_actions": ["actionable step 1", "actionable step 2", ...]
 }}
 
-Rules:
-- Be specific. Cite concrete regulation numbers when possible.
-- If uncertain, lower the confidence and flag in the detail.
+## Rules for source_url and citation
+
+Each finding MUST cite the primary regulatory source it is based on.
+
+1. `citation` is ALMOST ALWAYS populatable: it is the short identifier of the law,
+   regulation, proclamation, or official guidance (e.g. "19 USC 1307",
+   "Regulation (EU) 2021/1323", "Section 232 Proclamation 9705",
+   "Natasha's Law / PPDS guidance (FSA)"). You must fill this in whenever you
+   name or quote a specific regulation in `detail`.
+
+2. `source_url` should be the CANONICAL primary-source URL when you are
+   confident it exists. Prefer, in order:
+   - United States: ecfr.gov, cbp.gov, ustr.gov, treasury.gov (OFAC),
+     federalregister.gov, usitc.gov
+   - European Union: eur-lex.europa.eu, ec.europa.eu (DG TAXUD, DG TRADE),
+     trade.ec.europa.eu
+   - United Kingdom: legislation.gov.uk, gov.uk (HMRC / DEFRA / DBT),
+     trade-tariff.service.gov.uk
+   - Turkey: resmigazete.gov.tr, ticaret.gov.tr, mevzuat.gov.tr
+   - Japan: customs.go.jp, meti.go.jp, mhlw.go.jp, japaneselawtranslation.go.jp
+
+3. Only include `source_url` if you are reasonably confident the URL is real
+   and correct. DO NOT fabricate URLs. If you are not sure, set `source_url`
+   to null and keep `citation` populated — a verifiable citation string is
+   more valuable than a broken link.
+
+4. For each finding, prefer a single authoritative URL (the regulation itself)
+   over a secondary commentary or news source.
+
+## Other rules
+
+- Be specific. Cite concrete regulation numbers in `detail` as well.
+- If uncertain about a fact, lower the risk_level and flag uncertainty in `detail`.
 - Include 3-7 findings covering the most important compliance dimensions.
-- The overall_risk should reflect the MAXIMUM risk across findings (one high → overall high).
-- Account for current geopolitical context (Iran-Israel tensions, strait/route disruptions,
-  recent sanctions updates) if relevant to this country's trade with the origin.
+- `overall_risk` reflects the MAXIMUM risk across findings (one blocked → overall blocked).
+- Account for current geopolitical context (Iran-Israel tensions, strait/route
+  disruptions, recent sanctions updates) if relevant to this country's trade
+  with the origin.
 - Output ONLY valid JSON. No prose before or after."""
 
 
 async def analyze_country(product: Product, country: CountryCode) -> CountryReport:
     """Run a Country Agent for a single target country (async)."""
     profile = get_profile(country.value)
-    client = AsyncAnthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
+    client = AsyncAnthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
 
-    system_prompt = _build_system_prompt(profile)
-
-    user_message = f"""Analyze this product for export to {profile.name}:
+    user_message = f"""Analyze trade compliance for this product targeting {profile.name}:
 
 Product: {product.name}
 Description: {product.description}
-Category: {product.category or 'unspecified'}
+Category: {product.category or "unspecified"}
 Origin country: {product.origin_country.value}
-Estimated value (USD): {product.estimated_value_usd or 'unspecified'}
+Estimated value per unit (USD): {product.estimated_value_usd or "unspecified"}
 
-Produce the compliance JSON report now."""
+Return the JSON report."""
 
     response = await client.messages.create(
         model=MODEL,
-        max_tokens=2048,
-        system=system_prompt,
+        max_tokens=4096,
+        system=_build_system_prompt(profile),
         messages=[{"role": "user", "content": user_message}],
     )
 
-    raw_text = response.content[0].text.strip()
+    raw = response.content[0].text.strip()
+    # Some models wrap JSON in markdown code fences; strip if present
+    if raw.startswith("```"):
+        raw = raw.split("```")[1]
+        if raw.startswith("json"):
+            raw = raw[4:]
+        raw = raw.strip()
 
-    # Strip markdown code fences if present
-    if raw_text.startswith("```"):
-        lines = raw_text.split("\n")
-        raw_text = "\n".join(lines[1:-1] if lines[-1].startswith("```") else lines[1:])
+    data = json.loads(raw)
 
-    data = json.loads(raw_text)
+    findings = [
+        ComplianceFinding(
+            category=f["category"],
+            title=f["title"],
+            detail=f["detail"],
+            risk_level=RiskLevel(f["risk_level"]),
+            source_url=f.get("source_url"),
+            citation=f.get("citation"),
+        )
+        for f in data["findings"]
+    ]
 
     return CountryReport(
         country=country,
         hs_code=data.get("hs_code"),
         tariff_rate=data.get("tariff_rate"),
-        findings=[ComplianceFinding(**f) for f in data.get("findings", [])],
-        overall_risk=RiskLevel(data.get("overall_risk", "medium")),
+        findings=findings,
+        overall_risk=RiskLevel(data["overall_risk"]),
         recommended_actions=data.get("recommended_actions", []),
     )
-
-
-if __name__ == "__main__":
-    import asyncio
-
-    test_product = Product(
-        name="leather wallet",
-        description="Genuine cowhide leather wallet, handcrafted, chrome-tanned",
-        category="accessories",
-        origin_country=CountryCode.TR,
-        estimated_value_usd=45.0,
-    )
-
-    async def main():
-        print("🌍 Testing Async Country Agent — Germany (DE)")
-        print("=" * 60)
-        report = await analyze_country(test_product, CountryCode.DE)
-        print(f"HS Code: {report.hs_code}")
-        print(f"Overall Risk: {report.overall_risk.value}")
-        print(f"Findings: {len(report.findings)}")
-        print("=" * 60)
-        print("✅ Async Country Agent works")
-
-    asyncio.run(main())

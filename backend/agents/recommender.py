@@ -175,7 +175,7 @@ async def recommend_for_country(
 
     result = await client.messages.create(
         model=MODEL,
-        max_tokens=3072,
+        max_tokens=8192,
         system=system_prompt,
         messages=messages,
     )

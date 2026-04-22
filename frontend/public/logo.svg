@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 220" width="200" height="220">
+  <defs>
+    <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2563eb"/>
+      <stop offset="50%" stop-color="#1e3a8a"/>
+      <stop offset="100%" stop-color="#0c1e5e"/>
+    </linearGradient>
+    <radialGradient id="shieldHighlight" cx="35%" cy="20%" r="60%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Shield shape — classic crest outline -->
+  <path d="M 100 10
+           L 180 30
+           L 180 110
+           C 180 150, 150 185, 100 210
+           C 50 185, 20 150, 20 110
+           L 20 30
+           Z"
+        fill="url(#shieldGrad)"/>
+
+  <!-- Inner shield border -->
+  <path d="M 100 20
+           L 170 38
+           L 170 108
+           C 170 145, 145 175, 100 198
+           C 55 175, 30 145, 30 108
+           L 30 38
+           Z"
+        fill="none"
+        stroke="#ffffff"
+        stroke-width="1.2"
+        opacity="0.4"/>
+
+  <!-- Highlight -->
+  <path d="M 100 10
+           L 180 30
+           L 180 110
+           C 180 150, 150 185, 100 210
+           C 50 185, 20 150, 20 110
+           L 20 30
+           Z"
+        fill="url(#shieldHighlight)"/>
+
+  <!-- MB monogram -->
+  <text x="100" y="115"
+        font-family="Helvetica-Bold"
+        font-size="60"
+        fill="#ffffff"
+        text-anchor="middle">MB</text>
+
+  <!-- Divider line -->
+  <line x1="55" y1="130" x2="145" y2="130" stroke="#ffffff" stroke-width="1.5" opacity="0.5" stroke-linecap="round"/>
+
+  <!-- MasterBorder wordmark -->
+  <text x="100" y="155"
+        font-family="Helvetica-Bold"
+        font-size="16"
+        fill="#ffffff"
+        text-anchor="middle">MasterBorder</text>
+
+  <!-- Subtitle -->
+  <text x="100" y="172"
+        font-family="Helvetica"
+        font-size="8"
+        fill="#ffffff"
+        opacity="0.8"
+        text-anchor="middle">COMPLIANCE</text>
+</svg>
