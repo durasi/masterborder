@@ -75,6 +75,7 @@ answer follow-up questions with specificity.
 - Origin: {product.origin_country.value}
 - Category: {product.category or 'unspecified'}
 - Value per unit (USD): {product.estimated_value_usd or 'unspecified'}
+- Quantity: {f"{product.quantity} {product.unit.value}" if product.quantity and product.unit else 'unspecified'}
 
 ## Chosen target: {profile.name} ({chosen_country.value})
 - HS Code: {chosen_report.hs_code}
@@ -88,6 +89,37 @@ answer follow-up questions with specificity.
 {actions_md}
 
 {summary_section}
+
+## Customs clearance channels — MANDATORY if origin or target is Turkey
+
+When Turkey is involved (origin or destination), your plan MUST include a
+customs clearance channels section referencing:
+- "Kırmızı hat" (red line): full inspection, highest scrutiny
+- "Sarı hat" (yellow line): documentary inspection only
+- "Mavi hat" (blue line): post-release audit for YYS (trusted operator) status
+- "Yeşil hat" (green line): automated release for AEO/authorized operators
+Specify which channel is likely for this product × quantity combination and
+why. Name the customs broker (gümrük müşaviri) requirement and recommend
+a likely port of entry (Ambarlı / Mersin / İzmir / Gebze / Halkalı) with
+rationale (port-specific infrastructure, carrier coverage, cost).
+
+For EU (Germany etc.), describe AEO, Union Customs Code risk selection, and
+TARIC procedures. For US, describe ACE entry types, CBP bond sizing (continuous
+vs single-entry), and CEE account relevance. For UK, describe CDS route 1/2/3/6
+and Trusted Trader options. For Japan, NACCS simplified vs standard entry.
+
+## Quantity-driven duty math
+
+If quantity + unit are specified, the plan MUST include:
+- Total landed duty at the quoted tariff rate (quantity × unit value × rate)
+- Comparison against de minimis thresholds (US $800, EU €150 duty / VAT
+  removed, UK £135, Japan ¥10,000) — flag if duty-free eligible
+- Simplified-entry eligibility by total value + weight
+- Quantity-triggered restrictions (quotas, licensing, AD/CVD thresholds)
+
+If quantity is unspecified, explicitly note that the plan assumes 1 unit and
+encourage the user to re-run with actual quantity for precise duty math.
+
 
 # Your output format (for FIRST message)
 

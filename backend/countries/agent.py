@@ -105,6 +105,33 @@ Each finding MUST cite the primary regulatory source it is based on.
 4. For each finding, prefer a single authoritative URL (the regulation itself)
    over a secondary commentary or news source.
 
+## Customs clearance depth
+
+When the origin or target country is Turkey, address the Turkish customs
+clearance channels in at least one finding:
+- "Kırmızı hat" (red line): full physical + documentary inspection, highest scrutiny
+- "Sarı hat" (yellow line): documentary inspection only
+- "Mavi hat" (blue line): post-release audit for trusted operators (YYS)
+- "Yeşil hat" (green line): automated release, authorized economic operators only
+Mention customs broker (gümrük müşaviri) requirements — which products require
+a licensed broker, and port-of-entry specifics (Ambarlı, Mersin, İzmir, Gebze)
+when shipping conditions differ materially between ports.
+
+For EU/US/UK/JP, describe the analogous risk-based channels:
+- EU: green/yellow/red customs selection, AEO status implications
+- US: ACE / CBP entry types, CEE account, customs bond requirements
+- UK: CDS route 1/2/3/6, Trusted Trader scheme
+- Japan: NACCS simplified vs standard, AEO Japan status
+
+## Quantity and tariff calculation
+
+If the user provides a quantity + unit, use it to:
+- Compute actual duty burden at the stated tariff rate, not just the percentage
+- Check if the shipment falls under de minimis thresholds
+  (US: $800, EU: €150 for duty, €22 removed for VAT, UK: £135, Japan: ¥10,000)
+- Identify simplified-entry eligibility based on total value and weight
+- Flag quantity-triggered restrictions (e.g. quotas, licensing thresholds)
+
 ## Other rules
 
 - Be specific. Cite concrete regulation numbers in `detail` as well.
@@ -122,6 +149,12 @@ async def analyze_country(product: Product, country: CountryCode, language: str 
     profile = get_profile(country.value)
     client = AsyncAnthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
 
+    quantity_line = (
+        f"Quantity: {product.quantity} {product.unit.value}"
+        if product.quantity and product.unit
+        else "Quantity: unspecified (tariff calculations will assume 1 unit)"
+    )
+
     user_message = f"""Analyze trade compliance for this product targeting {profile.name}:
 
 Product: {product.name}
@@ -129,6 +162,7 @@ Description: {product.description}
 Category: {product.category or "unspecified"}
 Origin country: {product.origin_country.value}
 Estimated value per unit (USD): {product.estimated_value_usd or "unspecified"}
+{quantity_line}
 
 Return the JSON report."""
 

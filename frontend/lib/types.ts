@@ -15,6 +15,8 @@ export interface Product {
   category?: string | null;
   origin_country: CountryCode;
   estimated_value_usd?: number | null;
+  quantity?: number | null;
+  unit?: string | null;
 }
 
 export interface AnalysisRequest {

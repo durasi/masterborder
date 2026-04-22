@@ -24,6 +24,20 @@ class RiskLevel(str, Enum):
     BLOCKED = "blocked"
 
 
+class QuantityUnit(str, Enum):
+    """Units of measurement for product quantity — critical for tariff calculation."""
+    PIECES = "pieces"     # adet
+    KG = "kg"             # kilogram
+    GRAMS = "grams"       # gram
+    LITERS = "liters"     # litre
+    METERS = "meters"     # metre
+    SQUARE_METERS = "sqm" # metrekare
+    PAIRS = "pairs"       # çift
+    DOZENS = "dozens"     # düzine
+    BOXES = "boxes"       # kutu
+    TONS = "tons"         # ton
+
+
 class Product(BaseModel):
     """A product being analyzed for cross-border trade."""
     name: str = Field(..., description="Product name (e.g., 'leather wallet')")
@@ -31,6 +45,15 @@ class Product(BaseModel):
     category: Optional[str] = Field(None, description="High-level category (e.g., 'apparel', 'electronics')")
     origin_country: CountryCode = Field(..., description="Country of manufacture/origin")
     estimated_value_usd: Optional[float] = Field(None, description="Per-unit value in USD")
+    quantity: Optional[float] = Field(
+        None,
+        gt=0,
+        description="Shipment quantity (affects tariff calculation, duty thresholds, simplified procedures)"
+    )
+    unit: Optional[QuantityUnit] = Field(
+        None,
+        description="Unit of measurement for quantity (pieces, kg, liters, etc.)"
+    )
 
 
 class AnalysisRequest(BaseModel):

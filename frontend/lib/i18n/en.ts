@@ -33,6 +33,19 @@ export const en = {
     trySample: "Try sample",
     sampleProductName: "Leather Wallet",
     sampleProductDescription: "Genuine cowhide bifold wallet, chrome-tanned, 4 card slots and coin pocket. Handcrafted in Istanbul.",
+    quantityLabel: "Quantity",
+    quantityPlaceholder: "e.g., 50",
+    unitLabel: "Unit",
+    unitPieces: "pieces",
+    unitKg: "kg",
+    unitGrams: "grams",
+    unitLiters: "liters",
+    unitMeters: "meters",
+    unitSqm: "m²",
+    unitPairs: "pairs",
+    unitDozens: "dozens",
+    unitBoxes: "boxes",
+    unitTons: "tons",
     productNameLabel: "Product name",
     productNamePlaceholder: "e.g., leather wallet",
     descriptionLabel: "Description",
@@ -160,6 +173,19 @@ export type Translations = {
     trySample: string;
     sampleProductName: string;
     sampleProductDescription: string;
+    quantityLabel: string;
+    quantityPlaceholder: string;
+    unitLabel: string;
+    unitPieces: string;
+    unitKg: string;
+    unitGrams: string;
+    unitLiters: string;
+    unitMeters: string;
+    unitSqm: string;
+    unitPairs: string;
+    unitDozens: string;
+    unitBoxes: string;
+    unitTons: string;
     productNameLabel: string;
     productNamePlaceholder: string;
     descriptionLabel: string;

@@ -44,6 +44,8 @@ export default function HomePage() {
   const [category, setCategory] = useState("");
   const [originCountry, setOriginCountry] = useState<CountryCode>("TR");
   const [estimatedValue, setEstimatedValue] = useState<string>("");
+  const [quantity, setQuantity] = useState<string>("");
+  const [unit, setUnit] = useState<string>("pieces");
   const [selectedCountries, setSelectedCountries] = useState<Set<CountryCode>>(
     new Set(["US", "DE", "GB"]),
   );
@@ -94,6 +96,9 @@ export default function HomePage() {
       const valueNum = estimatedValue.trim()
         ? Number.parseFloat(estimatedValue)
         : undefined;
+      const quantityNum = quantity.trim()
+        ? Number.parseFloat(quantity)
+        : undefined;
 
       const response = await api.analyze({
         product: {
@@ -102,6 +107,8 @@ export default function HomePage() {
           category: category.trim() || null,
           origin_country: originCountry,
           estimated_value_usd: Number.isFinite(valueNum) ? valueNum : null,
+          quantity: Number.isFinite(quantityNum ?? NaN) ? quantityNum : null,
+          unit: Number.isFinite(quantityNum ?? NaN) ? unit : null,
         },
         target_countries: Array.from(selectedCountries),
         include_route_risk: includeRouteRisk,
@@ -124,6 +131,8 @@ export default function HomePage() {
     setProductDescription(t.form.sampleProductDescription);
     setCategory("consumer_goods");
     setEstimatedValue("25");
+    setQuantity("50");
+    setUnit("pieces");
     setOriginCountry("TR");
     setSelectedCountries(new Set(["US", "DE", "GB"]));
     setIncludeRouteRisk(true);
@@ -277,6 +286,47 @@ export default function HomePage() {
                     placeholder={t.form.valuePlaceholder}
                     disabled={loading}
                   />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-[1fr_140px] gap-4">
+                <div className="space-y-1.5">
+                  <Label htmlFor="quantity">
+                    {t.form.quantityLabel}{" "}
+                    <span className="text-muted-foreground text-xs">
+                      {t.form.categoryOptional}
+                    </span>
+                  </Label>
+                  <Input
+                    id="quantity"
+                    type="number"
+                    step="0.01"
+                    min="0"
+                    value={quantity}
+                    onChange={(e) => setQuantity(e.target.value)}
+                    placeholder={t.form.quantityPlaceholder}
+                    disabled={loading}
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <Label htmlFor="unit">{t.form.unitLabel}</Label>
+                  <Select value={unit} onValueChange={setUnit} disabled={loading}>
+                    <SelectTrigger id="unit">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="pieces">{t.form.unitPieces}</SelectItem>
+                      <SelectItem value="kg">{t.form.unitKg}</SelectItem>
+                      <SelectItem value="grams">{t.form.unitGrams}</SelectItem>
+                      <SelectItem value="liters">{t.form.unitLiters}</SelectItem>
+                      <SelectItem value="meters">{t.form.unitMeters}</SelectItem>
+                      <SelectItem value="sqm">{t.form.unitSqm}</SelectItem>
+                      <SelectItem value="pairs">{t.form.unitPairs}</SelectItem>
+                      <SelectItem value="dozens">{t.form.unitDozens}</SelectItem>
+                      <SelectItem value="boxes">{t.form.unitBoxes}</SelectItem>
+                      <SelectItem value="tons">{t.form.unitTons}</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
               </div>
 
