@@ -118,17 +118,24 @@ Adding a sixth country is one dataclass entry. See `profiles.py` for the templat
 - **Parallel country agents** — one Opus 4.7 agent per target market, dispatched concurrently
 - **Primary-source citations** — every finding links to HTS code, CFR section, EU regulation number, or official URL
 - **Interactive deep-dive** — multi-turn chat with full context preservation, week-by-week go-to-market plan
+- **Prominent deep-dive CTA** — gradient callout on every country card with a localized headline, body, and Sparkles-iconed button so reviewers do not miss the highest-value output
+- **Quantity + unit input** — shipment-level inputs drive real duty math. Sixteen units supported: metric (pieces, kg, grams, liters, meters, sqm, pairs, dozens, boxes, tons) plus imperial (pounds, ounces, US gallons, feet, inches, cubic feet) for US declarations
+- **Customs clearance channels, by destination** — every agent explains which risk lane a shipment is likely to hit. Turkey's yeşil / sarı / mavi / kırmızı is mapped one-to-one to EU Union Customs Code green / yellow / orange / red, US CBP release / CF 28 / CET-NII exam, UK CDS routes 6 / 3 / 2 / 1, and Japan NACCS IDE / NAK / KEN. Port-of-entry guidance included for Turkey (Ambarlı / Mersin / İzmir / Gebze / Halkalı)
+- **Live progress messages during analysis** — six rotating status messages (Dispatching agents → Checking tariffs → Reviewing sanctions → Labeling rules → Cross-referencing → Harmonizing) displayed in the user's language while the ~25-second pipeline runs
+- **Localized sample product** — Try sample now fills a product name and description in the active locale (e.g. Deri Cüzdan in Turkish, Cartera de cuero in Spanish) instead of always falling back to English
+- **Multilingual PDF export** — Noto Sans, Noto Sans Arabic, Noto Sans SC, JP, KR, and Noto Sans Devanagari registered with `@react-pdf/renderer`. Turkish diacritics, Cyrillic, Greek, and Latin-extended characters now render correctly in exported PDFs (no missing glyphs or broken line breaks)
 - **Professional PDF export** — vector PDFs with shield logo, footnote markers, dedicated regulatory sources page, verification QR code
 - **Deep-dive PDF** — separate template for exporting the chat transcript as a country-specific brief
 - **Live usage counter** — privacy-preserving (SHA256-hashed IPs), rolling 24h / 7d windows, top-country tracking
 - **Per-job cost transparency** — token counts + estimated USD cost for every analysis (Opus 4.7 rate: $15/M input + $75/M output)
 - **Test suite + CI** — 17 pytest tests (schemas, profiles, stats), GitHub Actions workflow, <1 second runtime
-- **16-language UI + report generation** — dropdown picker, RTL support (Arabic), URL-param locale override (`?lang=tr`)
+- **16-language UI + report generation** — dropdown picker, RTL support (Arabic), URL-param locale override (`?lang=tr`), full translation coverage (hero, form, results, deep-dive, PDF buttons, country names, unit labels, progress messages, sample product)
 - **Rate limiting** — 5 analyses/day + 20 recommendations/day per IP (SlowAPI)
 
 ## Known limitations
 
-- PDFs currently use Latin-script fonts only. Reports generated in non-Latin scripts (Arabic, Chinese, Japanese, Korean, Hindi, Russian, etc.) render correctly in the web UI but may show missing glyphs in the exported PDF. Registering Noto Sans / Noto Naskh fonts with @react-pdf/renderer is the planned fix.
+- PDFs for non-Latin scripts (Arabic, Chinese, Japanese, Korean, Hindi) currently default to the registered Noto Sans family, which covers Latin, Cyrillic, Greek, and Turkish diacritics correctly. Dynamic per-locale font family switching (Noto Sans Arabic for AR, Noto Sans SC for ZH, etc.) is wired but not yet applied per-Text element — the next PDF improvement on the list.
+- Job and conversation caches are in-memory on the backend, so a Railway redeploy clears previous analyses. For the hackathon demo this is a fair trade-off; production would persist to SQLite or Redis.
 
 ---
 
