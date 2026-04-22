@@ -18,7 +18,7 @@ const LocaleContext = createContext<LocaleContextValue>({
   t: dictionaries.en,
 });
 
-function detectInitialLocale(): Locale {
+function detectLocale(): Locale {
   if (typeof window === "undefined") return "en";
 
   try {
@@ -44,24 +44,20 @@ function detectInitialLocale(): Locale {
 }
 
 export function LocaleProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>("en");
+  // Use lazy initializer — runs ONCE on first render, picks correct locale immediately
+  const [locale, setLocaleState] = useState<Locale>(() => detectLocale());
 
+  // After mount, sync DOM attributes
   useEffect(() => {
-    const detected = detectInitialLocale();
-    setLocaleState(detected);
     if (typeof document !== "undefined") {
-      document.documentElement.setAttribute("lang", detected);
-      document.documentElement.setAttribute("dir", isRTL(detected) ? "rtl" : "ltr");
+      document.documentElement.setAttribute("lang", locale);
+      document.documentElement.setAttribute("dir", isRTL(locale) ? "rtl" : "ltr");
     }
-  }, []);
+  }, [locale]);
 
   const setLocale = (next: Locale) => {
     setLocaleState(next);
     try { localStorage.setItem(STORAGE_KEY, next); } catch {}
-    if (typeof document !== "undefined") {
-      document.documentElement.setAttribute("lang", next);
-      document.documentElement.setAttribute("dir", isRTL(next) ? "rtl" : "ltr");
-    }
   };
 
   return (
