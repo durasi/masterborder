@@ -12,6 +12,7 @@ from anthropic import AsyncAnthropic
 from dotenv import load_dotenv
 
 from backend.countries.profiles import CountryProfile, get_profile
+from backend.utils.languages import get_language_name
 from backend.schemas.models import (
     ComplianceFinding,
     CountryCode,
@@ -25,9 +26,19 @@ load_dotenv()
 MODEL = "claude-opus-4-7"
 
 
-def _build_system_prompt(profile: CountryProfile) -> str:
+def _build_system_prompt(profile: CountryProfile, language: str = "en") -> str:
     """Construct a country-specific system prompt."""
-    return f"""You are a trade compliance specialist focused on {profile.name} (ISO: {profile.code}).
+    lang_name = get_language_name(language)
+    lang_directive = (
+        f"CRITICAL OUTPUT LANGUAGE: Respond entirely in {lang_name}. "
+        "All values in the JSON output (title, detail, recommended_actions, citation text) "
+        "MUST be written in {lang_name}. The JSON KEYS (hs_code, findings, title, detail, etc.) "
+        "and category enum values (tariff, sanctions, chemicals, etc.) and risk_level enum values "
+        "(low, medium, high, blocked) stay in English. Only the human-readable values are translated. "
+        "Regulation identifiers like '19 CFR 134' or 'Regulation (EU) 2023/1115' stay in their "
+        "original form (do not translate law names).\n\n"
+    ).format(lang_name=lang_name)
+    return lang_directive + f"""You are a trade compliance specialist focused on {profile.name} (ISO: {profile.code}).
 
 Your domain knowledge:
 
@@ -106,7 +117,7 @@ Each finding MUST cite the primary regulatory source it is based on.
 - Output ONLY valid JSON. No prose before or after."""
 
 
-async def analyze_country(product: Product, country: CountryCode) -> tuple["CountryReport", tuple[int, int]]:
+async def analyze_country(product: Product, country: CountryCode, language: str = "en") -> tuple["CountryReport", tuple[int, int]]:
     """Run a Country Agent for a single target country (async)."""
     profile = get_profile(country.value)
     client = AsyncAnthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
@@ -124,7 +135,7 @@ Return the JSON report."""
     response = await client.messages.create(
         model=MODEL,
         max_tokens=4096,
-        system=_build_system_prompt(profile),
+        system=_build_system_prompt(profile, language),
         messages=[{"role": "user", "content": user_message}],
     )
 

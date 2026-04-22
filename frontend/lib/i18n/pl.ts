@@ -1,0 +1,101 @@
+import type { Translations } from "./en";
+
+export const pl: Translations = {
+  locale: "pl",
+  dir: "ltr",
+  languageName: "Polski",
+  flag: "🇵🇱",
+
+  hero: {
+    livePill: "Na żywo · Zbudowane z Opus 4.7",
+    titleLine1: "Eksport ponad granice,",
+    titleLine2: "bez zgadywania",
+    subtitle: "Cła, sankcje, zasady etykietowania i kontrole pracy przymusowej dla każdego rynku docelowego — zharmonizowane w jednym raporcie z oficjalnymi cytowaniami i interaktywnym agentem dogłębnej analizy.",
+  },
+
+  features: {
+    parallelTitle: "Równoległe agenty",
+    parallelBody: "Jeden agent Opus 4.7 na rynek docelowy, wysyłany równolegle. Pięć rynków w ~25 sekund.",
+    citationsTitle: "Cytowania regulacji",
+    citationsBody: "Każde ustalenie cytuje podstawowe źródło — kod HTS, sekcja CFR, numer rozporządzenia UE lub oficjalny URL.",
+    deepDiveTitle: "Interaktywna dogłębna analiza",
+    deepDiveBody: "Wybierz kraj i zadawaj pytania uzupełniające. Agent zachowuje pełny kontekst przez wszystkie tury.",
+  },
+
+  form: {
+    cardTitle: "Analiza produktu",
+    cardDescription: "Wprowadź dane produktu i wybierz rynki docelowe lub wypróbuj próbkę.",
+    trySample: "Wypróbuj próbkę",
+    productNameLabel: "Nazwa produktu",
+    productNamePlaceholder: "np. skórzany portfel",
+    descriptionLabel: "Opis",
+    descriptionPlaceholder: "Materiały, wykonanie, obróbka (np. 'Prawdziwa skóra wołowa, garbowana chromem')",
+    categoryLabel: "Kategoria",
+    categoryOptional: "(opcjonalnie)",
+    categoryPlaceholder: "np. akcesoria",
+    valueLabel: "Cena za sztukę (USD)",
+    valuePlaceholder: "45,00",
+    originLabel: "Kraj pochodzenia",
+    targetLabel: "Kraje docelowe",
+    targetHint: "Wybierz jeden lub więcej rynków do analizy",
+    routeRiskTitle: "Uwzględnij analizę ryzyka trasy",
+    routeRiskBody: "Uwzględnia aktywne strefy konfliktu, zakłócenia cieśnin i ryzyka morskie (zalecane).",
+    analyzeButton: "Analizuj",
+    analyzingMarket: "Równoległa analiza {count} rynku…",
+    analyzingMarkets: "Równoległa analiza {count} rynków…",
+    dispatchingHint: "Opus 4.7 wysyła agentów krajowych równolegle. Zwykle zajmuje to 25-35 sekund.",
+    errorMissing: "Wprowadź nazwę i opis produktu.",
+    errorNoCountry: "Wybierz co najmniej jeden kraj docelowy.",
+    errorGeneric: "Analiza nie powiodła się. Spróbuj ponownie.",
+    errorRateLimit: "Dzienny limit osiągnięty. Spróbuj ponownie za 24 godziny.",
+  },
+
+  results: {
+    backToAnalysis: "← Nowa analiza",
+    analyzedFor: "Analiza dla:",
+    origin: "Pochodzenie:",
+    executiveSummary: "Streszczenie zarządcze",
+    executiveSummaryDescription: "Zharmonizowana analiza {count} rynków · Rekomendacja z udziałem człowieka",
+    countryReports: "Raporty krajowe",
+    complianceFindings: "Ustalenia zgodności",
+    recommendedActions: "Zalecane działania",
+    deepDive: "Dogłębna analiza {country}",
+    downloadPdf: "Pobierz PDF",
+    jobId: "ID zadania:",
+    notFound: "Nie znaleziono analizy. Mogła wygasnąć — uruchom nową analizę.",
+    loading: "Ładowanie analizy…",
+  },
+
+  deepDive: {
+    backToResults: "← Powrót do wyników",
+    subtitle: "Interaktywna dogłębna analiza zgodności · {country}",
+    placeholder: "Zadaj pytanie uzupełniające (np. opcje transportu, laboratorium)…",
+    send: "Wyślij",
+    downloadPdf: "Pobierz PDF",
+    thinking: "Myślenie…",
+    errorSend: "Nie można wysłać wiadomości.",
+  },
+
+  risk: {
+    low: "Niskie",
+    medium: "Średnie",
+    high: "Wysokie",
+    blocked: "Zablokowane",
+    suffix: "ryzyko",
+  },
+
+  footer: {
+    license: "Licencja MIT · Zbudowane z Claude Code + Opus 4.7 · Agent proponuje, Ty decydujesz.",
+    servedAnalyses: "Obsłużono {analyses} {analysesNoun} dla {users} {usersNoun}",
+    analysesSingular: "analiza",
+    analysesPlural: "analiz",
+    usersSingular: "unikalny użytkownik",
+    usersPlural: "unikalnych użytkowników",
+    todaySuffix: "dzisiaj",
+    topMarket: "najczęściej analizowany rynek:",
+  },
+
+  nav: {
+    languageLabel: "Język",
+  },
+};

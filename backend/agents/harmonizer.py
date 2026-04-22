@@ -12,6 +12,7 @@ import os
 from anthropic import AsyncAnthropic
 from dotenv import load_dotenv
 
+from backend.utils.languages import get_language_name
 from backend.schemas.models import (
     AnalysisResponse,
     CountryReport,
@@ -59,7 +60,7 @@ def _format_reports_for_prompt(reports: list[CountryReport]) -> str:
     return "\n".join(lines)
 
 
-async def harmonize(response: AnalysisResponse) -> tuple[str, tuple[int, int]]:
+async def harmonize(response: AnalysisResponse, language: str = "en") -> tuple[str, tuple[int, int]]:
     """Generate an executive summary across all country reports."""
     client = AsyncAnthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
 
@@ -80,7 +81,7 @@ Produce the executive summary now."""
     result = await client.messages.create(
         model=MODEL,
         max_tokens=2048,
-        system=SYSTEM_PROMPT,
+        system=f"CRITICAL OUTPUT LANGUAGE: Respond entirely in {get_language_name(language)}. Use that language for all headings, body text, and recommendations in the Markdown output.\n\n" + SYSTEM_PROMPT,
         messages=[{"role": "user", "content": user_message}],
     )
 

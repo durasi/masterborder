@@ -1,0 +1,101 @@
+import type { Translations } from "./en";
+
+export const ar: Translations = {
+  locale: "ar",
+  dir: "rtl",
+  languageName: "العربية",
+  flag: "🇸🇦",
+
+  hero: {
+    livePill: "مباشر · مبني بـ Opus 4.7",
+    titleLine1: "صدّر عبر الحدود،",
+    titleLine2: "بلا تخمين",
+    subtitle: "الرسوم الجمركية والعقوبات وقواعد الملصقات وفحوص العمل القسري لكل سوق مستهدف — مُوحَّدة في تقرير واحد مع استشهادات رسمية ووكيل تحليل تفاعلي معمّق.",
+  },
+
+  features: {
+    parallelTitle: "وكلاء متوازون",
+    parallelBody: "وكيل Opus 4.7 لكل سوق مستهدف، يُرسَلون بشكل متزامن. خمسة أسواق في ~25 ثانية.",
+    citationsTitle: "استشهادات تنظيمية",
+    citationsBody: "كل نتيجة تستشهد بمصدر رسمي — رمز HTS أو قسم CFR أو رقم لائحة أوروبية أو رابط رسمي.",
+    deepDiveTitle: "تحليل تفاعلي معمّق",
+    deepDiveBody: "اختر دولة واطرح أسئلة متابعة. الوكيل يحتفظ بالسياق الكامل عبر الأدوار.",
+  },
+
+  form: {
+    cardTitle: "تحليل منتج",
+    cardDescription: "أدخل تفاصيل منتجك واختر الأسواق المستهدفة، أو جرّب عيّنة.",
+    trySample: "جرّب عيّنة",
+    productNameLabel: "اسم المنتج",
+    productNamePlaceholder: "مثلاً: محفظة جلدية",
+    descriptionLabel: "الوصف",
+    descriptionPlaceholder: "المواد، الصناعة، المعالجة (مثلاً: 'جلد بقري أصلي، مدبوغ بالكروم')",
+    categoryLabel: "الفئة",
+    categoryOptional: "(اختياري)",
+    categoryPlaceholder: "مثلاً: إكسسوارات",
+    valueLabel: "القيمة لكل وحدة (دولار أمريكي)",
+    valuePlaceholder: "45.00",
+    originLabel: "بلد المنشأ",
+    targetLabel: "الدول المستهدفة",
+    targetHint: "اختر سوقًا أو أكثر للتحليل",
+    routeRiskTitle: "تضمين تحليل مخاطر الطرق",
+    routeRiskBody: "يأخذ في الاعتبار مناطق النزاع النشطة واضطرابات المضائق ومخاطر الطرق البحرية (موصى به).",
+    analyzeButton: "حلّل",
+    analyzingMarket: "جارٍ تحليل {count} سوق بالتوازي…",
+    analyzingMarkets: "جارٍ تحليل {count} أسواق بالتوازي…",
+    dispatchingHint: "Opus 4.7 يرسل وكلاء الدول بالتوازي. يستغرق ذلك عادة 25-35 ثانية.",
+    errorMissing: "يرجى إدخال اسم المنتج والوصف.",
+    errorNoCountry: "اختر دولة مستهدفة واحدة على الأقل.",
+    errorGeneric: "فشل التحليل. يرجى المحاولة مرة أخرى.",
+    errorRateLimit: "تم الوصول للحد اليومي. حاول مرة أخرى بعد 24 ساعة.",
+  },
+
+  results: {
+    backToAnalysis: "← تحليل جديد",
+    analyzedFor: "تم التحليل لـ",
+    origin: "المنشأ:",
+    executiveSummary: "الملخص التنفيذي",
+    executiveSummaryDescription: "تحليل مُوحَّد عبر {count} أسواق · توصية مع تدخل بشري",
+    countryReports: "تقارير الدول",
+    complianceFindings: "نتائج الامتثال",
+    recommendedActions: "الإجراءات الموصى بها",
+    deepDive: "تحليل معمّق لـ {country}",
+    downloadPdf: "تنزيل PDF",
+    jobId: "معرّف المهمة:",
+    notFound: "لم يُعثر على التحليل. ربما انتهت صلاحيته — ابدأ تحليلاً جديداً.",
+    loading: "جارٍ تحميل التحليل…",
+  },
+
+  deepDive: {
+    backToResults: "← العودة إلى النتائج",
+    subtitle: "تحليل امتثال تفاعلي · {country}",
+    placeholder: "اطرح سؤال متابعة (مثلاً: خيارات الشحن، المختبر، الجدول الزمني)…",
+    send: "إرسال",
+    downloadPdf: "تنزيل PDF",
+    thinking: "يفكّر…",
+    errorSend: "تعذّر إرسال الرسالة. حاول مرة أخرى.",
+  },
+
+  risk: {
+    low: "منخفض",
+    medium: "متوسط",
+    high: "مرتفع",
+    blocked: "محظور",
+    suffix: "مخاطر",
+  },
+
+  footer: {
+    license: "رخصة MIT · مبني بـ Claude Code + Opus 4.7 · الوكيل يقترح، وأنت تقرّر.",
+    servedAnalyses: "تم تقديم {analyses} {analysesNoun} لـ {users} {usersNoun}",
+    analysesSingular: "تحليل",
+    analysesPlural: "تحليلات",
+    usersSingular: "مستخدم فريد",
+    usersPlural: "مستخدمين فريدين",
+    todaySuffix: "اليوم",
+    topMarket: "السوق الأكثر تحليلاً:",
+  },
+
+  nav: {
+    languageLabel: "اللغة",
+  },
+};

@@ -8,7 +8,6 @@ import remarkGfm from "remark-gfm";
 import { AlertTriangle, ArrowRight, Loader2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import {
   Card,
   CardContent,
@@ -23,17 +22,20 @@ import { api, APIError } from "@/lib/api";
 import {
   COUNTRY_LABELS,
   RISK_COLORS,
-  RISK_LABELS,
   type AnalysisResponse,
   type CountryReport,
   type RiskLevel,
 } from "@/lib/types";
 import { TokenUsageBadge } from "@/components/TokenUsageBadge";
+import { LanguagePicker } from "@/components/LanguagePicker";
+import { useLocale } from "@/lib/i18n/context";
+import type { Translations } from "@/lib/i18n/en";
 
 export default function ResultsPage() {
   const params = useParams<{ jobId: string }>();
   const router = useRouter();
   const jobId = params.jobId;
+  const { t } = useLocale();
 
   const [response, setResponse] = useState<AnalysisResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -49,15 +51,9 @@ export default function ResultsPage() {
       } catch (err) {
         if (cancelled) return;
         if (err instanceof APIError && err.status === 404) {
-          setError(
-            "This analysis is no longer available. The cache may have been cleared. Please run a new analysis.",
-          );
+          setError(t.results.notFound);
         } else {
-          setError(
-            err instanceof Error
-              ? err.message
-              : "Failed to load the analysis.",
-          );
+          setError(err instanceof Error ? err.message : t.results.notFound);
         }
       }
     }
@@ -66,7 +62,7 @@ export default function ResultsPage() {
     return () => {
       cancelled = true;
     };
-  }, [jobId]);
+  }, [jobId, t.results.notFound]);
 
   if (error) {
     return (
@@ -75,12 +71,12 @@ export default function ResultsPage() {
           <CardHeader>
             <div className="flex items-center gap-2">
               <AlertTriangle className="h-5 w-5 text-destructive" />
-              <CardTitle>Analysis unavailable</CardTitle>
+              <CardTitle>{t.results.notFound}</CardTitle>
             </div>
           </CardHeader>
           <CardContent className="space-y-4">
             <p className="text-sm text-muted-foreground">{error}</p>
-            <Button onClick={() => router.push("/")}>Start a new analysis</Button>
+            <Button onClick={() => router.push("/")}>{t.results.backToAnalysis}</Button>
           </CardContent>
         </Card>
       </div>
@@ -92,17 +88,23 @@ export default function ResultsPage() {
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="flex flex-col items-center gap-3">
           <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
-          <p className="text-sm text-muted-foreground">Loading analysis…</p>
+          <p className="text-sm text-muted-foreground">{t.results.loading}</p>
         </div>
       </div>
     );
   }
 
   const { product, target_countries } = response.request;
+  const numMarkets = response.country_reports.length;
 
   return (
     <div className="min-h-screen bg-background py-8 px-4">
       <div id="pdf-target" className="mx-auto max-w-4xl bg-background">
+        {/* Top bar with language picker */}
+        <div className="mb-4 flex justify-end print-hidden" data-pdf-hide="true">
+          <LanguagePicker />
+        </div>
+
         {/* Header */}
         <header className="mb-6">
           <div className="flex items-start justify-between gap-4">
@@ -111,17 +113,17 @@ export default function ResultsPage() {
                 href="/"
                 className="text-sm text-muted-foreground hover:text-foreground"
               >
-                ← New analysis
+                {t.results.backToAnalysis}
               </Link>
               <h1 className="text-3xl font-semibold tracking-tight mt-2">
                 {product.name}
               </h1>
               <p className="text-muted-foreground mt-1">
-                Analyzed for{" "}
+                {t.results.analyzedFor}{" "}
                 {target_countries
                   .map((c) => COUNTRY_LABELS[c].replace(/^\S+\s/, ""))
                   .join(", ")}{" "}
-                · Origin: {COUNTRY_LABELS[product.origin_country]}
+                · {t.results.origin} {COUNTRY_LABELS[product.origin_country]}
               </p>
             </div>
             <div className="pt-8 print-hidden" data-pdf-hide="true">
@@ -137,10 +139,12 @@ export default function ResultsPage() {
         {response.summary && (
           <Card className="mb-6">
             <CardHeader>
-              <CardTitle>Executive Summary</CardTitle>
+              <CardTitle>{t.results.executiveSummary}</CardTitle>
               <CardDescription>
-                Harmonized analysis across {response.country_reports.length}{" "}
-                markets · Human-in-the-loop recommendation
+                {t.results.executiveSummaryDescription.replace(
+                  "{count}",
+                  String(numMarkets),
+                )}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -160,19 +164,20 @@ export default function ResultsPage() {
 
         {/* Per-country reports */}
         <div className="space-y-4 mt-6">
-          <h2 className="text-xl font-semibold">Country Reports</h2>
+          <h2 className="text-xl font-semibold">{t.results.countryReports}</h2>
           {response.country_reports.map((report) => (
             <CountryCard
               key={report.country}
               report={report}
               jobId={response.job_id}
+              t={t}
             />
           ))}
         </div>
 
         <footer data-pdf-hide="true" className="print-hidden mt-10 text-center text-xs text-muted-foreground">
           <p>
-            Job ID: <code className="font-mono">{response.job_id}</code>
+            {t.results.jobId} <code className="font-mono">{response.job_id}</code>
           </p>
         </footer>
       </div>
@@ -183,18 +188,19 @@ export default function ResultsPage() {
 function CountryCard({
   report,
   jobId,
+  t,
 }: {
   report: CountryReport;
   jobId: string;
+  t: Translations;
 }) {
+  const countryLabel = COUNTRY_LABELS[report.country];
   return (
     <Card>
       <CardHeader>
         <div className="flex items-start justify-between gap-4">
           <div>
-            <CardTitle className="text-xl">
-              {COUNTRY_LABELS[report.country]}
-            </CardTitle>
+            <CardTitle className="text-xl">{countryLabel}</CardTitle>
             <CardDescription className="mt-1 space-x-3">
               {report.hs_code && (
                 <span>
@@ -213,7 +219,7 @@ function CountryCard({
                 )}
             </CardDescription>
           </div>
-          <RiskBadge level={report.overall_risk} />
+          <RiskBadge level={report.overall_risk} t={t} />
         </div>
       </CardHeader>
 
@@ -222,7 +228,7 @@ function CountryCard({
         {report.findings.length > 0 && (
           <div>
             <h3 className="text-sm font-semibold mb-2">
-              Compliance Findings ({report.findings.length})
+              {t.results.complianceFindings} ({report.findings.length})
             </h3>
             <ul className="space-y-2">
               {report.findings.map((f, i) => (
@@ -241,7 +247,7 @@ function CountryCard({
                       </span>
                     </div>
                     <span className="text-xs uppercase tracking-wide opacity-70 shrink-0">
-                      {RISK_LABELS[f.risk_level]}
+                      {riskLabel(f.risk_level, t)}
                     </span>
                   </div>
                   <p className="mt-1 opacity-90">{f.detail}</p>
@@ -257,7 +263,7 @@ function CountryCard({
             <Separator />
             <div>
               <h3 className="text-sm font-semibold mb-2">
-                Recommended Actions
+                {t.results.recommendedActions}
               </h3>
               <ol className="list-decimal list-inside text-sm space-y-1 text-muted-foreground">
                 {report.recommended_actions.map((action, i) => (
@@ -275,7 +281,7 @@ function CountryCard({
             className="inline-block"
           >
             <Button variant="outline" className="group">
-              Deep dive into {COUNTRY_LABELS[report.country]}
+              {t.results.deepDive.replace("{country}", countryLabel)}
               <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Button>
           </Link>
@@ -285,7 +291,16 @@ function CountryCard({
   );
 }
 
-function RiskBadge({ level }: { level: RiskLevel }) {
+function riskLabel(level: RiskLevel, t: Translations): string {
+  switch (level) {
+    case "low": return t.risk.low;
+    case "medium": return t.risk.medium;
+    case "high": return t.risk.high;
+    case "blocked": return t.risk.blocked;
+  }
+}
+
+function RiskBadge({ level, t }: { level: RiskLevel; t: Translations }) {
   const colors: Record<RiskLevel, string> = {
     low: "bg-green-100 text-green-800 border-green-300 dark:bg-green-900/30 dark:text-green-300 dark:border-green-800",
     medium:
@@ -301,7 +316,7 @@ function RiskBadge({ level }: { level: RiskLevel }) {
         colors[level]
       }
     >
-      {RISK_LABELS[level]} risk
+      {riskLabel(level, t)} {t.risk.suffix}
     </span>
   );
 }

@@ -1,0 +1,101 @@
+import type { Translations } from "./en";
+
+export const ja: Translations = {
+  locale: "ja",
+  dir: "ltr",
+  languageName: "日本語",
+  flag: "🇯🇵",
+
+  hero: {
+    livePill: "ライブ · Opus 4.7 で構築",
+    titleLine1: "国境を越えた輸出を、",
+    titleLine2: "推測なしで",
+    subtitle: "関税、制裁、ラベリング規則、強制労働チェックを各ターゲット市場について—公式な引用とインタラクティブな詳細分析エージェントを備えた一つのレポートに統合。",
+  },
+
+  features: {
+    parallelTitle: "並列エージェント",
+    parallelBody: "ターゲット市場ごとに Opus 4.7 エージェントを同時送信。5市場を約25秒で。",
+    citationsTitle: "規制引用",
+    citationsBody: "すべての発見は一次情報源を引用—HTSコード、CFRセクション、EU規制番号、公式URL。",
+    deepDiveTitle: "インタラクティブな詳細分析",
+    deepDiveBody: "国を選んでフォローアップ質問。エージェントがすべてのターンで文脈を保持します。",
+  },
+
+  form: {
+    cardTitle: "製品を分析",
+    cardDescription: "製品の詳細を入力してターゲット市場を選ぶか、サンプルで出力を確認してください。",
+    trySample: "サンプルを試す",
+    productNameLabel: "製品名",
+    productNamePlaceholder: "例:革製財布",
+    descriptionLabel: "説明",
+    descriptionPlaceholder: "素材、仕上げ、処理方法(例:'本牛革、クロム鞣し、手作り')",
+    categoryLabel: "カテゴリー",
+    categoryOptional: "(任意)",
+    categoryPlaceholder: "例:アクセサリー",
+    valueLabel: "単価(USD)",
+    valuePlaceholder: "45.00",
+    originLabel: "原産国",
+    targetLabel: "ターゲット国",
+    targetHint: "分析する市場を1つ以上選択",
+    routeRiskTitle: "ルートリスク分析を含める",
+    routeRiskBody: "紛争地域、海峡の混乱、海運リスクを考慮します(推奨)。",
+    analyzeButton: "分析",
+    analyzingMarket: "{count} 市場を並列分析中…",
+    analyzingMarkets: "{count} 市場を並列分析中…",
+    dispatchingHint: "Opus 4.7 が国別エージェントを並列送信中。通常25〜35秒かかります。",
+    errorMissing: "製品名と説明を入力してください。",
+    errorNoCountry: "少なくとも1つのターゲット国を選択してください。",
+    errorGeneric: "分析に失敗しました。再試行してください。",
+    errorRateLimit: "1日の制限に達しました。24時間後に再試行してください。",
+  },
+
+  results: {
+    backToAnalysis: "← 新規分析",
+    analyzedFor: "分析対象:",
+    origin: "原産地:",
+    executiveSummary: "エグゼクティブサマリー",
+    executiveSummaryDescription: "{count} 市場にわたる統合分析 · ヒューマン・イン・ザ・ループ推奨",
+    countryReports: "国別レポート",
+    complianceFindings: "コンプライアンス所見",
+    recommendedActions: "推奨アクション",
+    deepDive: "{country} の詳細分析",
+    downloadPdf: "PDFをダウンロード",
+    jobId: "ジョブID:",
+    notFound: "分析が見つかりません。期限切れの可能性があります—新規分析を開始してください。",
+    loading: "分析を読み込み中…",
+  },
+
+  deepDive: {
+    backToResults: "← 結果に戻る",
+    subtitle: "インタラクティブコンプライアンス詳細分析 · {country}",
+    placeholder: "フォローアップ質問(例:輸送オプション、ラボ、スケジュール)…",
+    send: "送信",
+    downloadPdf: "PDFをダウンロード",
+    thinking: "考え中…",
+    errorSend: "メッセージを送信できませんでした。",
+  },
+
+  risk: {
+    low: "低",
+    medium: "中",
+    high: "高",
+    blocked: "ブロック",
+    suffix: "リスク",
+  },
+
+  footer: {
+    license: "MITライセンス · Claude Code + Opus 4.7 で構築 · エージェントが提案し、あなたが決める。",
+    servedAnalyses: "{users} 人の{usersNoun}に{analyses} 回の{analysesNoun}を提供",
+    analysesSingular: "分析",
+    analysesPlural: "分析",
+    usersSingular: "ユニークユーザー",
+    usersPlural: "ユニークユーザー",
+    todaySuffix: "今日",
+    topMarket: "最も分析された市場:",
+  },
+
+  nav: {
+    languageLabel: "言語",
+  },
+};

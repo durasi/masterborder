@@ -41,6 +41,11 @@ class AnalysisRequest(BaseModel):
         default=True,
         description="Analyze geopolitical/shipping route risk (straits, conflict zones)"
     )
+    preferred_language: str = Field(
+        default="en",
+        pattern="^(en|tr|es|fr|de|pt|ar|zh|ja|ko|ru|it|nl|hi|id|pl)$",
+        description="ISO 639-1 language code for report output (16 languages supported, matches Isarud.com)"
+    )
 
 
 class ComplianceFinding(BaseModel):

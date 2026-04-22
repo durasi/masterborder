@@ -158,7 +158,7 @@ async def analyze(
     """
     try:
         response = await run_pipeline(body)
-        summary_text, (harm_in, harm_out) = await harmonize(response)
+        summary_text, (harm_in, harm_out) = await harmonize(response, body.preferred_language)
         response.summary = summary_text
         # Add harmonizer's token usage to the pipeline's aggregate
         if response.token_usage:
@@ -254,6 +254,7 @@ async def recommend(
             chosen_country=country,
             conversation_history=history,
             user_question=body.user_question,
+            language=body.preferred_language,
         )
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc

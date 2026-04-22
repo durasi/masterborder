@@ -23,6 +23,8 @@ import {
   type CountryCode,
 } from "@/lib/types";
 import { DownloadDeepDivePdfButton } from "@/components/DownloadDeepDivePdfButton";
+import { LanguagePicker } from "@/components/LanguagePicker";
+import { useLocale } from "@/lib/i18n/context";
 
 type ChatMessage = {
   role: "user" | "assistant";
@@ -32,6 +34,7 @@ type ChatMessage = {
 export default function DeepDivePage() {
   const params = useParams<{ jobId: string; country: string }>();
   const router = useRouter();
+  const { t, locale } = useLocale();
 
   const jobId = params.jobId;
   const country = params.country as CountryCode;
@@ -44,6 +47,7 @@ export default function DeepDivePage() {
   const [analysis, setAnalysis] = useState<AnalysisResponse | null>(null);
 
   const bottomRef = useRef<HTMLDivElement>(null);
+  const countryLabel = COUNTRY_LABELS[country];
 
   // Load the initial deep-dive on mount
   useEffect(() => {
@@ -52,11 +56,12 @@ export default function DeepDivePage() {
 
     async function fetchInitial() {
       try {
-        // Fetch both the cached analysis (for the PDF export) and the first
-        // deep-dive response in parallel.
         const [jobRes, recRes] = await Promise.all([
           api.getJob(jobId),
-          api.recommend(jobId, country, { reset_conversation: true }),
+          api.recommend(jobId, country, {
+            reset_conversation: true,
+            preferred_language: locale,
+          }),
         ]);
         if (cancelled) return;
         setAnalysis(jobRes);
@@ -70,20 +75,11 @@ export default function DeepDivePage() {
       } catch (err) {
         if (cancelled) return;
         if (err instanceof APIError && err.isRateLimit) {
-          setError(
-            err.rateLimitMessage ??
-              "Daily limit reached. Please try again in 24 hours.",
-          );
+          setError(err.rateLimitMessage ?? t.form.errorRateLimit);
         } else if (err instanceof APIError && err.status === 404) {
-          setError(
-            "This analysis is no longer available. The cache may have been cleared. Please run a new analysis.",
-          );
+          setError(t.results.notFound);
         } else {
-          setError(
-            err instanceof Error
-              ? err.message
-              : "Failed to load the deep-dive.",
-          );
+          setError(err instanceof Error ? err.message : t.deepDive.errorSend);
         }
       } finally {
         if (!cancelled) setInitialLoading(false);
@@ -94,9 +90,10 @@ export default function DeepDivePage() {
     return () => {
       cancelled = true;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [jobId, country]);
 
-  // Auto-scroll to bottom when messages change
+  // Auto-scroll on new messages
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages.length, loading]);
@@ -105,7 +102,6 @@ export default function DeepDivePage() {
     const q = question.trim();
     if (!q || loading) return;
 
-    // Optimistically append the user message
     setMessages((prev) => [...prev, { role: "user", content: q }]);
     setQuestion("");
     setLoading(true);
@@ -114,22 +110,20 @@ export default function DeepDivePage() {
     try {
       const res = await api.recommend(jobId, country, {
         user_question: q,
+        preferred_language: locale,
       });
       setMessages((prev) => [
         ...prev,
         { role: "assistant", content: res.message },
       ]);
     } catch (err) {
-      let msg = "Request failed.";
+      let msg: string = t.deepDive.errorSend;
       if (err instanceof APIError && err.isRateLimit) {
-        msg =
-          err.rateLimitMessage ??
-          "Daily limit reached. Please try again in 24 hours.";
+        msg = err.rateLimitMessage ?? t.form.errorRateLimit;
       } else if (err instanceof Error) {
         msg = err.message;
       }
       setError(msg);
-      // Remove the optimistic user message on failure so user can retry
       setMessages((prev) => prev.slice(0, -1));
       setQuestion(q);
     } finally {
@@ -138,7 +132,6 @@ export default function DeepDivePage() {
   }
 
   function handleKeyDown(e: React.KeyboardEvent<HTMLTextAreaElement>) {
-    // Cmd/Ctrl + Enter to send
     if ((e.metaKey || e.ctrlKey) && e.key === "Enter") {
       e.preventDefault();
       sendQuestion();
@@ -152,7 +145,7 @@ export default function DeepDivePage() {
           <CardHeader>
             <div className="flex items-center gap-2">
               <AlertTriangle className="h-5 w-5 text-destructive" />
-              <CardTitle>Deep-dive unavailable</CardTitle>
+              <CardTitle>{t.results.notFound}</CardTitle>
             </div>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -162,10 +155,10 @@ export default function DeepDivePage() {
                 variant="outline"
                 onClick={() => router.push(`/results/${jobId}`)}
               >
-                Back to results
+                {t.deepDive.backToResults}
               </Button>
               <Button onClick={() => router.push("/")}>
-                New analysis
+                {t.results.backToAnalysis}
               </Button>
             </div>
           </CardContent>
@@ -177,6 +170,11 @@ export default function DeepDivePage() {
   return (
     <div className="min-h-screen bg-background">
       <div className="mx-auto max-w-3xl px-4 py-6">
+        {/* Top bar with language picker */}
+        <div className="mb-4 flex justify-end">
+          <LanguagePicker />
+        </div>
+
         {/* Header */}
         <header className="mb-6 flex items-start justify-between gap-4">
           <div>
@@ -185,13 +183,13 @@ export default function DeepDivePage() {
               className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
             >
               <ArrowLeft className="h-3.5 w-3.5" />
-              Back to results
+              {t.deepDive.backToResults}
             </Link>
             <h1 className="text-2xl font-semibold tracking-tight mt-2">
-              Deep dive: {COUNTRY_LABELS[country]}
+              {t.results.deepDive.replace("{country}", countryLabel)}
             </h1>
             <p className="text-sm text-muted-foreground mt-1">
-              Ask follow-up questions. The agent has the full analysis context.
+              {t.deepDive.subtitle.replace("{country}", countryLabel)}
             </p>
           </div>
           {analysis && messages.length > 0 && (
@@ -211,7 +209,7 @@ export default function DeepDivePage() {
             <div className="flex items-center gap-3 text-muted-foreground">
               <Loader2 className="h-4 w-4 animate-spin" />
               <span className="text-sm">
-                Generating go-to-market plan for {COUNTRY_LABELS[country]}…
+                {t.deepDive.subtitle.replace("{country}", countryLabel)}
               </span>
             </div>
           )}
@@ -226,7 +224,10 @@ export default function DeepDivePage() {
                 <Sparkles className="h-4 w-4 text-primary" />
               </div>
               <div className="flex-1 pt-1.5">
-                <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />
+                <span className="text-sm text-muted-foreground inline-flex items-center gap-2">
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                  {t.deepDive.thinking}
+                </span>
               </div>
             </div>
           )}
@@ -234,7 +235,7 @@ export default function DeepDivePage() {
           <div ref={bottomRef} />
         </div>
 
-        {/* Error banner (for send failures, while messages exist) */}
+        {/* Error banner */}
         {error && messages.length > 0 && (
           <div className="mb-4 rounded-md border border-destructive/30 bg-destructive/5 px-3 py-2 text-sm text-destructive">
             {error}
@@ -247,14 +248,14 @@ export default function DeepDivePage() {
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="Ask a follow-up… (⌘+Enter to send)"
+            placeholder={t.deepDive.placeholder}
             rows={2}
             disabled={loading || initialLoading}
             className="border-0 resize-none focus-visible:ring-0 focus-visible:ring-offset-0"
           />
           <div className="flex items-center justify-between px-3 pb-2">
             <span className="text-xs text-muted-foreground">
-              The agent knows your product, countries, and the executive summary.
+              ⌘+Enter
             </span>
             <Button
               size="sm"
@@ -262,7 +263,7 @@ export default function DeepDivePage() {
               disabled={!question.trim() || loading || initialLoading}
             >
               <Send className="h-3.5 w-3.5 mr-1.5" />
-              Send
+              {t.deepDive.send}
             </Button>
           </div>
         </div>

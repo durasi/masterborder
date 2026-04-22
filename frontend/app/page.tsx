@@ -30,11 +30,14 @@ import {
   type CountryCode,
 } from "@/lib/types";
 import { UsageStatsFooter } from "@/components/UsageStatsFooter";
+import { LanguagePicker } from "@/components/LanguagePicker";
+import { useLocale } from "@/lib/i18n/context";
 
 const ALL_COUNTRIES: CountryCode[] = ["US", "DE", "GB", "TR", "JP"];
 
 export default function HomePage() {
   const router = useRouter();
+  const { t, locale } = useLocale();
 
   const [productName, setProductName] = useState("");
   const [productDescription, setProductDescription] = useState("");
@@ -58,7 +61,6 @@ export default function HomePage() {
     });
   };
 
-  // Countries user can pick from (exclude origin so they don't analyze their home market)
   const targetCountries = ALL_COUNTRIES.filter((c) => c !== originCountry);
 
   async function handleSubmit(e: React.FormEvent) {
@@ -66,11 +68,11 @@ export default function HomePage() {
     setError(null);
 
     if (!productName.trim() || !productDescription.trim()) {
-      setError("Please enter both a product name and description.");
+      setError(t.form.errorMissing);
       return;
     }
     if (selectedCountries.size === 0) {
-      setError("Select at least one target country.");
+      setError(t.form.errorNoCountry);
       return;
     }
 
@@ -90,27 +92,19 @@ export default function HomePage() {
         },
         target_countries: Array.from(selectedCountries),
         include_route_risk: includeRouteRisk,
+        preferred_language: locale,
       });
 
       router.push(`/results/${response.job_id}`);
     } catch (err) {
-      // Rate-limit: backend returns 429 with a user-friendly message
       if (err instanceof APIError && err.isRateLimit) {
-        setError(
-          err.rateLimitMessage ??
-            "Daily limit reached. Please try again in 24 hours.",
-        );
+        setError(err.rateLimitMessage ?? t.form.errorRateLimit);
       } else {
-        setError(
-          err instanceof Error
-            ? err.message
-            : "Analysis failed. Please try again.",
-        );
+        setError(err instanceof Error ? err.message : t.form.errorGeneric);
       }
       setLoading(false);
     }
   }
-
 
   function fillSampleProduct() {
     setProductName("Leather Wallet");
@@ -125,9 +119,17 @@ export default function HomePage() {
     setError(null);
   }
 
+  const count = selectedCountries.size;
+  const analyzingLabel = count === 1 ? t.form.analyzingMarket : t.form.analyzingMarkets;
+
   return (
     <div className="min-h-screen bg-background py-10 px-4">
       <div className="mx-auto max-w-3xl">
+        {/* Top bar with language picker */}
+        <div className="mb-6 flex justify-end">
+          <LanguagePicker />
+        </div>
+
         {/* Hero */}
         <header className="mb-10 text-center">
           <div className="mb-5 flex items-center justify-center gap-3">
@@ -148,43 +150,38 @@ export default function HomePage() {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
               <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500"></span>
             </span>
-            Live · Built with Opus 4.7
+            {t.hero.livePill}
           </span>
           <h1 className="text-4xl sm:text-5xl font-bold tracking-tight">
-            Ship across borders,
+            {t.hero.titleLine1}
             <br />
             <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              without the guesswork
+              {t.hero.titleLine2}
             </span>
           </h1>
           <p className="mt-4 text-base sm:text-lg text-muted-foreground max-w-xl mx-auto">
-            Tariffs, sanctions, labeling rules, and forced-labor checks for
-            every target market — harmonized into one report, with official
-            citations and an interactive deep-dive agent.
+            {t.hero.subtitle}
           </p>
         </header>
 
         {/* Feature grid */}
         <div className="mb-10 grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm">
           <div className="rounded-lg border border-border/60 bg-muted/20 p-3">
-            <div className="font-semibold mb-0.5">Parallel agents</div>
+            <div className="font-semibold mb-0.5">{t.features.parallelTitle}</div>
             <div className="text-xs text-muted-foreground">
-              One Opus 4.7 agent per target market, dispatched concurrently.
-              Five markets in ~25 seconds.
+              {t.features.parallelBody}
             </div>
           </div>
           <div className="rounded-lg border border-border/60 bg-muted/20 p-3">
-            <div className="font-semibold mb-0.5">Regulatory citations</div>
+            <div className="font-semibold mb-0.5">{t.features.citationsTitle}</div>
             <div className="text-xs text-muted-foreground">
-              Every finding cites a primary source — HTS code, CFR section,
-              EU regulation number, or official URL.
+              {t.features.citationsBody}
             </div>
           </div>
           <div className="rounded-lg border border-border/60 bg-muted/20 p-3">
-            <div className="font-semibold mb-0.5">Interactive deep-dive</div>
+            <div className="font-semibold mb-0.5">{t.features.deepDiveTitle}</div>
             <div className="text-xs text-muted-foreground">
-              Pick a country and ask follow-up questions. The agent keeps
-              full context across turns.
+              {t.features.deepDiveBody}
             </div>
           </div>
         </div>
@@ -193,10 +190,9 @@ export default function HomePage() {
           <CardHeader>
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0">
-                <CardTitle>Analyze a product</CardTitle>
+                <CardTitle>{t.form.cardTitle}</CardTitle>
                 <CardDescription>
-                  Enter your product details and pick target markets, or try a
-                  sample to see what the output looks like.
+                  {t.form.cardDescription}
                 </CardDescription>
               </div>
               <Button
@@ -207,62 +203,59 @@ export default function HomePage() {
                 disabled={loading}
                 className="shrink-0"
               >
-                Try sample
+                {t.form.trySample}
               </Button>
             </div>
           </CardHeader>
 
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-5">
-              {/* Product name */}
               <div className="space-y-1.5">
-                <Label htmlFor="name">Product name</Label>
+                <Label htmlFor="name">{t.form.productNameLabel}</Label>
                 <Input
                   id="name"
                   value={productName}
                   onChange={(e) => setProductName(e.target.value)}
-                  placeholder="e.g., leather wallet"
+                  placeholder={t.form.productNamePlaceholder}
                   disabled={loading}
                   required
                 />
               </div>
 
-              {/* Description */}
               <div className="space-y-1.5">
-                <Label htmlFor="description">Description</Label>
+                <Label htmlFor="description">{t.form.descriptionLabel}</Label>
                 <Textarea
                   id="description"
                   value={productDescription}
                   onChange={(e) => setProductDescription(e.target.value)}
-                  placeholder="Materials, craftsmanship, treatment, etc. (e.g., 'Genuine cowhide, chrome-tanned, handcrafted')"
+                  placeholder={t.form.descriptionPlaceholder}
                   rows={3}
                   disabled={loading}
                   required
                 />
               </div>
 
-              {/* Category + Value (side by side) */}
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1.5">
                   <Label htmlFor="category">
-                    Category{" "}
+                    {t.form.categoryLabel}{" "}
                     <span className="text-muted-foreground text-xs">
-                      (optional)
+                      {t.form.categoryOptional}
                     </span>
                   </Label>
                   <Input
                     id="category"
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
-                    placeholder="e.g., accessories"
+                    placeholder={t.form.categoryPlaceholder}
                     disabled={loading}
                   />
                 </div>
                 <div className="space-y-1.5">
                   <Label htmlFor="value">
-                    Value per unit (USD){" "}
+                    {t.form.valueLabel}{" "}
                     <span className="text-muted-foreground text-xs">
-                      (optional)
+                      {t.form.categoryOptional}
                     </span>
                   </Label>
                   <Input
@@ -272,21 +265,19 @@ export default function HomePage() {
                     min="0"
                     value={estimatedValue}
                     onChange={(e) => setEstimatedValue(e.target.value)}
-                    placeholder="45.00"
+                    placeholder={t.form.valuePlaceholder}
                     disabled={loading}
                   />
                 </div>
               </div>
 
-              {/* Origin country */}
               <div className="space-y-1.5">
-                <Label htmlFor="origin">Origin country</Label>
+                <Label htmlFor="origin">{t.form.originLabel}</Label>
                 <Select
                   value={originCountry}
                   onValueChange={(v) => {
                     const next = v as CountryCode;
                     setOriginCountry(next);
-                    // If the user had this country selected as target, remove it
                     setSelectedCountries((prev) => {
                       const s = new Set(prev);
                       s.delete(next);
@@ -310,12 +301,11 @@ export default function HomePage() {
 
               <Separator />
 
-              {/* Target countries */}
               <div className="space-y-2">
                 <div>
-                  <Label>Target countries</Label>
+                  <Label>{t.form.targetLabel}</Label>
                   <p className="text-xs text-muted-foreground mt-0.5">
-                    Pick one or more markets to analyze
+                    {t.form.targetHint}
                   </p>
                 </div>
                 <div className="grid grid-cols-2 gap-2">
@@ -351,7 +341,6 @@ export default function HomePage() {
                 </div>
               </div>
 
-              {/* Route risk toggle */}
               <label className="flex items-start gap-3 cursor-pointer">
                 <input
                   type="checkbox"
@@ -361,10 +350,9 @@ export default function HomePage() {
                   className="mt-0.5 h-4 w-4 rounded border-border"
                 />
                 <span className="text-sm">
-                  <span className="font-medium">Include route risk analysis</span>
+                  <span className="font-medium">{t.form.routeRiskTitle}</span>
                   <span className="block text-muted-foreground text-xs">
-                    Consider active conflict zones, strait disruptions, and
-                    shipping lane risks (recommended).
+                    {t.form.routeRiskBody}
                   </span>
                 </span>
               </label>
@@ -375,7 +363,6 @@ export default function HomePage() {
                 </div>
               )}
 
-              {/* Submit */}
               <Button
                 type="submit"
                 className="w-full"
@@ -385,19 +372,16 @@ export default function HomePage() {
                 {loading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Analyzing {selectedCountries.size}{" "}
-                    {selectedCountries.size === 1 ? "market" : "markets"} in
-                    parallel…
+                    {analyzingLabel.replace("{count}", String(count))}
                   </>
                 ) : (
-                  <>Analyze</>
+                  <>{t.form.analyzeButton}</>
                 )}
               </Button>
 
               {loading && (
                 <p className="text-center text-xs text-muted-foreground">
-                  Opus 4.7 is dispatching Country Agents in parallel. This
-                  typically takes 25–35 seconds.
+                  {t.form.dispatchingHint}
                 </p>
               )}
             </form>
@@ -406,10 +390,7 @@ export default function HomePage() {
 
         <footer className="mt-6 flex flex-col items-center gap-2 text-center text-xs text-muted-foreground">
           <UsageStatsFooter />
-          <p>
-            MIT licensed · Built with Claude Code + Opus 4.7 · The agent
-            proposes, you decide.
-          </p>
+          <p>{t.footer.license}</p>
         </footer>
       </div>
     </div>

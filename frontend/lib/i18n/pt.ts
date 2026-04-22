@@ -1,0 +1,101 @@
+import type { Translations } from "./en";
+
+export const pt: Translations = {
+  locale: "pt",
+  dir: "ltr",
+  languageName: "Português",
+  flag: "🇧🇷",
+
+  hero: {
+    livePill: "Ao vivo · Feito com Opus 4.7",
+    titleLine1: "Exporte para o mundo,",
+    titleLine2: "sem adivinhação",
+    subtitle: "Tarifas, sanções, regras de rotulagem e verificações de trabalho forçado para cada mercado-alvo — harmonizados em um relatório, com citações oficiais e um agente interativo de análise profunda.",
+  },
+
+  features: {
+    parallelTitle: "Agentes paralelos",
+    parallelBody: "Um agente Opus 4.7 por mercado-alvo, enviados simultaneamente. Cinco mercados em ~25 segundos.",
+    citationsTitle: "Citações regulatórias",
+    citationsBody: "Cada constatação cita uma fonte primária — código HTS, seção CFR, número de regulamento UE ou URL oficial.",
+    deepDiveTitle: "Análise profunda interativa",
+    deepDiveBody: "Escolha um país e faça perguntas de acompanhamento. O agente mantém todo o contexto.",
+  },
+
+  form: {
+    cardTitle: "Analisar um produto",
+    cardDescription: "Insira os detalhes do seu produto e escolha mercados-alvo, ou experimente uma amostra.",
+    trySample: "Testar amostra",
+    productNameLabel: "Nome do produto",
+    productNamePlaceholder: "ex. carteira de couro",
+    descriptionLabel: "Descrição",
+    descriptionPlaceholder: "Materiais, acabamento, tratamento (ex. 'Couro bovino genuíno, curtido ao cromo')",
+    categoryLabel: "Categoria",
+    categoryOptional: "(opcional)",
+    categoryPlaceholder: "ex. acessórios",
+    valueLabel: "Valor por unidade (USD)",
+    valuePlaceholder: "45,00",
+    originLabel: "País de origem",
+    targetLabel: "Países-alvo",
+    targetHint: "Escolha um ou mais mercados para analisar",
+    routeRiskTitle: "Incluir análise de risco de rota",
+    routeRiskBody: "Considera zonas de conflito ativas, interrupções em estreitos e riscos marítimos (recomendado).",
+    analyzeButton: "Analisar",
+    analyzingMarket: "Analisando {count} mercado em paralelo…",
+    analyzingMarkets: "Analisando {count} mercados em paralelo…",
+    dispatchingHint: "Opus 4.7 está enviando os agentes em paralelo. Geralmente leva 25–35 segundos.",
+    errorMissing: "Por favor, insira nome e descrição do produto.",
+    errorNoCountry: "Selecione pelo menos um país-alvo.",
+    errorGeneric: "Análise falhou. Tente novamente.",
+    errorRateLimit: "Limite diário atingido. Tente novamente em 24 horas.",
+  },
+
+  results: {
+    backToAnalysis: "← Nova análise",
+    analyzedFor: "Analisado para",
+    origin: "Origem:",
+    executiveSummary: "Resumo Executivo",
+    executiveSummaryDescription: "Análise harmonizada em {count} mercados · Recomendação com humano-no-ciclo",
+    countryReports: "Relatórios por país",
+    complianceFindings: "Constatações de conformidade",
+    recommendedActions: "Ações recomendadas",
+    deepDive: "Análise profunda de {country}",
+    downloadPdf: "Baixar PDF",
+    jobId: "ID do trabalho:",
+    notFound: "Análise não encontrada. Pode ter expirado — inicie uma nova análise.",
+    loading: "Carregando análise…",
+  },
+
+  deepDive: {
+    backToResults: "← Voltar aos resultados",
+    subtitle: "Análise profunda de conformidade · {country}",
+    placeholder: "Faça uma pergunta de acompanhamento (ex. opções de frete, laboratório, cronograma)…",
+    send: "Enviar",
+    downloadPdf: "Baixar PDF",
+    thinking: "Pensando…",
+    errorSend: "Não foi possível enviar a mensagem.",
+  },
+
+  risk: {
+    low: "Baixo",
+    medium: "Médio",
+    high: "Alto",
+    blocked: "Bloqueado",
+    suffix: "risco",
+  },
+
+  footer: {
+    license: "Licença MIT · Feito com Claude Code + Opus 4.7 · O agente propõe, você decide.",
+    servedAnalyses: "{analyses} {analysesNoun} atendidas para {users} {usersNoun}",
+    analysesSingular: "análise",
+    analysesPlural: "análises",
+    usersSingular: "usuário único",
+    usersPlural: "usuários únicos",
+    todaySuffix: "hoje",
+    topMarket: "mercado mais analisado:",
+  },
+
+  nav: {
+    languageLabel: "Idioma",
+  },
+};

@@ -1,0 +1,101 @@
+import type { Translations } from "./en";
+
+export const it: Translations = {
+  locale: "it",
+  dir: "ltr",
+  languageName: "Italiano",
+  flag: "🇮🇹",
+
+  hero: {
+    livePill: "Live · Costruito con Opus 4.7",
+    titleLine1: "Esporta oltre confine,",
+    titleLine2: "senza congetture",
+    subtitle: "Dazi, sanzioni, regole di etichettatura e controlli sul lavoro forzato per ogni mercato target — armonizzati in un unico rapporto, con citazioni ufficiali e un agente interattivo di analisi approfondita.",
+  },
+
+  features: {
+    parallelTitle: "Agenti paralleli",
+    parallelBody: "Un agente Opus 4.7 per mercato target, inviati contemporaneamente. Cinque mercati in ~25 secondi.",
+    citationsTitle: "Citazioni normative",
+    citationsBody: "Ogni rilevamento cita una fonte primaria — codice HTS, sezione CFR, numero di regolamento UE o URL ufficiale.",
+    deepDiveTitle: "Analisi approfondita interattiva",
+    deepDiveBody: "Scegli un paese e fai domande di follow-up. L'agente mantiene il contesto completo.",
+  },
+
+  form: {
+    cardTitle: "Analizza un prodotto",
+    cardDescription: "Inserisci i dettagli del prodotto e scegli mercati target, o prova un campione.",
+    trySample: "Prova campione",
+    productNameLabel: "Nome del prodotto",
+    productNamePlaceholder: "es. portafoglio in pelle",
+    descriptionLabel: "Descrizione",
+    descriptionPlaceholder: "Materiali, lavorazione, trattamento (es. 'Pelle bovina genuina, conciata al cromo')",
+    categoryLabel: "Categoria",
+    categoryOptional: "(opzionale)",
+    categoryPlaceholder: "es. accessori",
+    valueLabel: "Valore per unità (USD)",
+    valuePlaceholder: "45.00",
+    originLabel: "Paese d'origine",
+    targetLabel: "Paesi target",
+    targetHint: "Scegli uno o più mercati da analizzare",
+    routeRiskTitle: "Includi analisi del rischio di rotta",
+    routeRiskBody: "Considera zone di conflitto attive, interruzioni di stretti e rischi delle rotte marittime (consigliato).",
+    analyzeButton: "Analizza",
+    analyzingMarket: "Analisi di {count} mercato in parallelo…",
+    analyzingMarkets: "Analisi di {count} mercati in parallelo…",
+    dispatchingHint: "Opus 4.7 sta inviando gli agenti nazionali in parallelo. Richiede di solito 25-35 secondi.",
+    errorMissing: "Inserisci nome e descrizione del prodotto.",
+    errorNoCountry: "Seleziona almeno un paese target.",
+    errorGeneric: "Analisi fallita. Riprova.",
+    errorRateLimit: "Limite giornaliero raggiunto. Riprova tra 24 ore.",
+  },
+
+  results: {
+    backToAnalysis: "← Nuova analisi",
+    analyzedFor: "Analizzato per",
+    origin: "Origine:",
+    executiveSummary: "Riepilogo esecutivo",
+    executiveSummaryDescription: "Analisi armonizzata su {count} mercati · Raccomandazione con umano nel loop",
+    countryReports: "Rapporti per paese",
+    complianceFindings: "Rilevamenti di conformità",
+    recommendedActions: "Azioni consigliate",
+    deepDive: "Analisi approfondita di {country}",
+    downloadPdf: "Scarica PDF",
+    jobId: "ID lavoro:",
+    notFound: "Analisi non trovata. Potrebbe essere scaduta — avvia una nuova analisi.",
+    loading: "Caricamento analisi…",
+  },
+
+  deepDive: {
+    backToResults: "← Torna ai risultati",
+    subtitle: "Analisi approfondita interattiva di conformità · {country}",
+    placeholder: "Fai una domanda di follow-up (es. opzioni di trasporto, laboratorio)…",
+    send: "Invia",
+    downloadPdf: "Scarica PDF",
+    thinking: "Sto pensando…",
+    errorSend: "Impossibile inviare il messaggio.",
+  },
+
+  risk: {
+    low: "Basso",
+    medium: "Medio",
+    high: "Alto",
+    blocked: "Bloccato",
+    suffix: "rischio",
+  },
+
+  footer: {
+    license: "Licenza MIT · Costruito con Claude Code + Opus 4.7 · L'agente propone, tu decidi.",
+    servedAnalyses: "Serviti {analyses} {analysesNoun} per {users} {usersNoun}",
+    analysesSingular: "analisi",
+    analysesPlural: "analisi",
+    usersSingular: "utente unico",
+    usersPlural: "utenti unici",
+    todaySuffix: "oggi",
+    topMarket: "mercato più analizzato:",
+  },
+
+  nav: {
+    languageLabel: "Lingua",
+  },
+};

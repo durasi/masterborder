@@ -33,7 +33,7 @@ async def run_pipeline(request: AnalysisRequest) -> AnalysisResponse:
     # Parallel dispatch — all Country Agents run concurrently.
     # Each agent returns (CountryReport, (input_tokens, output_tokens)).
     tasks = [
-        analyze_country(request.product, country)
+        analyze_country(request.product, country, request.preferred_language)
         for country in request.target_countries
     ]
 

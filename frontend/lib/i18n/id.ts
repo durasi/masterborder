@@ -1,0 +1,101 @@
+import type { Translations } from "./en";
+
+export const id: Translations = {
+  locale: "id",
+  dir: "ltr",
+  languageName: "Bahasa Indonesia",
+  flag: "🇮🇩",
+
+  hero: {
+    livePill: "Langsung · Dibangun dengan Opus 4.7",
+    titleLine1: "Ekspor lintas negara,",
+    titleLine2: "tanpa menebak-nebak",
+    subtitle: "Tarif, sanksi, aturan pelabelan, dan pemeriksaan kerja paksa untuk setiap pasar target — diharmonisasikan dalam satu laporan dengan kutipan resmi dan agen analisis mendalam interaktif.",
+  },
+
+  features: {
+    parallelTitle: "Agen paralel",
+    parallelBody: "Satu agen Opus 4.7 per pasar target, dikirim bersamaan. Lima pasar dalam ~25 detik.",
+    citationsTitle: "Kutipan peraturan",
+    citationsBody: "Setiap temuan mengutip sumber primer — kode HTS, bagian CFR, nomor regulasi UE, atau URL resmi.",
+    deepDiveTitle: "Analisis mendalam interaktif",
+    deepDiveBody: "Pilih negara dan ajukan pertanyaan lanjutan. Agen mempertahankan konteks penuh di semua giliran.",
+  },
+
+  form: {
+    cardTitle: "Analisis produk",
+    cardDescription: "Masukkan detail produk dan pilih pasar target, atau coba sampel.",
+    trySample: "Coba sampel",
+    productNameLabel: "Nama produk",
+    productNamePlaceholder: "mis. dompet kulit",
+    descriptionLabel: "Deskripsi",
+    descriptionPlaceholder: "Bahan, pengerjaan, perlakuan (mis. 'Kulit sapi asli, samak krom')",
+    categoryLabel: "Kategori",
+    categoryOptional: "(opsional)",
+    categoryPlaceholder: "mis. aksesori",
+    valueLabel: "Harga per unit (USD)",
+    valuePlaceholder: "45,00",
+    originLabel: "Negara asal",
+    targetLabel: "Negara tujuan",
+    targetHint: "Pilih satu atau lebih pasar untuk dianalisis",
+    routeRiskTitle: "Sertakan analisis risiko rute",
+    routeRiskBody: "Mempertimbangkan zona konflik aktif, gangguan selat, dan risiko jalur pelayaran (disarankan).",
+    analyzeButton: "Analisis",
+    analyzingMarket: "Menganalisis {count} pasar secara paralel…",
+    analyzingMarkets: "Menganalisis {count} pasar secara paralel…",
+    dispatchingHint: "Opus 4.7 mengirim agen negara secara paralel. Biasanya butuh 25-35 detik.",
+    errorMissing: "Harap masukkan nama dan deskripsi produk.",
+    errorNoCountry: "Pilih setidaknya satu negara target.",
+    errorGeneric: "Analisis gagal. Coba lagi.",
+    errorRateLimit: "Batas harian tercapai. Coba lagi dalam 24 jam.",
+  },
+
+  results: {
+    backToAnalysis: "← Analisis baru",
+    analyzedFor: "Dianalisis untuk",
+    origin: "Asal:",
+    executiveSummary: "Ringkasan Eksekutif",
+    executiveSummaryDescription: "Analisis terharmonisasi di {count} pasar · Rekomendasi dengan-manusia",
+    countryReports: "Laporan negara",
+    complianceFindings: "Temuan kepatuhan",
+    recommendedActions: "Tindakan yang disarankan",
+    deepDive: "Analisis mendalam {country}",
+    downloadPdf: "Unduh PDF",
+    jobId: "ID pekerjaan:",
+    notFound: "Analisis tidak ditemukan. Mungkin sudah kedaluwarsa — mulai analisis baru.",
+    loading: "Memuat analisis…",
+  },
+
+  deepDive: {
+    backToResults: "← Kembali ke hasil",
+    subtitle: "Analisis mendalam kepatuhan interaktif · {country}",
+    placeholder: "Ajukan pertanyaan lanjutan (mis. opsi pengiriman, laboratorium)…",
+    send: "Kirim",
+    downloadPdf: "Unduh PDF",
+    thinking: "Berpikir…",
+    errorSend: "Tidak dapat mengirim pesan.",
+  },
+
+  risk: {
+    low: "Rendah",
+    medium: "Sedang",
+    high: "Tinggi",
+    blocked: "Diblokir",
+    suffix: "risiko",
+  },
+
+  footer: {
+    license: "Lisensi MIT · Dibangun dengan Claude Code + Opus 4.7 · Agen mengusulkan, Anda memutuskan.",
+    servedAnalyses: "Melayani {analyses} {analysesNoun} untuk {users} {usersNoun}",
+    analysesSingular: "analisis",
+    analysesPlural: "analisis",
+    usersSingular: "pengguna unik",
+    usersPlural: "pengguna unik",
+    todaySuffix: "hari ini",
+    topMarket: "pasar paling banyak dianalisis:",
+  },
+
+  nav: {
+    languageLabel: "Bahasa",
+  },
+};

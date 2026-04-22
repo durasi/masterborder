@@ -1,0 +1,101 @@
+import type { Translations } from "./en";
+
+export const hi: Translations = {
+  locale: "hi",
+  dir: "ltr",
+  languageName: "हिन्दी",
+  flag: "🇮🇳",
+
+  hero: {
+    livePill: "लाइव · Opus 4.7 के साथ बनाया गया",
+    titleLine1: "सीमाओं के पार निर्यात,",
+    titleLine2: "अनुमान के बिना",
+    subtitle: "हर लक्ष्य बाजार के लिए टैरिफ, प्रतिबंध, लेबलिंग नियम, और बलात्-श्रम जाँच — आधिकारिक स्रोत उद्धरण और एक इंटरैक्टिव डीप-डाइव एजेंट के साथ एक रिपोर्ट में मिला दिए गए।",
+  },
+
+  features: {
+    parallelTitle: "समानांतर एजेंट",
+    parallelBody: "हर लक्ष्य बाजार के लिए एक Opus 4.7 एजेंट, एक साथ भेजा जाता है। पाँच बाजार ~25 सेकंड में।",
+    citationsTitle: "नियामक उद्धरण",
+    citationsBody: "हर खोज एक प्राथमिक स्रोत का हवाला देती है — HTS कोड, CFR सेक्शन, EU विनियमन संख्या, या आधिकारिक URL।",
+    deepDiveTitle: "इंटरैक्टिव डीप-डाइव",
+    deepDiveBody: "एक देश चुनें और अनुवर्ती प्रश्न पूछें। एजेंट पूरी बातचीत में संदर्भ बनाए रखता है।",
+  },
+
+  form: {
+    cardTitle: "उत्पाद विश्लेषण",
+    cardDescription: "अपने उत्पाद का विवरण दर्ज करें और लक्ष्य बाजार चुनें, या एक नमूना आज़माएँ।",
+    trySample: "नमूना आज़माएँ",
+    productNameLabel: "उत्पाद का नाम",
+    productNamePlaceholder: "उदा. चमड़े का बटुआ",
+    descriptionLabel: "विवरण",
+    descriptionPlaceholder: "सामग्री, शिल्प, उपचार (उदा. 'असली गाय का चमड़ा, क्रोम-टैन्ड')",
+    categoryLabel: "श्रेणी",
+    categoryOptional: "(वैकल्पिक)",
+    categoryPlaceholder: "उदा. सहायक उपकरण",
+    valueLabel: "प्रति इकाई मूल्य (USD)",
+    valuePlaceholder: "45.00",
+    originLabel: "मूल देश",
+    targetLabel: "लक्ष्य देश",
+    targetHint: "विश्लेषण के लिए एक या अधिक बाजार चुनें",
+    routeRiskTitle: "रूट जोखिम विश्लेषण शामिल करें",
+    routeRiskBody: "सक्रिय संघर्ष क्षेत्र, जलडमरूमध्य व्यवधान, और शिपिंग लेन जोखिमों पर विचार करता है (अनुशंसित)।",
+    analyzeButton: "विश्लेषण करें",
+    analyzingMarket: "{count} बाजार का समानांतर विश्लेषण…",
+    analyzingMarkets: "{count} बाजारों का समानांतर विश्लेषण…",
+    dispatchingHint: "Opus 4.7 देश एजेंटों को समानांतर में भेज रहा है। आमतौर पर 25-35 सेकंड लगते हैं।",
+    errorMissing: "कृपया उत्पाद का नाम और विवरण दोनों दर्ज करें।",
+    errorNoCountry: "कम से कम एक लक्ष्य देश चुनें।",
+    errorGeneric: "विश्लेषण विफल। कृपया पुनः प्रयास करें।",
+    errorRateLimit: "दैनिक सीमा तक पहुँच गए। 24 घंटे बाद पुनः प्रयास करें।",
+  },
+
+  results: {
+    backToAnalysis: "← नया विश्लेषण",
+    analyzedFor: "के लिए विश्लेषण:",
+    origin: "मूल:",
+    executiveSummary: "कार्यकारी सारांश",
+    executiveSummaryDescription: "{count} बाजारों में समन्वित विश्लेषण · मानव-सहित अनुशंसा",
+    countryReports: "देशवार रिपोर्ट",
+    complianceFindings: "अनुपालन निष्कर्ष",
+    recommendedActions: "अनुशंसित कार्रवाइयाँ",
+    deepDive: "{country} का गहन विश्लेषण",
+    downloadPdf: "PDF डाउनलोड करें",
+    jobId: "जॉब आईडी:",
+    notFound: "विश्लेषण नहीं मिला। समाप्त हो सकता है — कृपया नया विश्लेषण शुरू करें।",
+    loading: "विश्लेषण लोड हो रहा है…",
+  },
+
+  deepDive: {
+    backToResults: "← परिणामों पर वापस जाएँ",
+    subtitle: "इंटरैक्टिव अनुपालन गहन-विश्लेषण · {country}",
+    placeholder: "अनुवर्ती प्रश्न पूछें (उदा. माल ढुलाई विकल्प, प्रयोगशाला)…",
+    send: "भेजें",
+    downloadPdf: "PDF डाउनलोड करें",
+    thinking: "सोच रहा है…",
+    errorSend: "संदेश भेजने में असमर्थ।",
+  },
+
+  risk: {
+    low: "कम",
+    medium: "मध्यम",
+    high: "उच्च",
+    blocked: "अवरुद्ध",
+    suffix: "जोखिम",
+  },
+
+  footer: {
+    license: "MIT लाइसेंस · Claude Code + Opus 4.7 के साथ बनाया गया · एजेंट सुझाव देता है, आप निर्णय लेते हैं।",
+    servedAnalyses: "{users} {usersNoun} के लिए {analyses} {analysesNoun} प्रदान किए गए",
+    analysesSingular: "विश्लेषण",
+    analysesPlural: "विश्लेषण",
+    usersSingular: "अद्वितीय उपयोगकर्ता",
+    usersPlural: "अद्वितीय उपयोगकर्ता",
+    todaySuffix: "आज",
+    topMarket: "सबसे अधिक विश्लेषित बाजार:",
+  },
+
+  nav: {
+    languageLabel: "भाषा",
+  },
+};

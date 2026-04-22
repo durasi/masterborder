@@ -30,6 +30,7 @@ def _build_system_prompt(
     response: AnalysisResponse,
     chosen_country: CountryCode,
     chosen_report: CountryReport,
+    language: str = "en",
 ) -> str:
     """Build the system prompt with full analysis context."""
     profile = get_profile(chosen_country.value)
@@ -47,7 +48,17 @@ def _build_system_prompt(
     )
     actions_md = "\n".join(f"- {a}" for a in chosen_report.recommended_actions)
 
-    return f"""You are the Recommendation Agent for MasterBorder, an open-source \
+    lang_name = get_language_name(language)
+    lang_directive = (
+        f"CRITICAL OUTPUT LANGUAGE: Respond entirely in {lang_name}. "
+        f"All Markdown headings, body text, timelines, cost tables, and recommendations "
+        f"MUST be in {lang_name}. Regulation identifiers (e.g. '19 CFR Part 134', "
+        f"'Regulation (EU) 2023/1115'), document names commonly kept in the original "
+        f"(e.g. 'A.TR', 'EORI', 'OFAC SDN List'), and HS codes stay in their native form. "
+        f"If the user's follow-up question is in a different language, mirror the user's "
+        f"language in your response instead.\n\n"
+    )
+    return lang_directive + f"""You are the Recommendation Agent for MasterBorder, an open-source \
 cross-border trade compliance tool.
 
 The user (a seller/exporter) has just completed a multi-country analysis and \
@@ -130,6 +141,7 @@ async def recommend_for_country(
     chosen_country: CountryCode,
     conversation_history: list[dict] | None = None,
     user_question: str | None = None,
+    language: str = "en",
 ) -> str:
     """Generate initial deep-dive or answer a follow-up question.
 
@@ -155,7 +167,7 @@ async def recommend_for_country(
         )
 
     client = AsyncAnthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
-    system_prompt = _build_system_prompt(response, chosen_country, chosen_report)
+    system_prompt = _build_system_prompt(response, chosen_country, chosen_report, language)
 
     # Build message list
     messages: list[dict] = []

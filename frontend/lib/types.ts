@@ -21,6 +21,7 @@ export interface AnalysisRequest {
   product: Product;
   target_countries: CountryCode[];
   include_route_risk: boolean;
+  preferred_language?: string;
 }
 
 export interface ComplianceFinding {
@@ -54,6 +55,7 @@ export interface AnalysisResponse {
 export interface RecommendRequest {
   user_question?: string | null;
   reset_conversation?: boolean;
+  preferred_language?: string;
 }
 
 export interface RecommendResponse {

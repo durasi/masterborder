@@ -1,0 +1,101 @@
+import type { Translations } from "./en";
+
+export const fr: Translations = {
+  locale: "fr",
+  dir: "ltr",
+  languageName: "Français",
+  flag: "🇫🇷",
+
+  hero: {
+    livePill: "En direct · Conçu avec Opus 4.7",
+    titleLine1: "Exportez à l'international,",
+    titleLine2: "sans incertitude",
+    subtitle: "Droits de douane, sanctions, règles d'étiquetage et contrôles de travail forcé pour chaque marché cible — harmonisés dans un seul rapport, avec citations officielles et un agent interactif d'analyse approfondie.",
+  },
+
+  features: {
+    parallelTitle: "Agents parallèles",
+    parallelBody: "Un agent Opus 4.7 par marché cible, lancés simultanément. Cinq marchés en ~25 secondes.",
+    citationsTitle: "Citations réglementaires",
+    citationsBody: "Chaque constat cite une source primaire — code HTS, section CFR, numéro de règlement UE ou URL officielle.",
+    deepDiveTitle: "Analyse approfondie interactive",
+    deepDiveBody: "Choisissez un pays et posez des questions de suivi. L'agent conserve le contexte complet.",
+  },
+
+  form: {
+    cardTitle: "Analyser un produit",
+    cardDescription: "Saisissez les détails de votre produit et choisissez les marchés cibles, ou essayez un exemple.",
+    trySample: "Essayer un exemple",
+    productNameLabel: "Nom du produit",
+    productNamePlaceholder: "ex. portefeuille en cuir",
+    descriptionLabel: "Description",
+    descriptionPlaceholder: "Matériaux, finition, traitement (ex. 'Cuir de vache véritable, tannage au chrome')",
+    categoryLabel: "Catégorie",
+    categoryOptional: "(facultatif)",
+    categoryPlaceholder: "ex. accessoires",
+    valueLabel: "Valeur par unité (USD)",
+    valuePlaceholder: "45.00",
+    originLabel: "Pays d'origine",
+    targetLabel: "Pays cibles",
+    targetHint: "Choisissez un ou plusieurs marchés à analyser",
+    routeRiskTitle: "Inclure l'analyse du risque de route",
+    routeRiskBody: "Prend en compte les zones de conflit actives, les perturbations de détroits et les risques de voies maritimes (recommandé).",
+    analyzeButton: "Analyser",
+    analyzingMarket: "Analyse de {count} marché en parallèle…",
+    analyzingMarkets: "Analyse de {count} marchés en parallèle…",
+    dispatchingHint: "Opus 4.7 envoie les agents nationaux en parallèle. Cela prend généralement 25 à 35 secondes.",
+    errorMissing: "Veuillez saisir un nom et une description de produit.",
+    errorNoCountry: "Sélectionnez au moins un pays cible.",
+    errorGeneric: "L'analyse a échoué. Veuillez réessayer.",
+    errorRateLimit: "Limite quotidienne atteinte. Réessayez dans 24 heures.",
+  },
+
+  results: {
+    backToAnalysis: "← Nouvelle analyse",
+    analyzedFor: "Analysé pour",
+    origin: "Origine :",
+    executiveSummary: "Résumé exécutif",
+    executiveSummaryDescription: "Analyse harmonisée sur {count} marchés · Recommandation avec validation humaine",
+    countryReports: "Rapports par pays",
+    complianceFindings: "Constats de conformité",
+    recommendedActions: "Actions recommandées",
+    deepDive: "Analyse approfondie sur {country}",
+    downloadPdf: "Télécharger le PDF",
+    jobId: "ID de tâche :",
+    notFound: "Analyse introuvable. Elle a peut-être expiré — lancez une nouvelle analyse.",
+    loading: "Chargement de l'analyse…",
+  },
+
+  deepDive: {
+    backToResults: "← Retour aux résultats",
+    subtitle: "Analyse approfondie de conformité · {country}",
+    placeholder: "Posez une question de suivi (ex. options de fret, laboratoire, calendrier)…",
+    send: "Envoyer",
+    downloadPdf: "Télécharger le PDF",
+    thinking: "Réflexion…",
+    errorSend: "Impossible d'envoyer le message. Réessayez.",
+  },
+
+  risk: {
+    low: "Faible",
+    medium: "Moyen",
+    high: "Élevé",
+    blocked: "Bloqué",
+    suffix: "risque",
+  },
+
+  footer: {
+    license: "Licence MIT · Conçu avec Claude Code + Opus 4.7 · L'agent propose, vous décidez.",
+    servedAnalyses: "{analyses} {analysesNoun} servies à {users} {usersNoun}",
+    analysesSingular: "analyse",
+    analysesPlural: "analyses",
+    usersSingular: "utilisateur unique",
+    usersPlural: "utilisateurs uniques",
+    todaySuffix: "aujourd'hui",
+    topMarket: "marché le plus analysé :",
+  },
+
+  nav: {
+    languageLabel: "Langue",
+  },
+};
