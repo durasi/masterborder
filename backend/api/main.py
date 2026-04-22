@@ -7,14 +7,21 @@ Exposes the full analysis workflow as REST endpoints for the Next.js frontend:
 
 In-memory job cache is used for simplicity. Production would use Redis or SQLite
 for persistence, but for the hackathon MVP this is sufficient.
+
+Rate limiting: SlowAPI middleware enforces per-IP limits to protect API credit
+budget in public deployments (Railway).
 """
 
+import os
 from datetime import datetime
 from typing import Any
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.errors import RateLimitExceeded
+from slowapi.util import get_remote_address
 
 from backend.agents.harmonizer import harmonize
 from backend.agents.pipeline import run_pipeline
@@ -25,32 +32,48 @@ from backend.schemas.models import (
     CountryCode,
 )
 
+# ───────────────────────────────────────────────────────────────
+# Rate limiter (per-IP)
+# ───────────────────────────────────────────────────────────────
+# Analyze is the expensive endpoint (5 Opus 4.7 calls per request).
+# Limit to 10 per IP per day to protect the $500 hackathon credit budget.
+# Recommend is cheaper but can still be abused; limit to 30 per IP per day.
+
+limiter = Limiter(key_func=get_remote_address)
+
 app = FastAPI(
     title="MasterBorder API",
     description="Cross-border trade compliance dashboard — built with Opus 4.7",
-    version="0.3.0",
+    version="0.4.0",
 )
 
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+
 # CORS: allow the Next.js frontend (local + Vercel deploy) to call this API
+# Set ALLOWED_ORIGINS env var in Railway for production (comma-separated).
+DEFAULT_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "https://masterborder.vercel.app",
+]
+extra_origins = os.getenv("ALLOWED_ORIGINS", "")
+if extra_origins:
+    DEFAULT_ORIGINS.extend(
+        origin.strip() for origin in extra_origins.split(",") if origin.strip()
+    )
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
-        "https://masterborder.vercel.app",
-        "https://*.vercel.app",  # Vercel preview deployments
-    ],
+    allow_origins=DEFAULT_ORIGINS,
+    allow_origin_regex=r"https://.*\.vercel\.app",  # allow Vercel preview deployments
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# In-memory cache: job_id → AnalysisResponse
-# NOTE: Process-local. If backend restarts or runs multiple workers, cache is lost.
-# Acceptable for hackathon MVP.
+# In-memory caches (process-local, reset on restart — acceptable for hackathon MVP)
 _job_cache: dict[str, AnalysisResponse] = {}
-
-# Conversation history cache: (job_id, country_code) → list of messages
 _conversation_cache: dict[tuple[str, str], list[dict[str, str]]] = {}
 
 
@@ -63,13 +86,13 @@ async def root() -> dict[str, Any]:
     """API info and endpoint map."""
     return {
         "service": "MasterBorder API",
-        "version": "0.3.0",
+        "version": "0.4.0",
         "status": "ok",
         "timestamp": datetime.utcnow().isoformat(),
         "endpoints": {
-            "POST /api/analyze": "Run parallel compliance analysis across target countries",
+            "POST /api/analyze": "Run parallel compliance analysis (10/day per IP)",
             "GET /api/jobs/{job_id}": "Retrieve analysis result by job_id",
-            "POST /api/recommend/{job_id}/{country}": "Deep-dive for chosen country (first call or follow-up)",
+            "POST /api/recommend/{job_id}/{country}": "Deep-dive for chosen country (30/day per IP)",
             "GET /health": "Health check",
             "GET /docs": "Interactive API documentation (Swagger UI)",
         },
@@ -88,7 +111,11 @@ async def health() -> dict[str, str]:
 # ───────────────────────────────────────────────────────────────
 
 @app.post("/api/analyze", response_model=AnalysisResponse)
-async def analyze(request: AnalysisRequest) -> AnalysisResponse:
+@limiter.limit("10/day")
+async def analyze(
+    request: Request,  # required by slowapi to resolve client IP
+    body: AnalysisRequest,
+) -> AnalysisResponse:
     """Run the full MasterBorder pipeline.
 
     Steps (all in this single call):
@@ -100,9 +127,10 @@ async def analyze(request: AnalysisRequest) -> AnalysisResponse:
     retrieval via GET /api/jobs/{job_id} and for Recommendation follow-ups.
 
     Typical duration: ~30 seconds for 3 countries (parallel).
+    Rate limit: 10 analyses per IP per day (to protect API credit budget).
     """
     try:
-        response = await run_pipeline(request)
+        response = await run_pipeline(body)
         response.summary = await harmonize(response)
     except Exception as exc:
         raise HTTPException(status_code=500, detail=f"Analysis failed: {exc}") from exc
@@ -151,12 +179,17 @@ class RecommendResponse(BaseModel):
 
 
 @app.post("/api/recommend/{job_id}/{country}", response_model=RecommendResponse)
+@limiter.limit("30/day")
 async def recommend(
+    request: Request,  # required by slowapi to resolve client IP
     job_id: str,
     country: CountryCode,
     body: RecommendRequest,
 ) -> RecommendResponse:
-    """Generate a deep-dive for the chosen country or answer a follow-up."""
+    """Generate a deep-dive for the chosen country or answer a follow-up.
+
+    Rate limit: 30 recommendations per IP per day.
+    """
     if job_id not in _job_cache:
         raise HTTPException(
             status_code=404,
@@ -171,7 +204,6 @@ async def recommend(
 
     history = _conversation_cache.get(cache_key)
 
-    # Validate: follow-up calls need a question
     if history and not body.user_question:
         raise HTTPException(
             status_code=400,
@@ -191,7 +223,6 @@ async def recommend(
     except Exception as exc:
         raise HTTPException(status_code=500, detail=f"Recommendation failed: {exc}") from exc
 
-    # Update conversation cache
     if not history:
         new_history = [
             {
