@@ -46,6 +46,12 @@ export const en = {
     unitDozens: "dozens",
     unitBoxes: "boxes",
     unitTons: "tons",
+    unitPounds: "pounds (lbs)",
+    unitOunces: "ounces (oz)",
+    unitGallons: "gallons (US)",
+    unitFeet: "feet (ft)",
+    unitInches: "inches (in)",
+    unitCubicFeet: "cubic feet (ft³)",
     productNameLabel: "Product name",
     productNamePlaceholder: "e.g., leather wallet",
     descriptionLabel: "Description",
@@ -186,6 +192,12 @@ export type Translations = {
     unitDozens: string;
     unitBoxes: string;
     unitTons: string;
+    unitPounds: string;
+    unitOunces: string;
+    unitGallons: string;
+    unitFeet: string;
+    unitInches: string;
+    unitCubicFeet: string;
     productNameLabel: string;
     productNamePlaceholder: string;
     descriptionLabel: string;

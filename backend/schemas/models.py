@@ -25,7 +25,12 @@ class RiskLevel(str, Enum):
 
 
 class QuantityUnit(str, Enum):
-    """Units of measurement for product quantity — critical for tariff calculation."""
+    """Units of measurement for product quantity — critical for tariff calculation.
+
+    Supports both metric (EU, UK, TR, JP) and imperial (US) systems.
+    US customs (HTS, CBP) commonly uses pounds, ounces, gallons, feet, inches.
+    """
+    # Metric — EU/UK/TR/JP primary system
     PIECES = "pieces"     # adet
     KG = "kg"             # kilogram
     GRAMS = "grams"       # gram
@@ -35,7 +40,14 @@ class QuantityUnit(str, Enum):
     PAIRS = "pairs"       # çift
     DOZENS = "dozens"     # düzine
     BOXES = "boxes"       # kutu
-    TONS = "tons"         # ton
+    TONS = "tons"         # metric ton (1000 kg)
+    # Imperial — US primary system
+    POUNDS = "lbs"        # pound (0.4536 kg)
+    OUNCES = "oz"         # ounce (28.35 g)
+    GALLONS = "gallons"   # US liquid gallon (3.785 L)
+    FEET = "feet"         # foot (0.3048 m)
+    INCHES = "inches"     # inch (2.54 cm)
+    CUBIC_FEET = "cubic_feet"  # cubic foot (0.0283 m³)
 
 
 class Product(BaseModel):

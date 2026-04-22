@@ -325,6 +325,12 @@ export default function HomePage() {
                       <SelectItem value="dozens">{t.form.unitDozens}</SelectItem>
                       <SelectItem value="boxes">{t.form.unitBoxes}</SelectItem>
                       <SelectItem value="tons">{t.form.unitTons}</SelectItem>
+                      <SelectItem value="lbs">{t.form.unitPounds}</SelectItem>
+                      <SelectItem value="oz">{t.form.unitOunces}</SelectItem>
+                      <SelectItem value="gallons">{t.form.unitGallons}</SelectItem>
+                      <SelectItem value="feet">{t.form.unitFeet}</SelectItem>
+                      <SelectItem value="inches">{t.form.unitInches}</SelectItem>
+                      <SelectItem value="cubic_feet">{t.form.unitCubicFeet}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>

@@ -103,10 +103,20 @@ why. Name the customs broker (gümrük müşaviri) requirement and recommend
 a likely port of entry (Ambarlı / Mersin / İzmir / Gebze / Halkalı) with
 rationale (port-specific infrastructure, carrier coverage, cost).
 
-For EU (Germany etc.), describe AEO, Union Customs Code risk selection, and
-TARIC procedures. For US, describe ACE entry types, CBP bond sizing (continuous
-vs single-entry), and CEE account relevance. For UK, describe CDS route 1/2/3/6
-and Trusted Trader options. For Japan, NACCS simplified vs standard entry.
+Map each destination to the Turkish four-lane system in your plan:
+
+- EU: Green ↔ Yeşil, Yellow ↔ Sarı, Orange ↔ Sarı+, Red ↔ Kırmızı
+  (Union Customs Code risk selection + AEO-C/F + TARIC procedures)
+- US (CBP ACE): Release ↔ Yeşil, CF 28 ↔ Sarı, CET/NII exam ↔ Kırmızı
+  (Continuous vs single-entry bond sizing, CEE account, PGA filings)
+- UK (CDS): Route 6 ↔ Yeşil, Route 3 ↔ Mavi (post-clearance),
+  Route 2 ↔ Sarı, Route 1 ↔ Kırmızı (Trusted Trader + CDS categories)
+- Japan (NACCS): IDE ↔ Yeşil, NAK ↔ Sarı, KEN ↔ Kırmızı
+  (AEO Japan + Customs Law Art. 67-3)
+
+Explicitly state which channel this product × quantity combination is likely
+to trigger, and what the exporter can do to move toward the green channel
+(AEO certification, compliance history, documentation completeness).
 
 ## Quantity-driven duty math
 

@@ -117,11 +117,35 @@ Mention customs broker (gümrük müşaviri) requirements — which products req
 a licensed broker, and port-of-entry specifics (Ambarlı, Mersin, İzmir, Gebze)
 when shipping conditions differ materially between ports.
 
-For EU/US/UK/JP, describe the analogous risk-based channels:
-- EU: green/yellow/red customs selection, AEO status implications
-- US: ACE / CBP entry types, CEE account, customs bond requirements
-- UK: CDS route 1/2/3/6, Trusted Trader scheme
-- Japan: NACCS simplified vs standard, AEO Japan status
+Each destination has an analog to Turkey's four-lane system — name the
+specific equivalent in at least one finding:
+
+- European Union (DE, AT, FR, NL, IT etc.):
+  * Green channel  ↔ Yeşil hat  → automated release, AEO-C / AEO-F operators
+  * Yellow channel ↔ Sarı hat   → documentary check only
+  * Orange channel (EU-specific) → targeted documentary + intelligence check
+  * Red channel    ↔ Kırmızı hat → full physical + documentary inspection
+  Reference: Union Customs Code (EU) 952/2013, Risk Management Framework
+
+- United States (CBP / ACE):
+  * Release from manifest        ↔ Yeşil hat  → no exam, 1C/1D entries
+  * Documentary review (CF 28)   ↔ Sarı hat   → CBP Form 28 Request for Info
+  * Intensive exam (CET/NII)     ↔ Kırmızı hat → Centralized Exam + X-ray
+  Additional US-only layers: Continuous bond vs single-entry bond sizing,
+  CEE (Center of Excellence and Expertise) account, PGA filings (FDA, USDA)
+
+- United Kingdom (HMRC / CDS):
+  * Route 6 — automated release  ↔ Yeşil hat
+  * Route 3 — post-clearance     ↔ Mavi hat (post-release audit)
+  * Route 2 — documentary hold   ↔ Sarı hat
+  * Route 1 — physical exam hold ↔ Kırmızı hat
+  Trusted Trader / AEO UK status implications, CDS declaration categories
+
+- Japan (NACCS / JCD):
+  * Immediate release (IDE)      ↔ Yeşil hat  → AEO Japan operators
+  * Standard (NAK)               ↔ Sarı hat   → documentary exam
+  * Inspection category (KEN)    ↔ Kırmızı hat → physical + sample
+  Reference: Customs Law Article 67-3, AEO Japan certification
 
 ## Quantity and tariff calculation
 
