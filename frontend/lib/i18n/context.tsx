@@ -18,33 +18,50 @@ const LocaleContext = createContext<LocaleContextValue>({
   t: dictionaries.en,
 });
 
+function detectInitialLocale(): Locale {
+  if (typeof window === "undefined") return "en";
+
+  try {
+    const url = new URL(window.location.href);
+    const urlLang = url.searchParams.get("lang") as Locale | null;
+    if (urlLang && LOCALES.includes(urlLang)) {
+      try { localStorage.setItem(STORAGE_KEY, urlLang); } catch {}
+      return urlLang;
+    }
+  } catch {}
+
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY) as Locale | null;
+    if (saved && LOCALES.includes(saved)) return saved;
+  } catch {}
+
+  if (typeof navigator !== "undefined") {
+    const browser = navigator.language.split("-")[0] as Locale;
+    if (LOCALES.includes(browser)) return browser;
+  }
+
+  return "en";
+}
+
 export function LocaleProvider({ children }: { children: ReactNode }) {
   const [locale, setLocaleState] = useState<Locale>("en");
 
   useEffect(() => {
-    // Hydrate preference: localStorage > browser language > en
-    const saved = typeof window !== "undefined"
-      ? (localStorage.getItem(STORAGE_KEY) as Locale | null)
-      : null;
-
-    let next: Locale = "en";
-    if (saved && LOCALES.includes(saved)) {
-      next = saved;
-    } else if (typeof navigator !== "undefined") {
-      const browserLang = navigator.language.split("-")[0] as Locale;
-      if (LOCALES.includes(browserLang)) next = browserLang;
+    const detected = detectInitialLocale();
+    setLocaleState(detected);
+    if (typeof document !== "undefined") {
+      document.documentElement.setAttribute("lang", detected);
+      document.documentElement.setAttribute("dir", isRTL(detected) ? "rtl" : "ltr");
     }
-
-    setLocaleState(next);
-    applyDocumentAttrs(next);
   }, []);
 
   const setLocale = (next: Locale) => {
     setLocaleState(next);
-    if (typeof window !== "undefined") {
-      localStorage.setItem(STORAGE_KEY, next);
+    try { localStorage.setItem(STORAGE_KEY, next); } catch {}
+    if (typeof document !== "undefined") {
+      document.documentElement.setAttribute("lang", next);
+      document.documentElement.setAttribute("dir", isRTL(next) ? "rtl" : "ltr");
     }
-    applyDocumentAttrs(next);
   };
 
   return (
@@ -52,12 +69,6 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
       {children}
     </LocaleContext.Provider>
   );
-}
-
-function applyDocumentAttrs(locale: Locale) {
-  if (typeof document === "undefined") return;
-  document.documentElement.setAttribute("lang", locale);
-  document.documentElement.setAttribute("dir", isRTL(locale) ? "rtl" : "ltr");
 }
 
 export const useLocale = () => useContext(LocaleContext);
