@@ -5,7 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { AlertTriangle, ArrowRight, Loader2 } from "lucide-react";
+import { AlertTriangle, ArrowRight, Sparkles, Loader2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -121,9 +121,9 @@ export default function ResultsPage() {
               <p className="text-muted-foreground mt-1">
                 {t.results.analyzedFor}{" "}
                 {target_countries
-                  .map((c) => COUNTRY_LABELS[c].replace(/^\S+\s/, ""))
+                  .map((c) => t.countries[c] ?? COUNTRY_LABELS[c].replace(/^\S+\s/, ""))
                   .join(", ")}{" "}
-                · {t.results.origin} {COUNTRY_LABELS[product.origin_country]}
+                · {t.results.origin} {t.countries[product.origin_country] ?? COUNTRY_LABELS[product.origin_country]}
               </p>
             </div>
             <div className="pt-8 print-hidden" data-pdf-hide="true">
@@ -194,7 +194,7 @@ function CountryCard({
   jobId: string;
   t: Translations;
 }) {
-  const countryLabel = COUNTRY_LABELS[report.country];
+  const countryLabel = t.countries[report.country] ?? COUNTRY_LABELS[report.country];
   return (
     <Card>
       <CardHeader>
@@ -274,17 +274,32 @@ function CountryCard({
           </>
         )}
 
-        {/* Deep dive link */}
-        <div className="pt-2">
-          <Link
-            href={`/results/${jobId}/${report.country}`}
-            className="inline-block"
-          >
-            <Button variant="outline" className="group">
-              {t.results.deepDive.replace("{country}", countryLabel)}
-              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Button>
-          </Link>
+        {/* Deep dive CTA — prominent hero to draw juror attention */}
+        <Separator />
+        <div className="rounded-lg border-2 border-blue-500/40 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/40 dark:to-indigo-950/40 p-5 mt-3">
+          <div className="flex items-start justify-between gap-4 flex-wrap">
+            <div className="flex-1 min-w-[200px]">
+              <h3 className="text-base font-semibold text-blue-900 dark:text-blue-100 flex items-center gap-2">
+                <Sparkles className="h-4 w-4" />
+                {t.deepDiveCta.headline}
+              </h3>
+              <p className="text-sm text-blue-800/80 dark:text-blue-200/80 mt-1 leading-relaxed">
+                {t.deepDiveCta.body}
+              </p>
+            </div>
+            <Link
+              href={`/results/${jobId}/${report.country}`}
+              className="inline-block"
+            >
+              <Button
+                size="lg"
+                className="bg-blue-600 hover:bg-blue-700 text-white shadow-md group whitespace-nowrap"
+              >
+                {t.deepDiveCta.button}
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Button>
+            </Link>
+          </div>
         </div>
       </CardContent>
     </Card>

@@ -44,6 +44,12 @@ export const fr: Translations = {
     analyzingMarket: "Analyse de {count} marché en parallèle…",
     analyzingMarkets: "Analyse de {count} marchés en parallèle…",
     dispatchingHint: "Opus 4.7 envoie les agents nationaux en parallèle. Cela prend généralement 25 à 35 secondes.",
+    progressStep1: "Dispatch des agents par pays…",
+    progressStep2: "Vérification des tarifs et codes HS…",
+    progressStep3: "Examen des listes de sanctions…",
+    progressStep4: "Analyse des règles d'étiquetage et d'emballage…",
+    progressStep5: "Recoupement des réglementations…",
+    progressStep6: "Harmonisation des résultats…",
     errorMissing: "Veuillez saisir un nom et une description de produit.",
     errorNoCountry: "Sélectionnez au moins un pays cible.",
     errorGeneric: "L'analyse a échoué. Veuillez réessayer.",
@@ -98,4 +104,22 @@ export const fr: Translations = {
   nav: {
     languageLabel: "Langue",
   },
+  countries: {
+    US: "États-Unis",
+    DE: "Allemagne",
+    GB: "Royaume-Uni",
+    TR: "Turquie",
+    JP: "Japon",
+  },
+  pdf: {
+    downloadPdf: "Télécharger le PDF",
+    generatingPdf: "Génération du PDF…",
+    pdfReady: "PDF prêt",
+  },
+  deepDiveCta: {
+    headline: "Approfondir ce marché",
+    body: "Plan semaine par semaine — documents, laboratoires, coûts estimés, calendrier. Propulsé par Opus 4.7.",
+    button: "Démarrer l'analyse",
+  },
+
 };

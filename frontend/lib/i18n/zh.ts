@@ -44,6 +44,12 @@ export const zh: Translations = {
     analyzingMarket: "正在并行分析 {count} 个市场…",
     analyzingMarkets: "正在并行分析 {count} 个市场…",
     dispatchingHint: "Opus 4.7 正在并行调度国家代理。通常需要 25-35 秒。",
+    progressStep1: "正在调度国家代理…",
+    progressStep2: "正在检查关税和HS编码…",
+    progressStep3: "正在审查制裁名单…",
+    progressStep4: "正在分析标签和包装规则…",
+    progressStep5: "正在交叉比对法规…",
+    progressStep6: "正在协调结果…",
     errorMissing: "请输入产品名称和描述。",
     errorNoCountry: "至少选择一个目标国家。",
     errorGeneric: "分析失败。请重试。",
@@ -98,4 +104,22 @@ export const zh: Translations = {
   nav: {
     languageLabel: "语言",
   },
+  countries: {
+    US: "美国",
+    DE: "德国",
+    GB: "英国",
+    TR: "土耳其",
+    JP: "日本",
+  },
+  pdf: {
+    downloadPdf: "下载 PDF",
+    generatingPdf: "正在生成 PDF…",
+    pdfReady: "PDF 就绪",
+  },
+  deepDiveCta: {
+    headline: "深入这个市场",
+    body: "周计划入市方案 — 文件、检测实验室、成本估算、时间表。由 Opus 4.7 提供支持。",
+    button: "开始深入分析",
+  },
+
 };

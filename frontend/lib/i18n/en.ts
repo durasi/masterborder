@@ -52,6 +52,12 @@ export const en = {
     analyzingMarkets: "Analyzing {count} markets in parallel…",
     dispatchingHint:
       "Opus 4.7 is dispatching Country Agents in parallel. This typically takes 25–35 seconds.",
+    progressStep1: "Dispatching Country Agents…",
+    progressStep2: "Checking tariffs and HS codes…",
+    progressStep3: "Reviewing sanctions lists…",
+    progressStep4: "Analyzing labeling and packaging rules…",
+    progressStep5: "Cross-referencing regulations…",
+    progressStep6: "Harmonizing results…",
     errorMissing: "Please enter both a product name and description.",
     errorNoCountry: "Select at least one target country.",
     errorGeneric: "Analysis failed. Please try again.",
@@ -107,6 +113,24 @@ export const en = {
   nav: {
     languageLabel: "Language",
   },
+  countries: {
+    US: "United States",
+    DE: "Germany",
+    GB: "United Kingdom",
+    TR: "Türkiye",
+    JP: "Japan",
+  },
+  pdf: {
+    downloadPdf: "Download PDF",
+    generatingPdf: "Generating PDF…",
+    pdfReady: "PDF ready",
+  },
+  deepDiveCta: {
+    headline: "Go deeper into this market",
+    body: "Week-by-week go-to-market plan — documents, test labs, cost estimates, timelines. Powered by Opus 4.7.",
+    button: "Start deep-dive",
+  },
+
 };
 
 export type Translations = {
@@ -150,6 +174,12 @@ export type Translations = {
     analyzingMarket: string;
     analyzingMarkets: string;
     dispatchingHint: string;
+    progressStep1: string;
+    progressStep2: string;
+    progressStep3: string;
+    progressStep4: string;
+    progressStep5: string;
+    progressStep6: string;
     errorMissing: string;
     errorNoCountry: string;
     errorGeneric: string;
@@ -199,4 +229,22 @@ export type Translations = {
   nav: {
     languageLabel: string;
   };
+  countries: {
+    US: string;
+    DE: string;
+    GB: string;
+    TR: string;
+    JP: string;
+  };
+  pdf: {
+    downloadPdf: string;
+    generatingPdf: string;
+    pdfReady: string;
+  };
+  deepDiveCta: {
+    headline: string;
+    body: string;
+    button: string;
+  };
+
 };

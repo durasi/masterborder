@@ -44,6 +44,12 @@ export const es: Translations = {
     analyzingMarket: "Analizando {count} mercado en paralelo…",
     analyzingMarkets: "Analizando {count} mercados en paralelo…",
     dispatchingHint: "Opus 4.7 está enviando los agentes en paralelo. Esto suele tardar entre 25 y 35 segundos.",
+    progressStep1: "Enviando agentes por país…",
+    progressStep2: "Verificando aranceles y códigos HS…",
+    progressStep3: "Revisando listas de sanciones…",
+    progressStep4: "Analizando reglas de etiquetado y empaque…",
+    progressStep5: "Cruzando regulaciones…",
+    progressStep6: "Armonizando resultados…",
     errorMissing: "Por favor, introduce nombre y descripción del producto.",
     errorNoCountry: "Selecciona al menos un país objetivo.",
     errorGeneric: "El análisis falló. Inténtalo de nuevo.",
@@ -98,4 +104,22 @@ export const es: Translations = {
   nav: {
     languageLabel: "Idioma",
   },
+  countries: {
+    US: "Estados Unidos",
+    DE: "Alemania",
+    GB: "Reino Unido",
+    TR: "Turquía",
+    JP: "Japón",
+  },
+  pdf: {
+    downloadPdf: "Descargar PDF",
+    generatingPdf: "Generando PDF…",
+    pdfReady: "PDF listo",
+  },
+  deepDiveCta: {
+    headline: "Profundiza en este mercado",
+    body: "Plan semanal de acceso al mercado — documentos, laboratorios, costos estimados, cronograma. Con Opus 4.7.",
+    button: "Iniciar análisis profundo",
+  },
+
 };

@@ -44,6 +44,12 @@ export const id: Translations = {
     analyzingMarket: "Menganalisis {count} pasar secara paralel…",
     analyzingMarkets: "Menganalisis {count} pasar secara paralel…",
     dispatchingHint: "Opus 4.7 mengirim agen negara secara paralel. Biasanya butuh 25-35 detik.",
+    progressStep1: "Mengirim agen negara…",
+    progressStep2: "Memeriksa tarif dan kode HS…",
+    progressStep3: "Meninjau daftar sanksi…",
+    progressStep4: "Menganalisis aturan pelabelan dan kemasan…",
+    progressStep5: "Menyilangkan peraturan…",
+    progressStep6: "Menyelaraskan hasil…",
     errorMissing: "Harap masukkan nama dan deskripsi produk.",
     errorNoCountry: "Pilih setidaknya satu negara target.",
     errorGeneric: "Analisis gagal. Coba lagi.",
@@ -98,4 +104,22 @@ export const id: Translations = {
   nav: {
     languageLabel: "Bahasa",
   },
+  countries: {
+    US: "Amerika Serikat",
+    DE: "Jerman",
+    GB: "Britania Raya",
+    TR: "Turki",
+    JP: "Jepang",
+  },
+  pdf: {
+    downloadPdf: "Unduh PDF",
+    generatingPdf: "Membuat PDF…",
+    pdfReady: "PDF siap",
+  },
+  deepDiveCta: {
+    headline: "Lebih dalam di pasar ini",
+    body: "Rencana mingguan masuk pasar — dokumen, lab pengujian, estimasi biaya, jadwal. Didukung Opus 4.7.",
+    button: "Mulai analisis mendalam",
+  },
+
 };

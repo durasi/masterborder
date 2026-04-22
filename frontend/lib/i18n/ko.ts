@@ -44,6 +44,12 @@ export const ko: Translations = {
     analyzingMarket: "{count}개 시장 병렬 분석 중…",
     analyzingMarkets: "{count}개 시장 병렬 분석 중…",
     dispatchingHint: "Opus 4.7이 국가 에이전트를 병렬로 디스패치 중입니다. 일반적으로 25~35초 소요.",
+    progressStep1: "국가별 에이전트 파견 중…",
+    progressStep2: "관세 및 HS 코드 확인 중…",
+    progressStep3: "제재 목록 검토 중…",
+    progressStep4: "라벨링 및 포장 규칙 분석 중…",
+    progressStep5: "규제 교차 참조 중…",
+    progressStep6: "결과 조화 중…",
     errorMissing: "제품명과 설명을 입력해 주세요.",
     errorNoCountry: "대상 국가를 하나 이상 선택하세요.",
     errorGeneric: "분석 실패. 다시 시도하세요.",
@@ -98,4 +104,22 @@ export const ko: Translations = {
   nav: {
     languageLabel: "언어",
   },
+  countries: {
+    US: "미국",
+    DE: "독일",
+    GB: "영국",
+    TR: "튀르키예",
+    JP: "일본",
+  },
+  pdf: {
+    downloadPdf: "PDF 다운로드",
+    generatingPdf: "PDF 생성 중…",
+    pdfReady: "PDF 준비됨",
+  },
+  deepDiveCta: {
+    headline: "이 시장을 더 깊이",
+    body: "주간 시장 진입 계획 — 문서, 시험 기관, 비용 추정, 일정. Opus 4.7 기반.",
+    button: "심층 분석 시작",
+  },
+
 };

@@ -44,6 +44,12 @@ export const ar: Translations = {
     analyzingMarket: "جارٍ تحليل {count} سوق بالتوازي…",
     analyzingMarkets: "جارٍ تحليل {count} أسواق بالتوازي…",
     dispatchingHint: "Opus 4.7 يرسل وكلاء الدول بالتوازي. يستغرق ذلك عادة 25-35 ثانية.",
+    progressStep1: "إرسال وكلاء الدول…",
+    progressStep2: "فحص التعريفات ورموز HS…",
+    progressStep3: "مراجعة قوائم العقوبات…",
+    progressStep4: "تحليل قواعد التوسيم والتغليف…",
+    progressStep5: "مقارنة اللوائح…",
+    progressStep6: "تنسيق النتائج…",
     errorMissing: "يرجى إدخال اسم المنتج والوصف.",
     errorNoCountry: "اختر دولة مستهدفة واحدة على الأقل.",
     errorGeneric: "فشل التحليل. يرجى المحاولة مرة أخرى.",
@@ -98,4 +104,22 @@ export const ar: Translations = {
   nav: {
     languageLabel: "اللغة",
   },
+  countries: {
+    US: "الولايات المتحدة",
+    DE: "ألمانيا",
+    GB: "المملكة المتحدة",
+    TR: "تركيا",
+    JP: "اليابان",
+  },
+  pdf: {
+    downloadPdf: "تحميل PDF",
+    generatingPdf: "جارٍ إنشاء PDF…",
+    pdfReady: "PDF جاهز",
+  },
+  deepDiveCta: {
+    headline: "تعمق في هذا السوق",
+    body: "خطة أسبوعية لدخول السوق — المستندات والمختبرات والتكاليف والجدول الزمني. مدعوم بـ Opus 4.7.",
+    button: "ابدأ التحليل المعمق",
+  },
+
 };

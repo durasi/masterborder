@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
 
@@ -50,6 +50,19 @@ export default function HomePage() {
   const [includeRouteRisk, setIncludeRouteRisk] = useState(true);
 
   const [loading, setLoading] = useState(false);
+  const [progressStep, setProgressStep] = useState(0);
+
+  // Rotate progress messages while analyzing — keeps the user engaged during the ~25-35s wait
+  useEffect(() => {
+    if (!loading) {
+      setProgressStep(0);
+      return;
+    }
+    const interval = setInterval(() => {
+      setProgressStep((s) => (s + 1) % 6);
+    }, 3500);
+    return () => clearInterval(interval);
+  }, [loading]);
   const [error, setError] = useState<string | null>(null);
 
   const toggleCountry = (code: CountryCode) => {
@@ -378,9 +391,21 @@ export default function HomePage() {
               </Button>
 
               {loading && (
-                <p className="text-center text-xs text-muted-foreground">
-                  {t.form.dispatchingHint}
-                </p>
+                <div className="text-center space-y-1">
+                  <p className="text-sm font-medium text-blue-700 dark:text-blue-300 transition-opacity">
+                    {[
+                      t.form.progressStep1,
+                      t.form.progressStep2,
+                      t.form.progressStep3,
+                      t.form.progressStep4,
+                      t.form.progressStep5,
+                      t.form.progressStep6,
+                    ][progressStep]}
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    {t.form.dispatchingHint}
+                  </p>
+                </div>
               )}
             </form>
           </CardContent>

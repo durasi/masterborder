@@ -52,6 +52,12 @@ export const tr: Translations = {
     analyzingMarkets: "{count} pazar paralel analiz ediliyor…",
     dispatchingHint:
       "Opus 4.7 ülke ajanlarını paralel gönderiyor. Genellikle 25–35 saniye sürer.",
+    progressStep1: "Ülke ajanları gönderiliyor…",
+    progressStep2: "Gümrük tarifeleri ve HS kodları kontrol ediliyor…",
+    progressStep3: "Yaptırım listeleri inceleniyor…",
+    progressStep4: "Etiketleme ve ambalaj kuralları analiz ediliyor…",
+    progressStep5: "Mevzuatlar çapraz kontrol ediliyor…",
+    progressStep6: "Sonuçlar harmonize ediliyor…",
     errorMissing: "Lütfen ürün adı ve açıklaması gir.",
     errorNoCountry: "En az bir hedef ülke seç.",
     errorGeneric: "Analiz başarısız oldu. Lütfen tekrar dene.",
@@ -107,4 +113,22 @@ export const tr: Translations = {
   nav: {
     languageLabel: "Dil",
   },
+  countries: {
+    US: "Amerika Birleşik Devletleri",
+    DE: "Almanya",
+    GB: "Birleşik Krallık",
+    TR: "Türkiye",
+    JP: "Japonya",
+  },
+  pdf: {
+    downloadPdf: "PDF İndir",
+    generatingPdf: "PDF oluşturuluyor…",
+    pdfReady: "PDF hazır",
+  },
+  deepDiveCta: {
+    headline: "Bu pazarda derine in",
+    body: "Haftalık pazara giriş planı — belgeler, test laboratuvarları, maliyet tahminleri, zaman çizelgesi. Opus 4.7 destekli.",
+    button: "Derin analizi başlat",
+  },
+
 };

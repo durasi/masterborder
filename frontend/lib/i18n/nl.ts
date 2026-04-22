@@ -44,6 +44,12 @@ export const nl: Translations = {
     analyzingMarket: "Parallelle analyse van {count} markt…",
     analyzingMarkets: "Parallelle analyse van {count} markten…",
     dispatchingHint: "Opus 4.7 verzendt land-agenten parallel. Neemt meestal 25-35 seconden.",
+    progressStep1: "Land-agenten worden verzonden…",
+    progressStep2: "Tarieven en HS-codes controleren…",
+    progressStep3: "Sanctielijsten beoordelen…",
+    progressStep4: "Etiketterings- en verpakkingsregels analyseren…",
+    progressStep5: "Regelgeving vergelijken…",
+    progressStep6: "Resultaten harmoniseren…",
     errorMissing: "Voer productnaam en beschrijving in.",
     errorNoCountry: "Selecteer minstens één doelland.",
     errorGeneric: "Analyse mislukt. Probeer opnieuw.",
@@ -98,4 +104,22 @@ export const nl: Translations = {
   nav: {
     languageLabel: "Taal",
   },
+  countries: {
+    US: "Verenigde Staten",
+    DE: "Duitsland",
+    GB: "Verenigd Koninkrijk",
+    TR: "Turkije",
+    JP: "Japan",
+  },
+  pdf: {
+    downloadPdf: "PDF downloaden",
+    generatingPdf: "PDF genereren…",
+    pdfReady: "PDF klaar",
+  },
+  deepDiveCta: {
+    headline: "Verdiep je in deze markt",
+    body: "Wekelijks markttoegangsplan — documenten, testlaboratoria, kostenramingen, tijdlijn. Aangedreven door Opus 4.7.",
+    button: "Start diepte-analyse",
+  },
+
 };

@@ -44,6 +44,12 @@ export const hi: Translations = {
     analyzingMarket: "{count} बाजार का समानांतर विश्लेषण…",
     analyzingMarkets: "{count} बाजारों का समानांतर विश्लेषण…",
     dispatchingHint: "Opus 4.7 देश एजेंटों को समानांतर में भेज रहा है। आमतौर पर 25-35 सेकंड लगते हैं।",
+    progressStep1: "देश एजेंट भेजे जा रहे हैं…",
+    progressStep2: "टैरिफ और HS कोड जाँचे जा रहे हैं…",
+    progressStep3: "प्रतिबंध सूची की समीक्षा हो रही है…",
+    progressStep4: "लेबलिंग और पैकेजिंग नियम विश्लेषित हो रहे हैं…",
+    progressStep5: "नियमों का मिलान हो रहा है…",
+    progressStep6: "परिणाम संयोजित हो रहे हैं…",
     errorMissing: "कृपया उत्पाद का नाम और विवरण दोनों दर्ज करें।",
     errorNoCountry: "कम से कम एक लक्ष्य देश चुनें।",
     errorGeneric: "विश्लेषण विफल। कृपया पुनः प्रयास करें।",
@@ -98,4 +104,22 @@ export const hi: Translations = {
   nav: {
     languageLabel: "भाषा",
   },
+  countries: {
+    US: "संयुक्त राज्य",
+    DE: "जर्मनी",
+    GB: "यूनाइटेड किंगडम",
+    TR: "तुर्की",
+    JP: "जापान",
+  },
+  pdf: {
+    downloadPdf: "PDF डाउनलोड करें",
+    generatingPdf: "PDF बन रहा है…",
+    pdfReady: "PDF तैयार",
+  },
+  deepDiveCta: {
+    headline: "इस बाज़ार में गहराई से जाएँ",
+    body: "साप्ताहिक बाज़ार प्रवेश योजना — दस्तावेज़, परीक्षण लैब, लागत अनुमान, समयसीमा. Opus 4.7 द्वारा संचालित.",
+    button: "गहन विश्लेषण शुरू करें",
+  },
+
 };

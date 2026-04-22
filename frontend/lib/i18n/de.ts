@@ -44,6 +44,12 @@ export const de: Translations = {
     analyzingMarket: "Analysiere {count} Markt parallel…",
     analyzingMarkets: "Analysiere {count} Märkte parallel…",
     dispatchingHint: "Opus 4.7 versendet die Länder-Agenten parallel. Dies dauert typischerweise 25–35 Sekunden.",
+    progressStep1: "Länder-Agenten werden entsandt…",
+    progressStep2: "Zolltarife und HS-Codes werden geprüft…",
+    progressStep3: "Sanktionslisten werden überprüft…",
+    progressStep4: "Kennzeichnungs- und Verpackungsregeln werden analysiert…",
+    progressStep5: "Vorschriften werden abgeglichen…",
+    progressStep6: "Ergebnisse werden harmonisiert…",
     errorMissing: "Bitte Produktname und Beschreibung eingeben.",
     errorNoCountry: "Mindestens ein Zielland auswählen.",
     errorGeneric: "Analyse fehlgeschlagen. Bitte erneut versuchen.",
@@ -98,4 +104,22 @@ export const de: Translations = {
   nav: {
     languageLabel: "Sprache",
   },
+  countries: {
+    US: "Vereinigte Staaten",
+    DE: "Deutschland",
+    GB: "Vereinigtes Königreich",
+    TR: "Türkei",
+    JP: "Japan",
+  },
+  pdf: {
+    downloadPdf: "PDF herunterladen",
+    generatingPdf: "PDF wird erstellt…",
+    pdfReady: "PDF bereit",
+  },
+  deepDiveCta: {
+    headline: "Tiefer in diesen Markt",
+    body: "Wochenplan für den Markteintritt — Dokumente, Prüflabore, Kostenschätzung, Zeitplan. Powered by Opus 4.7.",
+    button: "Tiefenanalyse starten",
+  },
+
 };

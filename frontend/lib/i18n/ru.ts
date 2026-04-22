@@ -44,6 +44,12 @@ export const ru: Translations = {
     analyzingMarket: "Параллельный анализ {count} рынка…",
     analyzingMarkets: "Параллельный анализ {count} рынков…",
     dispatchingHint: "Opus 4.7 запускает страновых агентов параллельно. Обычно занимает 25-35 секунд.",
+    progressStep1: "Отправка агентов по странам…",
+    progressStep2: "Проверка тарифов и кодов ТН ВЭД…",
+    progressStep3: "Анализ санкционных списков…",
+    progressStep4: "Анализ правил маркировки и упаковки…",
+    progressStep5: "Сопоставление нормативных актов…",
+    progressStep6: "Согласование результатов…",
     errorMissing: "Пожалуйста, введите название и описание продукта.",
     errorNoCountry: "Выберите хотя бы одну целевую страну.",
     errorGeneric: "Анализ не удался. Попробуйте снова.",
@@ -98,4 +104,22 @@ export const ru: Translations = {
   nav: {
     languageLabel: "Язык",
   },
+  countries: {
+    US: "США",
+    DE: "Германия",
+    GB: "Великобритания",
+    TR: "Турция",
+    JP: "Япония",
+  },
+  pdf: {
+    downloadPdf: "Скачать PDF",
+    generatingPdf: "Создание PDF…",
+    pdfReady: "PDF готов",
+  },
+  deepDiveCta: {
+    headline: "Углубиться в этот рынок",
+    body: "Понедельный план выхода на рынок — документы, лаборатории, оценка затрат, график. На базе Opus 4.7.",
+    button: "Начать глубокий анализ",
+  },
+
 };

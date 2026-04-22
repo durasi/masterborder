@@ -44,6 +44,12 @@ export const ja: Translations = {
     analyzingMarket: "{count} 市場を並列分析中…",
     analyzingMarkets: "{count} 市場を並列分析中…",
     dispatchingHint: "Opus 4.7 が国別エージェントを並列送信中。通常25〜35秒かかります。",
+    progressStep1: "国別エージェントを派遣中…",
+    progressStep2: "関税とHSコードを確認中…",
+    progressStep3: "制裁リストを確認中…",
+    progressStep4: "ラベル表示・梱包規則を分析中…",
+    progressStep5: "規制を相互参照中…",
+    progressStep6: "結果を調和中…",
     errorMissing: "製品名と説明を入力してください。",
     errorNoCountry: "少なくとも1つのターゲット国を選択してください。",
     errorGeneric: "分析に失敗しました。再試行してください。",
@@ -98,4 +104,22 @@ export const ja: Translations = {
   nav: {
     languageLabel: "言語",
   },
+  countries: {
+    US: "アメリカ合衆国",
+    DE: "ドイツ",
+    GB: "イギリス",
+    TR: "トルコ",
+    JP: "日本",
+  },
+  pdf: {
+    downloadPdf: "PDFをダウンロード",
+    generatingPdf: "PDFを生成中…",
+    pdfReady: "PDFの準備完了",
+  },
+  deepDiveCta: {
+    headline: "この市場を深く分析",
+    body: "週次の市場参入計画 — 書類、試験機関、費用見積り、スケジュール。Opus 4.7 搭載。",
+    button: "詳細分析を開始",
+  },
+
 };

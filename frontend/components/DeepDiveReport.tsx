@@ -15,8 +15,11 @@ import {
   Text,
   View,
 } from "@react-pdf/renderer";
+import { registerPdfFonts, fontFor } from "@/lib/pdf-fonts";
 
 import type { AnalysisResponse, CountryCode } from "@/lib/types";
+
+registerPdfFonts();
 
 const COUNTRY_PLAIN: Record<CountryCode, string> = {
   US: "United States",
@@ -50,7 +53,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 40,
     paddingBottom: 28,
     fontSize: 10,
-    fontFamily: "Helvetica",
+    fontFamily: "Noto Sans",
     color: "#0a0a0a",
     lineHeight: 1.45,
   },
@@ -66,21 +69,21 @@ const styles = StyleSheet.create({
   headerLeft: { flex: 1, paddingRight: 20, paddingTop: 8 },
   brand: {
     fontSize: 8,
-    fontFamily: "Helvetica-Bold",
+    fontFamily: "Noto Sans",
     letterSpacing: 0.8,
     color: "#737373",
     marginBottom: 6,
   },
   title: {
     fontSize: 18,
-    fontFamily: "Helvetica-Bold",
+    fontFamily: "Noto Sans",
     marginBottom: 6,
     lineHeight: 1.2,
   },
   subtitle: {
     fontSize: 10,
     color: "#404040",
-    fontFamily: "Helvetica-Bold",
+    fontFamily: "Noto Sans",
     marginBottom: 6,
   },
   meta: { fontSize: 9, color: "#525252", lineHeight: 1.5 },
@@ -95,7 +98,7 @@ const styles = StyleSheet.create({
     lineHeight: 1,
     color: "#737373",
     letterSpacing: 0.8,
-    fontFamily: "Helvetica-Bold",
+    fontFamily: "Noto Sans",
   },
   reportIdValue: {
     fontSize: 8,
@@ -118,7 +121,7 @@ const styles = StyleSheet.create({
   },
   badgeValue: {
     fontSize: 8,
-    fontFamily: "Helvetica-Bold",
+    fontFamily: "Noto Sans",
     color: "#0a0a0a",
     textAlign: "center",
     marginBottom: 2,
@@ -141,7 +144,7 @@ const styles = StyleSheet.create({
   turnBlock: { marginBottom: 14 },
   turnLabel: {
     fontSize: 8,
-    fontFamily: "Helvetica-Bold",
+    fontFamily: "Noto Sans",
     letterSpacing: 1,
     marginBottom: 4,
   },
@@ -161,19 +164,19 @@ const styles = StyleSheet.create({
   // Assistant response rendering
   responseHeading1: {
     fontSize: 14,
-    fontFamily: "Helvetica-Bold",
+    fontFamily: "Noto Sans",
     marginTop: 8,
     marginBottom: 5,
   },
   responseHeading2: {
     fontSize: 12,
-    fontFamily: "Helvetica-Bold",
+    fontFamily: "Noto Sans",
     marginTop: 6,
     marginBottom: 4,
   },
   responseHeading3: {
     fontSize: 11,
-    fontFamily: "Helvetica-Bold",
+    fontFamily: "Noto Sans",
     marginTop: 5,
     marginBottom: 3,
   },
@@ -218,7 +221,7 @@ const styles = StyleSheet.create({
   footerLeft: { flex: 1, paddingRight: 8 },
   footerBrand: {
     fontSize: 7,
-    fontFamily: "Helvetica-Bold",
+    fontFamily: "Noto Sans",
     color: "#404040",
     marginBottom: 1,
   },
