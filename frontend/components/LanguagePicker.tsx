@@ -10,26 +10,40 @@ export function LanguagePicker() {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const onClick = (e: MouseEvent) => {
+    if (!open) return;
+
+    // Only register when dropdown is open
+    const onPointerDown = (e: PointerEvent) => {
       if (ref.current && !ref.current.contains(e.target as Node)) {
         setOpen(false);
       }
     };
-    document.addEventListener("click", onClick);
-    return () => document.removeEventListener("click", onClick);
-  }, []);
+
+    // Use capture: false, register on next tick to avoid catching the same click that opened it
+    const timer = setTimeout(() => {
+      document.addEventListener("pointerdown", onPointerDown);
+    }, 0);
+
+    return () => {
+      clearTimeout(timer);
+      document.removeEventListener("pointerdown", onPointerDown);
+    };
+  }, [open]);
 
   const current = dictionaries[locale];
+
+  const handleSelect = (l: Locale) => {
+    setLocale(l);
+    setOpen(false);
+  };
 
   return (
     <div ref={ref} className="relative">
       <button
         type="button"
-        onClick={(e) => {
-          e.stopPropagation();
-          setOpen(!open);
-        }}
+        onClick={() => setOpen((o) => !o)}
         aria-label={t.nav.languageLabel}
+        aria-expanded={open}
         className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-muted/30 px-3 py-1.5 text-xs font-medium hover:bg-muted/60 transition-colors"
       >
         <span>{current.flag}</span>
@@ -40,7 +54,10 @@ export function LanguagePicker() {
       </button>
 
       {open && (
-        <div className="absolute right-0 mt-1 w-48 max-h-80 overflow-y-auto rounded-xl border border-border bg-background shadow-lg py-1 z-50">
+        <div
+          role="menu"
+          className="absolute right-0 mt-1 w-48 max-h-80 overflow-y-auto rounded-xl border border-border bg-background shadow-lg py-1 z-50"
+        >
           {LOCALES.map((l) => {
             const entry = dictionaries[l];
             const active = l === locale;
@@ -48,11 +65,8 @@ export function LanguagePicker() {
               <button
                 key={l}
                 type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setLocale(l);
-                  setOpen(false);
-                }}
+                role="menuitem"
+                onClick={() => handleSelect(l)}
                 className={`flex w-full items-center gap-2 px-3 py-2 text-sm text-left hover:bg-muted/40 transition-colors ${
                   active ? "bg-muted/60 font-medium" : ""
                 }`}
