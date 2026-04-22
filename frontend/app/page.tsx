@@ -130,13 +130,19 @@ export default function HomePage() {
       <div className="mx-auto max-w-3xl">
         {/* Hero */}
         <header className="mb-10 text-center">
-          <img
-            src="/masterborder-logo.svg"
-            alt="MasterBorder"
-            className="mx-auto mb-4 h-14 w-14"
-            width={56}
-            height={56}
-          />
+          <div className="mb-5 flex items-center justify-center gap-3">
+            <img
+              src="/masterborder-logo.svg"
+              alt=""
+              aria-hidden="true"
+              className="h-12 w-12"
+              width={48}
+              height={48}
+            />
+            <span className="text-2xl font-bold tracking-tight">
+              MasterBorder
+            </span>
+          </div>
           <span className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-muted/40 px-3 py-1 text-xs font-mono mb-5">
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
