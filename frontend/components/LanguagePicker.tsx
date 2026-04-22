@@ -4,41 +4,43 @@ import { useState, useRef, useEffect } from "react";
 import { useLocale } from "@/lib/i18n/context";
 import { dictionaries, Locale, LOCALES } from "@/lib/i18n";
 
+const STORAGE_KEY = "masterborder-locale";
+
 export function LanguagePicker() {
-  const { locale, setLocale, t } = useLocale();
+  const { locale, t } = useLocale();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!open) return;
-
-    // Only register when dropdown is open
-    const onPointerDown = (e: PointerEvent) => {
+    const onDown = (e: MouseEvent) => {
       if (ref.current && !ref.current.contains(e.target as Node)) {
         setOpen(false);
       }
     };
-
-    // Use capture: false, register on next tick to avoid catching the same click that opened it
-    const timer = setTimeout(() => {
-      document.addEventListener("pointerdown", onPointerDown);
+    const timer = window.setTimeout(() => {
+      document.addEventListener("click", onDown);
     }, 0);
-
     return () => {
-      clearTimeout(timer);
-      document.removeEventListener("pointerdown", onPointerDown);
+      window.clearTimeout(timer);
+      document.removeEventListener("click", onDown);
     };
   }, [open]);
 
   const current = dictionaries[locale];
 
-  const handleSelect = (l: Locale) => {
-    setLocale(l);
-    setOpen(false);
+  const selectLocale = (l: Locale) => {
+    try {
+      localStorage.setItem(STORAGE_KEY, l);
+    } catch {
+      // ignore quota/unavailability
+    }
+    // Full reload — guarantees clean state + document.dir application
+    window.location.reload();
   };
 
   return (
-    <div ref={ref} className="relative">
+    <div ref={ref} className="relative inline-block">
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
@@ -66,7 +68,7 @@ export function LanguagePicker() {
                 key={l}
                 type="button"
                 role="menuitem"
-                onClick={() => handleSelect(l)}
+                onClick={() => selectLocale(l)}
                 className={`flex w-full items-center gap-2 px-3 py-2 text-sm text-left hover:bg-muted/40 transition-colors ${
                   active ? "bg-muted/60 font-medium" : ""
                 }`}
