@@ -25,6 +25,18 @@ class APIError extends Error {
     super(message);
     this.name = "APIError";
   }
+
+  /** True if the error is a 429 rate-limit response from the backend. */
+  get isRateLimit(): boolean {
+    return this.status === 429;
+  }
+
+  /** Returns the user-friendly message from the backend's rate-limit payload, if any. */
+  get rateLimitMessage(): string | null {
+    if (!this.isRateLimit) return null;
+    const d = this.detail as { detail?: { message?: string } } | undefined;
+    return d?.detail?.message ?? null;
+  }
 }
 
 async function request<T>(

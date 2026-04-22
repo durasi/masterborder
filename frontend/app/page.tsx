@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 
-import { api } from "@/lib/api";
+import { api, APIError } from "@/lib/api";
 import {
   COUNTRY_LABELS,
   type CountryCode,
@@ -93,11 +93,19 @@ export default function HomePage() {
 
       router.push(`/results/${response.job_id}`);
     } catch (err) {
-      setError(
-        err instanceof Error
-          ? err.message
-          : "Analysis failed. Please try again.",
-      );
+      // Rate-limit: backend returns 429 with a user-friendly message
+      if (err instanceof APIError && err.isRateLimit) {
+        setError(
+          err.rateLimitMessage ??
+            "Daily limit reached. Please try again in 24 hours.",
+        );
+      } else {
+        setError(
+          err instanceof Error
+            ? err.message
+            : "Analysis failed. Please try again.",
+        );
+      }
       setLoading(false);
     }
   }

@@ -18,8 +18,9 @@ from typing import Any
 
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field
-from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi import Limiter
 from slowapi.errors import RateLimitExceeded
 from slowapi.util import get_remote_address
 
@@ -35,23 +36,47 @@ from backend.schemas.models import (
 # ───────────────────────────────────────────────────────────────
 # Rate limiter (per-IP)
 # ───────────────────────────────────────────────────────────────
-# Analyze is the expensive endpoint (5 Opus 4.7 calls per request).
-# Limit to 10 per IP per day to protect the $500 hackathon credit budget.
-# Recommend is cheaper but can still be abused; limit to 30 per IP per day.
+# Analyze is the expensive endpoint (up to 5 Opus 4.7 calls per request).
+# Limit to 5 per IP per day to protect the $500 hackathon credit budget.
+# Recommend is cheaper but can still be abused; limit to 20 per IP per day.
 
 limiter = Limiter(key_func=get_remote_address)
 
 app = FastAPI(
     title="MasterBorder API",
     description="Cross-border trade compliance dashboard — built with Opus 4.7",
-    version="0.4.0",
+    version="0.5.0",
 )
 
 app.state.limiter = limiter
-app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+
+
+# Custom 429 handler that returns JSON with a user-friendly message.
+# The frontend keys off the `detail.code` field to show the daily-limit UI.
+@app.exception_handler(RateLimitExceeded)
+async def rate_limit_exceeded_handler(
+    request: Request, exc: RateLimitExceeded
+) -> JSONResponse:
+    return JSONResponse(
+        status_code=429,
+        content={
+            "detail": {
+                "code": "rate_limit_exceeded",
+                "message": (
+                    "Daily limit reached. To keep this public demo affordable, "
+                    "each visitor can run a limited number of analyses per day. "
+                    "Please try again in 24 hours, or clone the repo on GitHub "
+                    "to run MasterBorder locally with your own API key."
+                ),
+                "limit": str(exc.detail),
+                "retry_after_seconds": 86400,
+            }
+        },
+        headers={"Retry-After": "86400"},
+    )
+
 
 # CORS: allow the Next.js frontend (local + Vercel deploy) to call this API
-# Set ALLOWED_ORIGINS env var in Railway for production (comma-separated).
 DEFAULT_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
@@ -86,13 +111,13 @@ async def root() -> dict[str, Any]:
     """API info and endpoint map."""
     return {
         "service": "MasterBorder API",
-        "version": "0.4.0",
+        "version": "0.5.0",
         "status": "ok",
         "timestamp": datetime.utcnow().isoformat(),
         "endpoints": {
-            "POST /api/analyze": "Run parallel compliance analysis (10/day per IP)",
+            "POST /api/analyze": "Run parallel compliance analysis (5/day per IP)",
             "GET /api/jobs/{job_id}": "Retrieve analysis result by job_id",
-            "POST /api/recommend/{job_id}/{country}": "Deep-dive for chosen country (30/day per IP)",
+            "POST /api/recommend/{job_id}/{country}": "Deep-dive (20/day per IP)",
             "GET /health": "Health check",
             "GET /docs": "Interactive API documentation (Swagger UI)",
         },
@@ -111,7 +136,7 @@ async def health() -> dict[str, str]:
 # ───────────────────────────────────────────────────────────────
 
 @app.post("/api/analyze", response_model=AnalysisResponse)
-@limiter.limit("10/day")
+@limiter.limit("5/day")
 async def analyze(
     request: Request,  # required by slowapi to resolve client IP
     body: AnalysisRequest,
@@ -127,7 +152,7 @@ async def analyze(
     retrieval via GET /api/jobs/{job_id} and for Recommendation follow-ups.
 
     Typical duration: ~30 seconds for 3 countries (parallel).
-    Rate limit: 10 analyses per IP per day (to protect API credit budget).
+    Rate limit: 5 analyses per IP per day (to protect API credit budget).
     """
     try:
         response = await run_pipeline(body)
@@ -179,7 +204,7 @@ class RecommendResponse(BaseModel):
 
 
 @app.post("/api/recommend/{job_id}/{country}", response_model=RecommendResponse)
-@limiter.limit("30/day")
+@limiter.limit("20/day")
 async def recommend(
     request: Request,  # required by slowapi to resolve client IP
     job_id: str,
@@ -188,7 +213,7 @@ async def recommend(
 ) -> RecommendResponse:
     """Generate a deep-dive for the chosen country or answer a follow-up.
 
-    Rate limit: 30 recommendations per IP per day.
+    Rate limit: 20 recommendations per IP per day.
     """
     if job_id not in _job_cache:
         raise HTTPException(

@@ -62,7 +62,12 @@ export default function DeepDivePage() {
         ]);
       } catch (err) {
         if (cancelled) return;
-        if (err instanceof APIError && err.status === 404) {
+        if (err instanceof APIError && err.isRateLimit) {
+          setError(
+            err.rateLimitMessage ??
+              "Daily limit reached. Please try again in 24 hours.",
+          );
+        } else if (err instanceof APIError && err.status === 404) {
           setError(
             "This analysis is no longer available. The cache may have been cleared. Please run a new analysis.",
           );
@@ -108,8 +113,14 @@ export default function DeepDivePage() {
         { role: "assistant", content: res.message },
       ]);
     } catch (err) {
-      const msg =
-        err instanceof Error ? err.message : "Request failed.";
+      let msg = "Request failed.";
+      if (err instanceof APIError && err.isRateLimit) {
+        msg =
+          err.rateLimitMessage ??
+          "Daily limit reached. Please try again in 24 hours.";
+      } else if (err instanceof Error) {
+        msg = err.message;
+      }
       setError(msg);
       // Remove the optimistic user message on failure so user can retry
       setMessages((prev) => prev.slice(0, -1));
