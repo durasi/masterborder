@@ -26,6 +26,8 @@ export const ar: Translations = {
     cardTitle: "تحليل منتج",
     cardDescription: "أدخل تفاصيل منتجك واختر الأسواق المستهدفة، أو جرّب عيّنة.",
     trySample: "جرّب عيّنة",
+    sampleProductName: "محفظة جلدية",
+    sampleProductDescription: "محفظة من جلد البقر الأصلي، مدبوغة بالكروم، 4 فتحات للبطاقات وجيب للعملات. مصنوعة يدوياً في إسطنبول.",
     productNameLabel: "اسم المنتج",
     productNamePlaceholder: "مثلاً: محفظة جلدية",
     descriptionLabel: "الوصف",

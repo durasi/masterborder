@@ -31,8 +31,21 @@ export function registerPdfFonts(): void {
         src: "https://cdn.jsdelivr.net/gh/googlefonts/noto-fonts@main/hinted/ttf/NotoSans/NotoSans-Bold.ttf",
         fontWeight: "bold",
       },
+      {
+        src: "https://cdn.jsdelivr.net/gh/googlefonts/noto-fonts@main/hinted/ttf/NotoSans/NotoSans-Italic.ttf",
+        fontStyle: "italic",
+      },
+      {
+        src: "https://cdn.jsdelivr.net/gh/googlefonts/noto-fonts@main/hinted/ttf/NotoSans/NotoSans-BoldItalic.ttf",
+        fontWeight: "bold",
+        fontStyle: "italic",
+      },
     ],
   });
+
+  // Prevent @react-pdf from emitting "Could not resolve font" warnings
+  // for hyphenation callback which tries 400/italic etc.
+  Font.registerHyphenationCallback((word) => [word]);
 
   // Noto Sans Arabic — AR locale (RTL)
   Font.register({

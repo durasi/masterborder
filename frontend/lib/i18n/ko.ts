@@ -26,6 +26,8 @@ export const ko: Translations = {
     cardTitle: "제품 분석",
     cardDescription: "제품 세부 정보를 입력하고 대상 시장을 선택하거나 샘플을 시도해 보세요.",
     trySample: "샘플 시도",
+    sampleProductName: "가죽 지갑",
+    sampleProductDescription: "정품 소가죽 반지갑, 크롬 무두질, 4개의 카드 슬롯과 동전 주머니. 이스탄불에서 수제 제작.",
     productNameLabel: "제품명",
     productNamePlaceholder: "예: 가죽 지갑",
     descriptionLabel: "설명",

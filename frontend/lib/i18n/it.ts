@@ -26,6 +26,8 @@ export const it: Translations = {
     cardTitle: "Analizza un prodotto",
     cardDescription: "Inserisci i dettagli del prodotto e scegli mercati target, o prova un campione.",
     trySample: "Prova campione",
+    sampleProductName: "Portafoglio in Pelle",
+    sampleProductDescription: "Portafoglio in vera pelle bovina, conciato al cromo, 4 slot per carte e taschino per monete. Fatto a mano a Istanbul.",
     productNameLabel: "Nome del prodotto",
     productNamePlaceholder: "es. portafoglio in pelle",
     descriptionLabel: "Descrizione",

@@ -26,6 +26,8 @@ export const hi: Translations = {
     cardTitle: "उत्पाद विश्लेषण",
     cardDescription: "अपने उत्पाद का विवरण दर्ज करें और लक्ष्य बाजार चुनें, या एक नमूना आज़माएँ।",
     trySample: "नमूना आज़माएँ",
+    sampleProductName: "चमड़े का बटुआ",
+    sampleProductDescription: "असली गाय के चमड़े का बटुआ, क्रोम टैन्ड, 4 कार्ड स्लॉट और सिक्का जेब। इस्तांबुल में हस्तनिर्मित।",
     productNameLabel: "उत्पाद का नाम",
     productNamePlaceholder: "उदा. चमड़े का बटुआ",
     descriptionLabel: "विवरण",

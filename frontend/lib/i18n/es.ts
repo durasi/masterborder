@@ -26,6 +26,8 @@ export const es: Translations = {
     cardTitle: "Analizar un producto",
     cardDescription: "Introduce los detalles de tu producto y elige mercados objetivo, o prueba una muestra.",
     trySample: "Probar muestra",
+    sampleProductName: "Billetera de cuero",
+    sampleProductDescription: "Billetera de piel de vacuno genuina, curtida al cromo, 4 ranuras para tarjetas y bolsillo para monedas. Hecha a mano en Estambul.",
     productNameLabel: "Nombre del producto",
     productNamePlaceholder: "ej. cartera de cuero",
     descriptionLabel: "Descripción",

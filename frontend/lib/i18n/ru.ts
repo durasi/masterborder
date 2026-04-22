@@ -26,6 +26,8 @@ export const ru: Translations = {
     cardTitle: "Анализ продукта",
     cardDescription: "Введите данные продукта и выберите целевые рынки или попробуйте образец.",
     trySample: "Попробовать образец",
+    sampleProductName: "Кожаный кошелек",
+    sampleProductDescription: "Кошелек из натуральной воловьей кожи хромового дубления, 4 отделения для карт и карман для монет. Ручная работа из Стамбула.",
     productNameLabel: "Название продукта",
     productNamePlaceholder: "напр., кожаный кошелёк",
     descriptionLabel: "Описание",

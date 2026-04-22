@@ -120,10 +120,8 @@ export default function HomePage() {
   }
 
   function fillSampleProduct() {
-    setProductName("Leather Wallet");
-    setProductDescription(
-      "Genuine cowhide bifold wallet, chrome-tanned, 4 card slots and coin pocket. Handcrafted in Istanbul.",
-    );
+    setProductName(t.form.sampleProductName);
+    setProductDescription(t.form.sampleProductDescription);
     setCategory("consumer_goods");
     setEstimatedValue("25");
     setOriginCountry("TR");

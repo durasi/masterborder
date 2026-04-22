@@ -26,6 +26,8 @@ export const nl: Translations = {
     cardTitle: "Product analyseren",
     cardDescription: "Voer productgegevens in en kies doelmarkten, of probeer een voorbeeld.",
     trySample: "Probeer voorbeeld",
+    sampleProductName: "Leren Portemonnee",
+    sampleProductDescription: "Echt rundleren portemonnee, chroomgelooid, 4 kaartvakken en muntenvak. Handgemaakt in Istanbul.",
     productNameLabel: "Productnaam",
     productNamePlaceholder: "bv. leren portemonnee",
     descriptionLabel: "Beschrijving",

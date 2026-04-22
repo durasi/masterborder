@@ -26,6 +26,8 @@ export const de: Translations = {
     cardTitle: "Produkt analysieren",
     cardDescription: "Produktdaten eingeben und Zielmärkte wählen oder ein Beispiel ausprobieren.",
     trySample: "Beispiel laden",
+    sampleProductName: "Ledergeldbörse",
+    sampleProductDescription: "Echte Rindsleder-Geldbörse, chromgegerbt, 4 Kartenfächer und Münzfach. Handgefertigt in Istanbul.",
     productNameLabel: "Produktname",
     productNamePlaceholder: "z. B. Ledergeldbörse",
     descriptionLabel: "Beschreibung",

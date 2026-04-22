@@ -31,6 +31,8 @@ export const tr: Translations = {
     cardDescription:
       "Ürün bilgilerini gir ve hedef pazarları seç, veya çıktının nasıl göründüğünü görmek için örneği dene.",
     trySample: "Örneği dene",
+    sampleProductName: "Deri Cüzdan",
+    sampleProductDescription: "Gerçek dana derisi cüzdan, krom tabaklı, 4 kart yuvası ve bozuk para cebi. İstanbul'da el yapımı.",
     productNameLabel: "Ürün adı",
     productNamePlaceholder: "ör. deri cüzdan",
     descriptionLabel: "Açıklama",

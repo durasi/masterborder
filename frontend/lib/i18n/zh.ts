@@ -26,6 +26,8 @@ export const zh: Translations = {
     cardTitle: "分析产品",
     cardDescription: "输入产品详情并选择目标市场,或尝试样品查看输出效果。",
     trySample: "尝试样品",
+    sampleProductName: "皮革钱包",
+    sampleProductDescription: "真正的牛皮双折钱包,铬鞣,4个卡槽和硬币袋。伊斯坦布尔手工制作。",
     productNameLabel: "产品名称",
     productNamePlaceholder: "例如:皮革钱包",
     descriptionLabel: "描述",

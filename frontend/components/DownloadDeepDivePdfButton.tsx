@@ -1,5 +1,6 @@
 "use client";
 
+import { useLocale } from "@/lib/i18n/context";
 import { useState } from "react";
 import { Download, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -27,6 +28,7 @@ export function DownloadDeepDivePdfButton({
   country,
   messages,
 }: DownloadDeepDivePdfButtonProps) {
+  const { t } = useLocale();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -99,12 +101,12 @@ export function DownloadDeepDivePdfButton({
         {loading ? (
           <>
             <Loader2 className="mr-2 h-3.5 w-3.5 animate-spin" />
-            Preparing PDF…
+            {t.pdf.generatingPdf}
           </>
         ) : (
           <>
             <Download className="mr-2 h-3.5 w-3.5" />
-            Download PDF
+            {t.pdf.downloadPdf}
           </>
         )}
       </Button>

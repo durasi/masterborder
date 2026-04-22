@@ -26,6 +26,8 @@ export const pt: Translations = {
     cardTitle: "Analisar um produto",
     cardDescription: "Insira os detalhes do seu produto e escolha mercados-alvo, ou experimente uma amostra.",
     trySample: "Testar amostra",
+    sampleProductName: "Carteira de Couro",
+    sampleProductDescription: "Carteira de couro bovino genuíno, curtido ao cromo, 4 compartimentos para cartões e porta-moedas. Feita à mão em Istambul.",
     productNameLabel: "Nome do produto",
     productNamePlaceholder: "ex. carteira de couro",
     descriptionLabel: "Descrição",

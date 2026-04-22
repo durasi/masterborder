@@ -26,6 +26,8 @@ export const id: Translations = {
     cardTitle: "Analisis produk",
     cardDescription: "Masukkan detail produk dan pilih pasar target, atau coba sampel.",
     trySample: "Coba sampel",
+    sampleProductName: "Dompet Kulit",
+    sampleProductDescription: "Dompet kulit sapi asli, disamak krom, 4 slot kartu dan saku koin. Buatan tangan di Istanbul.",
     productNameLabel: "Nama produk",
     productNamePlaceholder: "mis. dompet kulit",
     descriptionLabel: "Deskripsi",

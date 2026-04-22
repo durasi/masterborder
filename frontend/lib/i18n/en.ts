@@ -31,6 +31,8 @@ export const en = {
     cardDescription:
       "Enter your product details and pick target markets, or try a sample to see what the output looks like.",
     trySample: "Try sample",
+    sampleProductName: "Leather Wallet",
+    sampleProductDescription: "Genuine cowhide bifold wallet, chrome-tanned, 4 card slots and coin pocket. Handcrafted in Istanbul.",
     productNameLabel: "Product name",
     productNamePlaceholder: "e.g., leather wallet",
     descriptionLabel: "Description",
@@ -156,6 +158,8 @@ export type Translations = {
     cardTitle: string;
     cardDescription: string;
     trySample: string;
+    sampleProductName: string;
+    sampleProductDescription: string;
     productNameLabel: string;
     productNamePlaceholder: string;
     descriptionLabel: string;

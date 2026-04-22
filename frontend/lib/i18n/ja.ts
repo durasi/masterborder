@@ -26,6 +26,8 @@ export const ja: Translations = {
     cardTitle: "製品を分析",
     cardDescription: "製品の詳細を入力してターゲット市場を選ぶか、サンプルで出力を確認してください。",
     trySample: "サンプルを試す",
+    sampleProductName: "レザーウォレット",
+    sampleProductDescription: "本物の牛革二つ折り財布、クロームなめし、カードスロット4つと小銭入れ付き。イスタンブールで手作り。",
     productNameLabel: "製品名",
     productNamePlaceholder: "例:革製財布",
     descriptionLabel: "説明",

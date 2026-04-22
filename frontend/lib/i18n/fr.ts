@@ -26,6 +26,8 @@ export const fr: Translations = {
     cardTitle: "Analyser un produit",
     cardDescription: "Saisissez les détails de votre produit et choisissez les marchés cibles, ou essayez un exemple.",
     trySample: "Essayer un exemple",
+    sampleProductName: "Portefeuille en cuir",
+    sampleProductDescription: "Portefeuille en cuir de vachette véritable, tanné au chrome, 4 emplacements pour cartes et poche à monnaie. Fait main à Istanbul.",
     productNameLabel: "Nom du produit",
     productNamePlaceholder: "ex. portefeuille en cuir",
     descriptionLabel: "Description",

@@ -26,6 +26,8 @@ export const pl: Translations = {
     cardTitle: "Analiza produktu",
     cardDescription: "Wprowadź dane produktu i wybierz rynki docelowe lub wypróbuj próbkę.",
     trySample: "Wypróbuj próbkę",
+    sampleProductName: "Skórzany Portfel",
+    sampleProductDescription: "Prawdziwy skórzany portfel, garbowany chromem, 4 przegródki na karty i kieszeń na monety. Ręcznie robiony w Stambule.",
     productNameLabel: "Nazwa produktu",
     productNamePlaceholder: "np. skórzany portfel",
     descriptionLabel: "Opis",
