@@ -15,8 +15,8 @@ export function LanguagePicker() {
         setOpen(false);
       }
     };
-    document.addEventListener("mousedown", onClick);
-    return () => document.removeEventListener("mousedown", onClick);
+    document.addEventListener("click", onClick);
+    return () => document.removeEventListener("click", onClick);
   }, []);
 
   const current = dictionaries[locale];
@@ -25,7 +25,10 @@ export function LanguagePicker() {
     <div ref={ref} className="relative">
       <button
         type="button"
-        onClick={() => setOpen(!open)}
+        onClick={(e) => {
+          e.stopPropagation();
+          setOpen(!open);
+        }}
         aria-label={t.nav.languageLabel}
         className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-muted/30 px-3 py-1.5 text-xs font-medium hover:bg-muted/60 transition-colors"
       >
@@ -45,7 +48,8 @@ export function LanguagePicker() {
               <button
                 key={l}
                 type="button"
-                onClick={() => {
+                onClick={(e) => {
+                  e.stopPropagation();
                   setLocale(l);
                   setOpen(false);
                 }}
