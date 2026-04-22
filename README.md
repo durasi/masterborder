@@ -22,7 +22,7 @@ A small exporter shipping a leather wallet from Istanbul to the US, Germany, and
 - Does EU REACH Annex XVII restrict my tannery's dyes?
 - Does the UK need an EORI number or a separate customs declaration post-Brexit?
 
-Today, answering all of these means days of research across government portals, paid compliance databases that cost **$50K+/year** (Thomson Reuters World-Check, Refinitiv), and a customs broker on retainer. Most small exporters don't have any of that. They guess, ship, and hope.
+Today, answering all of these means days of research across government portals, expensive enterprise compliance subscriptions, and a customs broker on retainer. Most small exporters don't have any of that. They guess, ship, and hope.
 
 ## The solution
 
@@ -251,7 +251,6 @@ cd frontend && npm run build   # Next.js type check + build
 ## Author
 
 **Seçkin Sefa Durası**
-Digital Processes Executive @ BSH Türkiye (Bosch) · solo developer with 7+ live App Store apps
 - Web: https://seckin.ws
 - Email: i@seckin.ws
 - GitHub: https://github.com/durasi
@@ -260,8 +259,4 @@ Digital Processes Executive @ BSH Türkiye (Bosch) · solo developer with 7+ liv
 
 ## License
 
-MIT — see [LICENSE](LICENSE). Free for commercial use, modification, distribution, private use. Attribution appreciated, not required.
-
----
-
-*Built with Claude Code + Opus 4.7. The agent proposes, you decide.*
+[MIT License](LICENSE)
