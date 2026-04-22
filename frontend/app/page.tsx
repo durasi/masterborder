@@ -138,16 +138,16 @@ export default function HomePage() {
             Live · Built with Opus 4.7
           </span>
           <h1 className="text-4xl sm:text-5xl font-bold tracking-tight">
-            Cross-border compliance,
+            Ship across borders,
             <br />
             <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              without the lawyer bill
+              without the guesswork
             </span>
           </h1>
           <p className="mt-4 text-base sm:text-lg text-muted-foreground max-w-xl mx-auto">
-            Paste your product. Pick target markets. Get a harmonized compliance
-            report with official citations, risk scoring, and an interactive
-            deep-dive agent.
+            Tariffs, sanctions, labeling rules, and forced-labor checks for
+            every target market — harmonized into one report, with official
+            citations and an interactive deep-dive agent.
           </p>
         </header>
 

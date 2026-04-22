@@ -32,6 +32,7 @@ from backend.schemas.models import (
     AnalysisRequest,
     AnalysisResponse,
     CountryCode,
+    TokenUsage,
 )
 
 # ───────────────────────────────────────────────────────────────
