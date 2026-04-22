@@ -8,7 +8,7 @@ Built for the [Cerebral Valley × Anthropic "Built with Opus 4.7" hackathon](htt
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Built with Opus 4.7](https://img.shields.io/badge/Built%20with-Claude%20Opus%204.7-blue)](https://www.anthropic.com)
 
-🌍 **UI available in 16 languages** — English · Türkçe · Español · Français · Deutsch · Português · العربية (RTL) · 中文 · 日本語 · 한국어 · Русский · Italiano · Nederlands · हिन्दी · Bahasa · Polski. Select from the picker at [masterborder.vercel.app](https://masterborder.vercel.app); Opus 4.7 generates the executive summary, findings, and deep-dive in the chosen language while keeping regulation identifiers (e.g. `19 CFR Part 134`, `Regulation (EU) 2023/1115`) in their canonical form.
+🌍 **UI available in 16 languages** — English · Türkçe · Español · Français · Deutsch · Português · العربية (RTL) · 中文 · 日本語 · 한국어 · Русский · Italiano · Nederlands · हिन्दी · Bahasa · Polski. The interface defaults to English; use the language picker in the header to switch. Opus 4.7 generates the executive summary, findings, and deep-dive in the selected language while keeping regulation identifiers (e.g. `19 CFR Part 134`, `Regulation (EU) 2023/1115`) in their canonical form.
 
 ---
 
@@ -109,29 +109,26 @@ Each profile is a `CountryProfile` dataclass (`backend/countries/profiles.py`) w
 - Sanctions regimes the agent screens against
 - Unique concerns per jurisdiction (e.g. Prop 65 for the US, EUDR for the EU)
 
-Adding a sixth country = one dataclass entry. See `profiles.py` for the template.
+Adding a sixth country is one dataclass entry. See `profiles.py` for the template.
 
 ---
 
 ## Features
 
-- ✅ **Parallel country agents** — one Opus 4.7 agent per target market, dispatched concurrently
-- ✅ **Primary-source citations** — every finding links to HTS code, CFR section, EU regulation number, or official URL
-- ✅ **Interactive deep-dive** — multi-turn chat with full context preservation, week-by-week go-to-market plan
-- ✅ **Professional PDF export** — vector PDFs with shield logo, footnote markers, dedicated regulatory sources page, verification QR code
-- ✅ **Deep-dive PDF** — separate template for exporting the chat transcript as a country-specific brief
-- ✅ **Live usage counter** — privacy-preserving (SHA256-hashed IPs), rolling 24h / 7d windows, top-country tracking
-- ✅ **Per-job cost transparency** — token counts + estimated USD cost for every analysis (Opus 4.7 rate: $15/M input + $75/M output)
-- ✅ **Test suite + CI** — 17 pytest tests (schemas, profiles, stats), GitHub Actions workflow, <1 second runtime
-- ✅ **16-language UI + report generation** — dropdown picker, RTL support (Arabic), URL-param locale override (`?lang=tr`)
-- ✅ **Rate limiting** — 5 analyses/day + 20 recommendations/day per IP (SlowAPI), to protect the hackathon API credit budget
+- **Parallel country agents** — one Opus 4.7 agent per target market, dispatched concurrently
+- **Primary-source citations** — every finding links to HTS code, CFR section, EU regulation number, or official URL
+- **Interactive deep-dive** — multi-turn chat with full context preservation, week-by-week go-to-market plan
+- **Professional PDF export** — vector PDFs with shield logo, footnote markers, dedicated regulatory sources page, verification QR code
+- **Deep-dive PDF** — separate template for exporting the chat transcript as a country-specific brief
+- **Live usage counter** — privacy-preserving (SHA256-hashed IPs), rolling 24h / 7d windows, top-country tracking
+- **Per-job cost transparency** — token counts + estimated USD cost for every analysis (Opus 4.7 rate: $15/M input + $75/M output)
+- **Test suite + CI** — 17 pytest tests (schemas, profiles, stats), GitHub Actions workflow, <1 second runtime
+- **16-language UI + report generation** — dropdown picker, RTL support (Arabic), URL-param locale override (`?lang=tr`)
+- **Rate limiting** — 5 analyses/day + 20 recommendations/day per IP (SlowAPI)
 
-## Roadmap (not in scope for hackathon)
+## Known limitations
 
-- 🚧 More country profiles (China, Canada, UAE, Saudi Arabia — contributions welcome)
-- 🚧 CLI tool (`masterborder analyze --product X --to US,DE`)
-- 🚧 Integration with Claude Managed Agents (evaluating after the Michael Cohen talk on 23 April)
-- 🚧 PDF font registration for non-Latin scripts (Noto Sans SC/JP/KR, Noto Naskh Arabic, Noto Sans Devanagari) — currently PDFs are Latin-script only
+- PDFs currently use Latin-script fonts only. Reports generated in non-Latin scripts (Arabic, Chinese, Japanese, Korean, Hindi, Russian, etc.) render correctly in the web UI but may show missing glyphs in the exported PDF. Registering Noto Sans / Noto Naskh fonts with @react-pdf/renderer is the planned fix.
 
 ---
 
@@ -213,7 +210,7 @@ Open http://localhost:3000, click **Try sample**, submit. The analysis runs agai
 ### Tests
 
 ```bash
-pytest                 # 17 tests, <1 second
+pytest                         # 17 tests, <1 second
 cd frontend && npm run build   # Next.js type check + build
 ```
 
