@@ -111,26 +111,92 @@ export default function HomePage() {
     }
   }
 
+
+  function fillSampleProduct() {
+    setProductName("Leather Wallet");
+    setProductDescription(
+      "Genuine cowhide bifold wallet, chrome-tanned, 4 card slots and coin pocket. Handcrafted in Istanbul.",
+    );
+    setCategory("consumer_goods");
+    setEstimatedValue("25");
+    setOriginCountry("TR");
+    setSelectedCountries(new Set(["US", "DE", "GB"]));
+    setIncludeRouteRisk(true);
+    setError(null);
+  }
+
   return (
     <div className="min-h-screen bg-background py-10 px-4">
-      <div className="mx-auto max-w-2xl">
-        {/* Header */}
-        <header className="mb-8 text-center">
-          <h1 className="text-4xl font-semibold tracking-tight">
-            MasterBorder
+      <div className="mx-auto max-w-3xl">
+        {/* Hero */}
+        <header className="mb-10 text-center">
+          <span className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-muted/40 px-3 py-1 text-xs font-mono mb-5">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500"></span>
+            </span>
+            Live · Built with Opus 4.7
+          </span>
+          <h1 className="text-4xl sm:text-5xl font-bold tracking-tight">
+            Cross-border compliance,
+            <br />
+            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              without the lawyer bill
+            </span>
           </h1>
-          <p className="mt-2 text-muted-foreground">
-            Open-source cross-border trade compliance, powered by Opus 4.7.
+          <p className="mt-4 text-base sm:text-lg text-muted-foreground max-w-xl mx-auto">
+            Paste your product. Pick target markets. Get a harmonized compliance
+            report with official citations, risk scoring, and an interactive
+            deep-dive agent.
           </p>
         </header>
 
+        {/* Feature grid */}
+        <div className="mb-10 grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm">
+          <div className="rounded-lg border border-border/60 bg-muted/20 p-3">
+            <div className="font-semibold mb-0.5">Parallel agents</div>
+            <div className="text-xs text-muted-foreground">
+              One Opus 4.7 agent per target market, dispatched concurrently.
+              Five markets in ~25 seconds.
+            </div>
+          </div>
+          <div className="rounded-lg border border-border/60 bg-muted/20 p-3">
+            <div className="font-semibold mb-0.5">Regulatory citations</div>
+            <div className="text-xs text-muted-foreground">
+              Every finding cites a primary source — HTS code, CFR section,
+              EU regulation number, or official URL.
+            </div>
+          </div>
+          <div className="rounded-lg border border-border/60 bg-muted/20 p-3">
+            <div className="font-semibold mb-0.5">Interactive deep-dive</div>
+            <div className="text-xs text-muted-foreground">
+              Pick a country and ask follow-up questions. The agent keeps
+              full context across turns.
+            </div>
+          </div>
+        </div>
+
         <Card>
           <CardHeader>
-            <CardTitle>Analyze a product</CardTitle>
-            <CardDescription>
-              Enter your product details and pick target markets. We&apos;ll run
-              a parallel compliance analysis and produce an actionable report.
-            </CardDescription>
+            <div className="flex items-start justify-between gap-3">
+              <div className="min-w-0">
+                <CardTitle>Analyze a product</CardTitle>
+                <CardDescription>
+                  Enter your product details and pick target markets, or try a
+                  sample to see what the output looks like.
+                </CardDescription>
+              </div>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={fillSampleProduct}
+                disabled={loading}
+                className="shrink-0"
+              >
+                Try sample
+              </Button>
+            </div>
           </CardHeader>
 
           <CardContent>

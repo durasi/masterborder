@@ -106,7 +106,11 @@ Open [http://localhost:3000](http://localhost:3000).
 - ✅ Rate limiting (5 analyses/day/IP, 20 recommendations/day/IP)
 - ✅ CORS-protected API with typed Pydantic schemas
 - ✅ Live deployment on Vercel + Railway
+- ✅ Live usage counter on the landing page (hashed-IP, GDPR-friendly)
+- ✅ Per-job token + USD cost tracker (Opus 4.7 rates, transparent to users)
+- ✅ pytest suite + GitHub Actions CI (17 tests, mock-free, <1 second)
 - 🚧 More country profiles (China, Canada, UAE, Saudi Arabia — contributions welcome)
+- 🚧 Multi-language UI + translated reports (EN, TR, DE, JA, HI, RU, AR)
 - 🚧 CLI tool (`masterborder analyze --product X --to US,DE`)
 - 🚧 Integration with Claude Managed Agents
 
