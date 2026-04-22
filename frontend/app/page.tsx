@@ -29,6 +29,7 @@ import {
   COUNTRY_LABELS,
   type CountryCode,
 } from "@/lib/types";
+import { UsageStatsFooter } from "@/components/UsageStatsFooter";
 
 const ALL_COUNTRIES: CountryCode[] = ["US", "DE", "GB", "TR", "JP"];
 
@@ -324,7 +325,8 @@ export default function HomePage() {
           </CardContent>
         </Card>
 
-        <footer className="mt-6 text-center text-xs text-muted-foreground">
+        <footer className="mt-6 flex flex-col items-center gap-2 text-center text-xs text-muted-foreground">
+          <UsageStatsFooter />
           <p>
             MIT licensed · Built with Claude Code + Opus 4.7 · The agent
             proposes, you decide.

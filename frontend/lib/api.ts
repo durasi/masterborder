@@ -102,3 +102,15 @@ export const api = {
 };
 
 export { APIError };
+
+
+/** Fetch public usage stats (for the landing-page counter). */
+export async function getStats(): Promise<UsageStats> {
+  const res = await fetch(`${API_URL}/api/stats`, {
+    cache: "no-store",
+  });
+  if (!res.ok) {
+    throw new APIError(res.status, `Stats fetch failed: ${res.status}`);
+  }
+  return (await res.json()) as UsageStats;
+}

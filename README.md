@@ -31,7 +31,7 @@ Small exporters face an impossible choice: spend weeks manually checking tariffs
 
 ## Architecture
 
-\`\`\`
+```
 ┌──────────────────────────┐        ┌─────────────────────────────┐
 │  Next.js 16 (Vercel)     │        │  FastAPI (Railway)          │
 │  · Analysis form         │◄──────►│  · Orchestrator             │
@@ -45,21 +45,21 @@ Small exporters face an impossible choice: spend weeks manually checking tariffs
                                      ┌─────────────────────────────┐
                                      │  Anthropic API · Opus 4.7   │
                                      └─────────────────────────────┘
-\`\`\`
+```
 
 ### Agent pipeline
 
-- **Country Agent** — produces a structured \`CountryReport\` for one jurisdiction using a profile with official sources, key regulations, FTAs, and sanctions regimes. Every finding must cite a primary legal source (HTS code, CFR section, EU regulation number, etc.) with a canonical URL when available.
+- **Country Agent** — produces a structured `CountryReport` for one jurisdiction using a profile with official sources, key regulations, FTAs, and sanctions regimes. Every finding must cite a primary legal source (HTS code, CFR section, EU regulation number, etc.) with a canonical URL when available.
 - **Harmonization Agent** — reads all country reports and produces a markdown executive summary with ranking, shared requirements, divergent traps, and geopolitical context.
 - **Recommendation Agent** — stateful multi-turn agent that generates a country-specific go-to-market plan and answers follow-up questions, maintaining conversation history server-side.
 
-All three agents use the same Opus 4.7 model (\`claude-opus-4-7\`); the prompts differ.
+All three agents use the same Opus 4.7 model (`claude-opus-4-7`); the prompts differ.
 
 ## Tech stack
 
 **Backend** — Python 3.12, FastAPI, Anthropic SDK (AsyncAnthropic), Pydantic, SlowAPI (rate limiting), Docker, Railway
 
-**Frontend** — Next.js 16.2 (App Router, Turbopack), React 19, TypeScript, Tailwind CSS v4, shadcn/ui (Radix + Nova preset), \`@react-pdf/renderer\`, \`qrcode\`, \`lucide-react\`
+**Frontend** — Next.js 16.2 (App Router, Turbopack), React 19, TypeScript, Tailwind CSS v4, shadcn/ui (Radix + Nova preset), `@react-pdf/renderer`, `qrcode`, `lucide-react`
 
 **Deployment** — Vercel (frontend) + Railway (backend), auto-deploy on git push
 
@@ -70,7 +70,7 @@ Visit **[masterborder.vercel.app](https://masterborder.vercel.app)** and analyze
 
 ### Run locally
 
-\`\`\`bash
+```bash
 # Clone and set up
 git clone https://github.com/durasi/masterborder.git
 cd masterborder
@@ -86,32 +86,32 @@ cd frontend
 npm install
 echo "NEXT_PUBLIC_API_URL=http://localhost:8000" > .env.local
 npm run dev
-\`\`\`
+```
 
 Open [http://localhost:3000](http://localhost:3000).
 
 ## Why this was interesting to build
 
-- **Parallel dispatch** matters: running 5 Country Agents in parallel via \`asyncio.gather\` turns a 2-minute sequential analysis into a ~25-second one.
+- **Parallel dispatch** matters: running 5 Country Agents in parallel via `asyncio.gather` turns a 2-minute sequential analysis into a ~25-second one.
 - **Harmonization is the real product** — individual country reports are useful, but the synthesis ("where do all these rules agree, where do they diverge, what should I do first?") is what makes the tool worth opening.
-- **Structured outputs with citations** force Opus 4.7 to be specific. Requiring a \`citation\` field for each finding turned vague guidance into auditable regulatory references.
+- **Structured outputs with citations** force Opus 4.7 to be specific. Requiring a `citation` field for each finding turned vague guidance into auditable regulatory references.
 - **Human-in-the-loop is the right pattern** for compliance advice: the agent proposes, the human decides. Every recommendation ends with *"You decide."*
 
 ## Project status
 
-- ✅ Five country profiles (US, DE, GB, TR, JP) — extensible via \`backend/countries/profiles.py\`
+- ✅ Five country profiles (US, DE, GB, TR, JP) — extensible via `backend/countries/profiles.py`
 - ✅ Multi-turn deep-dive chat with conversation cache
 - ✅ Vector PDF export with QR verification + regulatory source citations
 - ✅ Rate limiting (5 analyses/day/IP, 20 recommendations/day/IP)
 - ✅ CORS-protected API with typed Pydantic schemas
 - ✅ Live deployment on Vercel + Railway
 - 🚧 More country profiles (China, Canada, UAE, Saudi Arabia — contributions welcome)
-- 🚧 CLI tool (\`masterborder analyze --product X --to US,DE\`)
+- 🚧 CLI tool (`masterborder analyze --product X --to US,DE`)
 - 🚧 Integration with Claude Managed Agents
 
 ## Repository layout
 
-\`\`\`
+```
 masterborder/
 ├── backend/
 │   ├── agents/              # Orchestrator, harmonizer, recommender
@@ -125,7 +125,7 @@ masterborder/
 ├── Dockerfile               # Railway deployment
 ├── requirements.txt         # Python dependencies
 └── README.md
-\`\`\`
+```
 
 ## Author
 
@@ -136,7 +136,7 @@ masterborder/
 - 💼 LinkedIn: [linkedin.com/in/durasi](https://www.linkedin.com/in/durasi)
 - 🐙 GitHub: [github.com/durasi](https://github.com/durasi)
 - 𝕏 / Twitter: [x.com/seckinws](https://x.com/seckinws)
-- 💬 Discord: \`seckin.ws\`
+- 💬 Discord: `seckin.ws`
 
 ## License
 

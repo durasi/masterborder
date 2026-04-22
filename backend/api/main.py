@@ -26,6 +26,7 @@ from slowapi.util import get_remote_address
 
 from backend.agents.harmonizer import harmonize
 from backend.agents.pipeline import run_pipeline
+from backend.api.stats import stats
 from backend.agents.recommender import recommend_for_country
 from backend.schemas.models import (
     AnalysisRequest,
@@ -161,6 +162,9 @@ async def analyze(
         raise HTTPException(status_code=500, detail=f"Analysis failed: {exc}") from exc
 
     _job_cache[response.job_id] = response
+    # Track usage (privacy-preserving: only hashed IP is stored)
+    client_ip = request.client.host if request.client else "unknown"
+    stats.record_analysis(client_ip, [c.value for c in body.target_countries])
     return response
 
 
@@ -265,9 +269,34 @@ async def recommend(
     _conversation_cache[cache_key] = new_history
     turn_number = len(new_history) // 2
 
+    # Track deep-dive usage (privacy-preserving: no raw IP stored)
+    client_ip = request.client.host if request.client else "unknown"
+    stats.record_recommend(client_ip)
+
     return RecommendResponse(
         country=country,
         job_id=job_id,
         message=message,
         turn_number=turn_number,
     )
+
+@app.get("/api/stats")
+async def get_stats() -> dict:
+    """Public usage stats for the landing-page counter.
+
+    Returns in-memory counters that reset on Railway redeploys — good enough
+    for a hackathon demo and a live "X analyses served" counter on the site.
+    Values are aggregate only; no per-user data is ever exposed.
+
+    Response shape:
+        {
+            "total_analyses": int,
+            "total_recommends": int,
+            "unique_users": int,
+            "last_24h": int,
+            "last_7d": int,
+            "top_countries": [{"country": "US", "count": 7}, ...],
+            "server_time": "2026-04-22T12:34:56+00:00"
+        }
+    """
+    return stats.snapshot()

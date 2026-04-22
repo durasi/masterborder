@@ -87,3 +87,15 @@ export const RISK_LABELS: Record<RiskLevel, string> = {
   high: "High",
   blocked: "Blocked",
 };
+
+
+/** Public usage stats returned by GET /api/stats */
+export interface UsageStats {
+  total_analyses: number;
+  total_recommends: number;
+  unique_users: number;
+  last_24h: number;
+  last_7d: number;
+  top_countries: { country: string; count: number }[];
+  server_time: string;
+}
