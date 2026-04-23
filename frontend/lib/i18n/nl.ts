@@ -143,4 +143,15 @@ export const nl: Translations = {
     button: "Start diepte-analyse",
   },
 
+
+  roi: {
+    headline: "Deze analyse bespaarde u {savings} en ~{days} dagen",
+    masterborderLabel: "MasterBorder",
+    brokerLabel: "Traditionele douane-expediteur",
+    vs: "vs",
+    lowerCost: "lagere kosten",
+    faster: "sneller",
+    disclaimer: "Expediteur-referentie: branchegebruikelijk $500–$2.000 / 5–15 dagen per zending.",
+  },
+
 };

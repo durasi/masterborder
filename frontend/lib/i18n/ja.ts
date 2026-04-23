@@ -143,4 +143,15 @@ export const ja: Translations = {
     button: "詳細分析を開始",
   },
 
+
+  roi: {
+    headline: "この分析で {savings} と約{days}日を節約しました",
+    masterborderLabel: "MasterBorder",
+    brokerLabel: "従来の通関業者",
+    vs: "対",
+    lowerCost: "低コスト",
+    faster: "高速",
+    disclaimer: "通関業者基準:業界標準で1出荷あたり$500〜$2,000 / 5〜15日。",
+  },
+
 };

@@ -143,4 +143,15 @@ export const pt: Translations = {
     button: "Iniciar análise profunda",
   },
 
+
+  roi: {
+    headline: "Esta análise economizou {savings} e ~{days} dias",
+    masterborderLabel: "MasterBorder",
+    brokerLabel: "Despachante tradicional",
+    vs: "vs",
+    lowerCost: "custo menor",
+    faster: "mais rápido",
+    disclaimer: "Referência do despachante: faixa típica do setor $500–$2.000 / 5–15 dias por envio.",
+  },
+
 };

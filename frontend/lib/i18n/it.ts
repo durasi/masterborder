@@ -143,4 +143,15 @@ export const it: Translations = {
     button: "Avvia analisi approfondita",
   },
 
+
+  roi: {
+    headline: "Questa analisi ti ha fatto risparmiare {savings} e ~{days} giorni",
+    masterborderLabel: "MasterBorder",
+    brokerLabel: "Spedizioniere doganale tradizionale",
+    vs: "vs",
+    lowerCost: "costo inferiore",
+    faster: "più veloce",
+    disclaimer: "Riferimento spedizioniere: fascia tipica del settore $500–$2.000 / 5–15 giorni per spedizione.",
+  },
+
 };

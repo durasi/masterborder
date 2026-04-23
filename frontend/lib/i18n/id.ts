@@ -143,4 +143,15 @@ export const id: Translations = {
     button: "Mulai analisis mendalam",
   },
 
+
+  roi: {
+    headline: "Analisis ini menghemat {savings} dan ~{days} hari",
+    masterborderLabel: "MasterBorder",
+    brokerLabel: "Agen bea cukai tradisional",
+    vs: "vs",
+    lowerCost: "biaya lebih rendah",
+    faster: "lebih cepat",
+    disclaimer: "Referensi agen: kisaran industri tipikal $500–$2.000 / 5–15 hari per pengiriman.",
+  },
+
 };

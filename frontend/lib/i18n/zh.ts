@@ -143,4 +143,15 @@ export const zh: Translations = {
     button: "开始深入分析",
   },
 
+
+  roi: {
+    headline: "此分析为您节省了 {savings} 和约 {days} 天",
+    masterborderLabel: "MasterBorder",
+    brokerLabel: "传统报关行",
+    vs: "对比",
+    lowerCost: "更低成本",
+    faster: "更快",
+    disclaimer: "报关行基准:行业通常每批货物 $500–$2,000 / 5–15 天。",
+  },
+
 };

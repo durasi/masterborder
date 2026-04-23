@@ -143,4 +143,15 @@ export const hi: Translations = {
     button: "गहन विश्लेषण शुरू करें",
   },
 
+
+  roi: {
+    headline: "इस विश्लेषण ने आपके {savings} और ~{days} दिन बचाए",
+    masterborderLabel: "MasterBorder",
+    brokerLabel: "पारंपरिक कस्टम ब्रोकर",
+    vs: "बनाम",
+    lowerCost: "कम लागत",
+    faster: "तेज़",
+    disclaimer: "ब्रोकर संदर्भ: प्रति शिपमेंट उद्योग मानक $500–$2,000 / 5–15 दिन।",
+  },
+
 };

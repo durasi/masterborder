@@ -143,4 +143,15 @@ export const ru: Translations = {
     button: "Начать глубокий анализ",
   },
 
+
+  roi: {
+    headline: "Этот анализ сэкономил вам {savings} и ~{days} дней",
+    masterborderLabel: "MasterBorder",
+    brokerLabel: "Традиционный таможенный брокер",
+    vs: "vs",
+    lowerCost: "меньше затрат",
+    faster: "быстрее",
+    disclaimer: "Ориентир по брокеру: типичный диапазон $500–$2000 / 5–15 дней на отгрузку.",
+  },
+
 };

@@ -143,4 +143,15 @@ export const fr: Translations = {
     button: "Démarrer l'analyse",
   },
 
+
+  roi: {
+    headline: "Cette analyse vous a fait économiser {savings} et ~{days} jours",
+    masterborderLabel: "MasterBorder",
+    brokerLabel: "Courtier en douane traditionnel",
+    vs: "vs",
+    lowerCost: "coût inférieur",
+    faster: "plus rapide",
+    disclaimer: "Référence courtier : fourchette sectorielle de 500 à 2 000 $ / 5 à 15 jours par expédition.",
+  },
+
 };

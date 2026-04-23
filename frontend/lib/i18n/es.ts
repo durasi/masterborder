@@ -143,4 +143,15 @@ export const es: Translations = {
     button: "Iniciar análisis profundo",
   },
 
+
+  roi: {
+    headline: "Este análisis le ahorró {savings} y ~{days} días",
+    masterborderLabel: "MasterBorder",
+    brokerLabel: "Agente aduanero tradicional",
+    vs: "vs",
+    lowerCost: "menor coste",
+    faster: "más rápido",
+    disclaimer: "Referencia de agente: típico del sector $500–$2.000 / 5–15 días por envío.",
+  },
+
 };

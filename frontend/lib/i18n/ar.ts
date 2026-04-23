@@ -143,4 +143,15 @@ export const ar: Translations = {
     button: "ابدأ التحليل المعمق",
   },
 
+
+  roi: {
+    headline: "وفر عليك هذا التحليل {savings} و~{days} يومًا",
+    masterborderLabel: "MasterBorder",
+    brokerLabel: "وسيط جمركي تقليدي",
+    vs: "مقابل",
+    lowerCost: "تكلفة أقل",
+    faster: "أسرع",
+    disclaimer: "مرجع الوسيط: النطاق المعتاد في القطاع 500$–2000$ / 5–15 يومًا لكل شحنة.",
+  },
+
 };

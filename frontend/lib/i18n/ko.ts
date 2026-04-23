@@ -143,4 +143,15 @@ export const ko: Translations = {
     button: "심층 분석 시작",
   },
 
+
+  roi: {
+    headline: "이 분석으로 {savings}와 약 {days}일을 절약했습니다",
+    masterborderLabel: "MasterBorder",
+    brokerLabel: "기존 관세사",
+    vs: "대비",
+    lowerCost: "비용 절감",
+    faster: "더 빠름",
+    disclaimer: "관세사 기준: 업계 일반 선적당 $500–$2,000 / 5–15일.",
+  },
+
 };

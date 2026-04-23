@@ -27,6 +27,7 @@ import {
   type RiskLevel,
 } from "@/lib/types";
 import { TokenUsageBadge } from "@/components/TokenUsageBadge";
+import { RoiCard } from "@/components/RoiCard";
 import { LanguagePicker } from "@/components/LanguagePicker";
 import { useLocale } from "@/lib/i18n/context";
 import type { Translations } from "@/lib/i18n/en";
@@ -155,6 +156,11 @@ export default function ResultsPage() {
               </div>
             </CardContent>
           </Card>
+        )}
+
+        {/* ROI badge — dramatic savings vs traditional broker */}
+        {response.token_usage && (
+          <RoiCard usage={response.token_usage} />
         )}
 
         {/* Token usage transparency badge */}

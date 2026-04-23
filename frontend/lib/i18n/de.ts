@@ -143,4 +143,15 @@ export const de: Translations = {
     button: "Tiefenanalyse starten",
   },
 
+
+  roi: {
+    headline: "Diese Analyse hat Ihnen {savings} und ~{days} Tage gespart",
+    masterborderLabel: "MasterBorder",
+    brokerLabel: "Traditioneller Zollagent",
+    vs: "vs.",
+    lowerCost: "geringere Kosten",
+    faster: "schneller",
+    disclaimer: "Richtwert Zollagent: branchenüblich $500–$2.000 / 5–15 Tage pro Sendung.",
+  },
+
 };

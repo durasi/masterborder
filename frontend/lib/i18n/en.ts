@@ -152,6 +152,16 @@ export const en = {
     button: "Start deep-dive",
   },
 
+  roi: {
+    headline: "This analysis saved you {savings} and ~{days} days",
+    masterborderLabel: "MasterBorder",
+    brokerLabel: "Traditional broker",
+    vs: "vs",
+    lowerCost: "lower cost",
+    faster: "faster",
+    disclaimer: "Broker benchmark: industry-typical $500–$2,000 / 5–15 days per shipment.",
+  },
+
 };
 
 export type Translations = {
@@ -287,6 +297,16 @@ export type Translations = {
     headline: string;
     body: string;
     button: string;
+  };
+
+  roi: {
+    headline: string;
+    masterborderLabel: string;
+    brokerLabel: string;
+    vs: string;
+    lowerCost: string;
+    faster: string;
+    disclaimer: string;
   };
 
 };

@@ -152,4 +152,15 @@ export const tr: Translations = {
     button: "Derin analizi başlat",
   },
 
+
+  roi: {
+    headline: "Bu analiz size {savings} ve ~{days} gün kazandırdı",
+    masterborderLabel: "MasterBorder",
+    brokerLabel: "Geleneksel gümrük müşaviri",
+    vs: "vs",
+    lowerCost: "daha düşük maliyet",
+    faster: "daha hızlı",
+    disclaimer: "Müşavir referansı: sevkiyat başına sektörde tipik $500–$2.000 / 5–15 gün.",
+  },
+
 };

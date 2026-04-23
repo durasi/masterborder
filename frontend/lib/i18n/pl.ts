@@ -143,4 +143,15 @@ export const pl: Translations = {
     button: "Rozpocznij analizę",
   },
 
+
+  roi: {
+    headline: "Ta analiza zaoszczędziła Ci {savings} i ~{days} dni",
+    masterborderLabel: "MasterBorder",
+    brokerLabel: "Tradycyjna agencja celna",
+    vs: "vs",
+    lowerCost: "niższy koszt",
+    faster: "szybciej",
+    disclaimer: "Odniesienie dla agencji: typowy zakres branżowy $500–$2000 / 5–15 dni na przesyłkę.",
+  },
+
 };
