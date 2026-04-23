@@ -16,9 +16,10 @@ import os
 from datetime import datetime
 from typing import Any
 
+import json
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, StreamingResponse
 from pydantic import BaseModel, Field
 from slowapi import Limiter
 from slowapi.errors import RateLimitExceeded
@@ -26,6 +27,7 @@ from slowapi.util import get_remote_address
 
 from backend.agents.harmonizer import harmonize
 from backend.agents.pipeline import run_pipeline
+from backend.agents.stream_pipeline import stream_pipeline
 from backend.api.stats import stats
 from backend.agents.recommender import recommend_for_country
 from backend.schemas.models import (
@@ -174,6 +176,85 @@ async def analyze(
     client_ip = request.client.host if request.client else "unknown"
     stats.record_analysis(client_ip, [c.value for c in body.target_countries])
     return response
+
+    # ───────────────────────────────────────────────────────────────
+# Analysis — streaming variant (SSE) for live agent telemetry
+# ───────────────────────────────────────────────────────────────
+
+@app.post("/api/analyze/stream")
+@limiter.limit("5/day")
+async def analyze_stream(
+    request: Request,  # required by slowapi to resolve client IP
+    body: AnalysisRequest,
+) -> StreamingResponse:
+    """Run the analysis pipeline and push Server-Sent Events as each agent finishes.
+
+    Same rate limit and same cost as POST /api/analyze — this is purely a
+    streaming UX layer on top of the identical pipeline stages. The frontend
+    connects via fetch + ReadableStream and renders per-country duration,
+    token counts, and risk level the instant each Country Agent resolves.
+
+    Event names: started, agent_start, agent_complete, harmonize_start, done, error.
+    Each frame is shaped as:
+
+        event: <name>
+        data: <json>
+        <blank line>
+
+    The final ``done`` event carries the full AnalysisResponse, so the frontend
+    can hand the job_id to GET /api/jobs/{job_id} or navigate straight to the
+    results page — the response is also cached server-side under that id.
+    """
+    client_ip = request.client.host if request.client else "unknown"
+
+    async def event_generator():
+        final_response: AnalysisResponse | None = None
+        try:
+            async for event_name, payload in stream_pipeline(body):
+                if event_name == "done":
+                    # Cache the result so GET /api/jobs/{job_id} still works
+                    # after the SSE connection closes.
+                    try:
+                        final_response = AnalysisResponse.model_validate(
+                            payload["response"]
+                        )
+                        _job_cache[final_response.job_id] = final_response
+                    except Exception:  # noqa: BLE001
+                        # If validation fails we still want to forward the raw
+                        # event to the client so it can show an error; the
+                        # cache miss is logged below.
+                        pass
+
+                frame = (
+                    f"event: {event_name}\n"
+                    f"data: {json.dumps(payload, default=str)}\n\n"
+                )
+                yield frame.encode("utf-8")
+        except Exception as exc:  # noqa: BLE001
+            err_frame = (
+                f"event: error\n"
+                f"data: {json.dumps({'message': f'stream failed: {exc}'})}\n\n"
+            )
+            yield err_frame.encode("utf-8")
+            return
+
+        # Only record usage if the pipeline actually finished. Partial failures
+        # (all agents errored) should not count against the daily quota twice.
+        if final_response is not None:
+            stats.record_analysis(
+                client_ip, [c.value for c in body.target_countries]
+            )
+
+    return StreamingResponse(
+        event_generator(),
+        media_type="text/event-stream",
+        headers={
+            # Prevent proxies/CDN from buffering the stream (Railway nginx etc.)
+            "Cache-Control": "no-cache, no-transform",
+            "X-Accel-Buffering": "no",
+            "Connection": "keep-alive",
+        },
+    )    
 
 
 @app.get("/api/jobs/{job_id}", response_model=AnalysisResponse)
