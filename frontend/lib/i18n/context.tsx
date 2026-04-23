@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useLayoutEffect, useState, ReactNode } from "react";
+import { createContext, useContext, useEffect, useState, ReactNode } from "react";
 import { dictionaries, Locale, LOCALES, isRTL } from "./index";
 import type { Translations } from "./en";
 
@@ -41,15 +41,26 @@ function detectLocale(): Locale {
   return "en";
 }
 
-const useIsoLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
-
 export function LocaleProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>(() => detectLocale());
+  // Always start with "en" on both server and client to avoid hydration mismatch.
+  // The real locale is applied after mount via useEffect.
+  const [locale, setLocaleState] = useState<Locale>("en");
+  const [mounted, setMounted] = useState(false);
 
-  useIsoLayoutEffect(() => {
+  useEffect(() => {
+    // Runs only on client, after initial render. Safe to read window here.
+    const detected = detectLocale();
+    if (detected !== "en") {
+      setLocaleState(detected);
+    }
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
     document.documentElement.setAttribute("lang", locale);
     document.documentElement.setAttribute("dir", isRTL(locale) ? "rtl" : "ltr");
-  }, [locale]);
+  }, [locale, mounted]);
 
   const setLocale = (next: Locale) => {
     setLocaleState(next);
