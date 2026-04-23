@@ -28,7 +28,7 @@ export const hi: Translations = {
     trySample: "नमूना आज़माएँ",
     seeExample: "उदाहरण देखें",
     sampleProductName: "चमड़े का बटुआ",
-    sampleProductDescription: "असली गाय के चमड़े का बटुआ, क्रोम टैन्ड, 4 कार्ड स्लॉट और सिक्का जेब। इस्तांबुल में हस्तनिर्मित।",
+    sampleProductDescription: "असली गाय के चमड़े का दो तह वाला वॉलेट, क्रोम-टैन्ड, 4 कार्ड स्लॉट और सिक्का पॉकेट। पारंपरिक चमड़ा शिल्प तकनीकों से हस्तनिर्मित।",
     quantityLabel: "मात्रा",
     quantityPlaceholder: "जैसे 50",
     unitLabel: "इकाई",

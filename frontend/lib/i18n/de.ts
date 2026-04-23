@@ -28,7 +28,7 @@ export const de: Translations = {
     trySample: "Beispiel laden",
     seeExample: "Beispiel ansehen",
     sampleProductName: "Ledergeldbörse",
-    sampleProductDescription: "Echte Rindsleder-Geldbörse, chromgegerbt, 4 Kartenfächer und Münzfach. Handgefertigt in Istanbul.",
+    sampleProductDescription: "Echtes Rindsleder, zweifach gefaltete Brieftasche, chromgegerbt, 4 Kartenfächer und Münzfach. Handgefertigt mit traditionellen Ledertechniken.",
     quantityLabel: "Menge",
     quantityPlaceholder: "z.B. 50",
     unitLabel: "Einheit",

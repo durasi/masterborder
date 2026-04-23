@@ -28,7 +28,7 @@ export const nl: Translations = {
     trySample: "Probeer voorbeeld",
     seeExample: "Bekijk voorbeeld",
     sampleProductName: "Leren Portemonnee",
-    sampleProductDescription: "Echt rundleren portemonnee, chroomgelooid, 4 kaartvakken en muntenvak. Handgemaakt in Istanbul.",
+    sampleProductDescription: "Echte runderleren bifold portemonnee, chroomgelooid, 4 pasjeshouders en muntvak. Handgemaakt met traditionele lederbewerkingstechnieken.",
     quantityLabel: "Hoeveelheid",
     quantityPlaceholder: "bijv. 50",
     unitLabel: "Eenheid",

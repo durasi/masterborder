@@ -28,7 +28,7 @@ export const ar: Translations = {
     trySample: "جرّب عيّنة",
     seeExample: "شاهد المثال",
     sampleProductName: "محفظة جلدية",
-    sampleProductDescription: "محفظة من جلد البقر الأصلي، مدبوغة بالكروم، 4 فتحات للبطاقات وجيب للعملات. مصنوعة يدوياً في إسطنبول.",
+    sampleProductDescription: "محفظة ثنائية الطي من جلد البقر الأصلي، مدبوغ بالكروم، 4 فتحات للبطاقات وجيب للعملات المعدنية. مصنوعة يدوياً بتقنيات تقليدية لصناعة الجلود.",
     quantityLabel: "الكمية",
     quantityPlaceholder: "مثال: 50",
     unitLabel: "الوحدة",

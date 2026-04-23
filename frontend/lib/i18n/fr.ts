@@ -28,7 +28,7 @@ export const fr: Translations = {
     trySample: "Essayer un exemple",
     seeExample: "Voir l'exemple",
     sampleProductName: "Portefeuille en cuir",
-    sampleProductDescription: "Portefeuille en cuir de vachette véritable, tanné au chrome, 4 emplacements pour cartes et poche à monnaie. Fait main à Istanbul.",
+    sampleProductDescription: "Portefeuille bifold en cuir de vachette véritable, tanné au chrome, 4 emplacements pour cartes et poche à monnaie. Fait à la main avec des techniques traditionnelles du cuir.",
     quantityLabel: "Quantité",
     quantityPlaceholder: "ex. 50",
     unitLabel: "Unité",

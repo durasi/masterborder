@@ -28,7 +28,7 @@ export const zh: Translations = {
     trySample: "尝试样品",
     seeExample: "查看示例",
     sampleProductName: "皮革钱包",
-    sampleProductDescription: "真正的牛皮双折钱包,铬鞣,4个卡槽和硬币袋。伊斯坦布尔手工制作。",
+    sampleProductDescription: "真正牛皮双折钱包,铬鞣工艺,4个卡位和硬币袋。采用传统皮革工艺手工制作。",
     quantityLabel: "数量",
     quantityPlaceholder: "例如 50",
     unitLabel: "单位",

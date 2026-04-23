@@ -33,7 +33,7 @@ export const en = {
     trySample: "Try sample",
     seeExample: "See example",
     sampleProductName: "Leather Wallet",
-    sampleProductDescription: "Genuine cowhide bifold wallet, chrome-tanned, 4 card slots and coin pocket. Handcrafted in Istanbul.",
+    sampleProductDescription: "Genuine cowhide bifold wallet, chrome-tanned, 4 card slots and coin pocket. Handcrafted with traditional leatherworking techniques.",
     quantityLabel: "Quantity",
     quantityPlaceholder: "e.g., 50",
     unitLabel: "Unit",

@@ -28,7 +28,7 @@ export const pl: Translations = {
     trySample: "Wypróbuj próbkę",
     seeExample: "Zobacz przykład",
     sampleProductName: "Skórzany Portfel",
-    sampleProductDescription: "Prawdziwy skórzany portfel, garbowany chromem, 4 przegródki na karty i kieszeń na monety. Ręcznie robiony w Stambule.",
+    sampleProductDescription: "Portfel z prawdziwej skóry bydlęcej, garbowany chromem, 4 przegródki na karty i kieszeń na monety. Ręcznie wykonany tradycyjnymi technikami rzemiosła skórzanego.",
     quantityLabel: "Ilość",
     quantityPlaceholder: "np. 50",
     unitLabel: "Jednostka",

@@ -28,7 +28,7 @@ export const ko: Translations = {
     trySample: "샘플 시도",
     seeExample: "예제 보기",
     sampleProductName: "가죽 지갑",
-    sampleProductDescription: "정품 소가죽 반지갑, 크롬 무두질, 4개의 카드 슬롯과 동전 주머니. 이스탄불에서 수제 제작.",
+    sampleProductDescription: "정품 소가죽 이중 접이식 지갑, 크롬 태닝, 카드 슬롯 4개 및 동전 주머니. 전통 가죽 공예 기법으로 수공예.",
     quantityLabel: "수량",
     quantityPlaceholder: "예: 50",
     unitLabel: "단위",

@@ -28,7 +28,7 @@ export const ja: Translations = {
     trySample: "サンプルを試す",
     seeExample: "サンプルを見る",
     sampleProductName: "レザーウォレット",
-    sampleProductDescription: "本物の牛革二つ折り財布、クロームなめし、カードスロット4つと小銭入れ付き。イスタンブールで手作り。",
+    sampleProductDescription: "本革二つ折り財布、クロム鞣し、カードスロット4つとコインポケット。伝統的な皮革工芸技法で手作り。",
     quantityLabel: "数量",
     quantityPlaceholder: "例: 50",
     unitLabel: "単位",

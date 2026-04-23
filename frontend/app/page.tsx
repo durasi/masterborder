@@ -48,7 +48,7 @@ export default function HomePage() {
   const [productName, setProductName] = useState("");
   const [productDescription, setProductDescription] = useState("");
   const [category, setCategory] = useState("");
-  const [originCountry, setOriginCountry] = useState<CountryCode>("TR");
+  const [originCountry, setOriginCountry] = useState<CountryCode>("US");
   const [estimatedValue, setEstimatedValue] = useState<string>("");
   const [quantity, setQuantity] = useState<string>("");
   const [unit, setUnit] = useState<string>("pieces");
@@ -238,8 +238,8 @@ export default function HomePage() {
     setEstimatedValue("25");
     setQuantity("50");
     setUnit("pieces");
-    setOriginCountry("TR");
-    setSelectedCountries(new Set(["US", "DE", "GB"]));
+    setOriginCountry("US");
+    setSelectedCountries(new Set(["DE", "GB"]));
     setIncludeRouteRisk(true);
     setError(null);
   }

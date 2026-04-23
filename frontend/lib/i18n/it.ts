@@ -28,7 +28,7 @@ export const it: Translations = {
     trySample: "Prova campione",
     seeExample: "Vedi esempio",
     sampleProductName: "Portafoglio in Pelle",
-    sampleProductDescription: "Portafoglio in vera pelle bovina, conciato al cromo, 4 slot per carte e taschino per monete. Fatto a mano a Istanbul.",
+    sampleProductDescription: "Portafoglio bifold in vera pelle bovina, conciato al cromo, 4 scomparti per carte e tasca per monete. Realizzato a mano con tecniche tradizionali di lavorazione della pelle.",
     quantityLabel: "Quantità",
     quantityPlaceholder: "es. 50",
     unitLabel: "Unità",

@@ -28,7 +28,7 @@ export const pt: Translations = {
     trySample: "Testar amostra",
     seeExample: "Ver exemplo",
     sampleProductName: "Carteira de Couro",
-    sampleProductDescription: "Carteira de couro bovino genuíno, curtido ao cromo, 4 compartimentos para cartões e porta-moedas. Feita à mão em Istambul.",
+    sampleProductDescription: "Carteira dobrável de couro bovino genuíno, curtido ao cromo, 4 compartimentos para cartões e bolso para moedas. Feita à mão com técnicas tradicionais de couro.",
     quantityLabel: "Quantidade",
     quantityPlaceholder: "ex. 50",
     unitLabel: "Unidade",

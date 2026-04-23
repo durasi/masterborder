@@ -33,7 +33,7 @@ export const tr: Translations = {
     trySample: "Örneği dene",
     seeExample: "Örneği görüntüle",
     sampleProductName: "Deri Cüzdan",
-    sampleProductDescription: "Gerçek dana derisi cüzdan, krom tabaklı, 4 kart yuvası ve bozuk para cebi. İstanbul'da el yapımı.",
+    sampleProductDescription: "Gerçek dana derisi iki katlı cüzdan, krom tabaklanmış, 4 kart yuvası ve bozuk para cebi. Geleneksel deri işçiliği teknikleriyle el yapımı.",
     quantityLabel: "Miktar",
     quantityPlaceholder: "örn. 50",
     unitLabel: "Birim",

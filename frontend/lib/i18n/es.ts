@@ -28,7 +28,7 @@ export const es: Translations = {
     trySample: "Probar muestra",
     seeExample: "Ver ejemplo",
     sampleProductName: "Billetera de cuero",
-    sampleProductDescription: "Billetera de piel de vacuno genuina, curtida al cromo, 4 ranuras para tarjetas y bolsillo para monedas. Hecha a mano en Estambul.",
+    sampleProductDescription: "Cartera plegable de cuero genuino, curtido al cromo, 4 ranuras para tarjetas y bolsillo para monedas. Hecha a mano con técnicas tradicionales de marroquinería.",
     quantityLabel: "Cantidad",
     quantityPlaceholder: "ej. 50",
     unitLabel: "Unidad",

@@ -28,7 +28,7 @@ export const id: Translations = {
     trySample: "Coba sampel",
     seeExample: "Lihat contoh",
     sampleProductName: "Dompet Kulit",
-    sampleProductDescription: "Dompet kulit sapi asli, disamak krom, 4 slot kartu dan saku koin. Buatan tangan di Istanbul.",
+    sampleProductDescription: "Dompet bifold kulit sapi asli, disamak krom, 4 slot kartu dan saku koin. Dibuat dengan tangan menggunakan teknik tradisional pengerjaan kulit.",
     quantityLabel: "Jumlah",
     quantityPlaceholder: "misal 50",
     unitLabel: "Satuan",
