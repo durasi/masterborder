@@ -1,0 +1,332 @@
+{
+  "job_id": "f563fe8e-faa5-4905-9510-0cfb0638e26f",
+  "created_at": "2026-04-23T11:34:30.174932",
+  "completed_at": "2026-04-23T11:35:44.062353",
+  "request": {
+    "product": {
+      "name": "leather wallet",
+      "description": "Genuine cowhide leather wallet, handcrafted, chrome-tanned, 4 card slots",
+      "category": "accessories",
+      "origin_country": "TR",
+      "estimated_value_usd": 45.0,
+      "quantity": 100.0,
+      "unit": "pieces"
+    },
+    "target_countries": [
+      "US",
+      "DE",
+      "GB",
+      "JP"
+    ],
+    "include_route_risk": true,
+    "preferred_language": "en"
+  },
+  "country_reports": [
+    {
+      "country": "US",
+      "hs_code": "420231",
+      "tariff_rate": 0.08,
+      "findings": [
+        {
+          "category": "tariff",
+          "title": "HTS 4202.31 duty classification",
+          "detail": "Articles of a kind normally carried in the pocket or handbag, with outer surface of leather, fall under HTS 4202.31.60 at 8% MFN duty. On 100 units × $45 = $4,500 entered value, expected duty is approximately $360. Turkey lost GSP benefits in 2019, so no preferential rate applies.",
+          "risk_level": "low",
+          "source_url": "https://hts.usitc.gov/",
+          "citation": "HTSUS 4202.31.6000"
+        },
+        {
+          "category": "origin",
+          "title": "Country of origin marking required",
+          "detail": "Each wallet must be conspicuously and permanently marked 'Made in Turkey' (or 'Made in Türkiye') in English, legible to the ultimate US purchaser. Marking should be on the article itself (e.g., embossed or stitched label inside), not just the packaging, since wallets are not excepted articles.",
+          "risk_level": "medium",
+          "source_url": "https://www.ecfr.gov/current/title-19/chapter-I/part-134",
+          "citation": "19 CFR Part 134; 19 USC 1304"
+        },
+        {
+          "category": "labeling",
+          "title": "FTC leather content disclosure",
+          "detail": "Genuine cowhide must be truthfully described; if any portion (linings, trim) is synthetic or bonded leather it must be disclosed. Misuse of 'genuine leather' on composite materials is an FTC enforcement priority.",
+          "risk_level": "low",
+          "source_url": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-24",
+          "citation": "16 CFR Part 24 (Guides for the Leather Industry)"
+        },
+        {
+          "category": "chemicals",
+          "title": "Chrome-tanning — California Prop 65 exposure",
+          "detail": "Chrome-tanned leather can contain residual hexavalent chromium (Cr VI), a Prop 65 listed carcinogen. If any sales channel reaches California consumers, a clear and reasonable warning is required. Request a Cr VI test report (EN ISO 17075, <3 mg/kg) from the tannery and consider on-product or online Prop 65 warnings.",
+          "risk_level": "medium",
+          "source_url": "https://oehha.ca.gov/proposition-65",
+          "citation": "California Health & Safety Code §25249.6 (Prop 65)"
+        },
+        {
+          "category": "documents",
+          "title": "Entry documentation and bond",
+          "detail": "At $4,500 total value the shipment exceeds the $800 Section 321 de minimis threshold and requires a formal entry (CBP Form 7501) with commercial invoice, packing list, and bill of lading. A customs bond (single-entry or continuous) and a licensed US customs broker are needed. Invoice must state material composition, unit price, and origin.",
+          "risk_level": "low",
+          "source_url": "https://www.cbp.gov/trade/basic-import-export",
+          "citation": "19 CFR 141, 142; 19 USC 1321 (de minimis)"
+        },
+        {
+          "category": "sanctions",
+          "title": "OFAC / BIS screening of Turkish supplier",
+          "detail": "Screen the manufacturer, tannery, and freight forwarder against OFAC SDN, Sectoral Sanctions, and BIS Entity List. Turkey is not sanctioned, but certain Turkish entities have been designated for sanctions evasion (Russia/Iran nexus). Retain screening records for 5 years.",
+          "risk_level": "low",
+          "source_url": "https://sanctionssearch.ofac.treas.gov/",
+          "citation": "31 CFR Chapter V (OFAC); 15 CFR 744 (BIS Entity List)"
+        },
+        {
+          "category": "documents",
+          "title": "CBP inspection channel — likely release from manifest",
+          "detail": "CBP's ACE risk engine analog to Turkey's four-lane system: most low-risk leather goods entries receive 'release from manifest' (≈ yeşil hat). Higher-scrutiny outcomes include a CF-28 Request for Information (≈ sarı hat) or Centralized Exam Station intensive exam with NII X-ray (≈ kırmızı hat). First-time importers and chrome-tanned leather from new suppliers have elevated CF-28 risk — keep tannery certificates and test reports on file. Assignment to a CEE (Apparel, Footwear & Textiles) will handle post-entry questions.",
+          "risk_level": "low",
+          "source_url": "https://www.cbp.gov/trade/centers-excellence-and-expertise-information",
+          "citation": "CBP ACE Cargo Release; 19 CFR 151 (examination)"
+        }
+      ],
+      "overall_risk": "medium",
+      "recommended_actions": [
+        "Classify under HTS 4202.31.6000 and budget ~$360 duty (8% of $4,500) plus MPF (0.3464%, min ~$32) and HMF if sea freight.",
+        "Ensure each wallet is permanently marked 'Made in Turkey' in a conspicuous location per 19 CFR 134.",
+        "Obtain a Cr VI test report (EN ISO 17075) from the tannery and add Prop 65 warnings for California-bound sales.",
+        "Engage a licensed US customs broker; arrange a single-entry or continuous customs bond before arrival.",
+        "Run OFAC SDN, Sectoral, and BIS Entity List screening on the manufacturer, tannery, and Turkish forwarder; document results.",
+        "Prepare commercial invoice with full material breakdown (genuine cowhide outer, lining composition), unit price, HS code, and origin.",
+        "Confirm FTC-compliant marketing copy: avoid 'genuine leather' claims for any non-leather components."
+      ]
+    },
+    {
+      "country": "DE",
+      "hs_code": "420231",
+      "tariff_rate": 0.0,
+      "findings": [
+        {
+          "category": "tariff",
+          "title": "Duty-free under EU-Turkey Customs Union",
+          "detail": "Leather wallets (HS 4202.31) from Turkey enter the EU duty-free under the EU-Turkey Customs Union when accompanied by a valid A.TR movement certificate. Without A.TR, MFN duty of 3% applies. Total shipment value ~USD 4,500 exceeds the EU €150 de minimis, so a full import declaration is required.",
+          "risk_level": "low",
+          "source_url": "https://taxation-customs.ec.europa.eu/customs-4/international-affairs/customs-unions/eu-turkey-customs-union_en",
+          "citation": "Decision 1/95 of the EC-Turkey Association Council; A.TR certificate procedure"
+        },
+        {
+          "category": "chemicals",
+          "title": "Chromium VI limit in chrome-tanned leather",
+          "detail": "Chrome-tanned leather articles in contact with skin must not contain Cr(VI) ≥ 3 mg/kg (0.0003% by weight). Request a Cr(VI) test report (ISO 17075) from the tannery, as poorly controlled chrome tanning oxidizes to Cr(VI) over time. Non-compliant goods are refused at EU customs and subject to RAPEX recall.",
+          "risk_level": "high",
+          "source_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02006R1907-20230517",
+          "citation": "REACH Regulation (EC) 1907/2006, Annex XVII, Entry 47"
+        },
+        {
+          "category": "chemicals",
+          "title": "Azo dye and SVHC restrictions",
+          "detail": "Leather dyes must not release any of the 22 listed carcinogenic aromatic amines above 30 mg/kg. Also verify absence of SVHCs above 0.1% w/w (e.g., DMF, phthalates). Retain supplier Declaration of Conformity and test reports for 10 years.",
+          "risk_level": "medium",
+          "source_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02006R1907-20230517",
+          "citation": "REACH Annex XVII, Entry 43 (azo dyes); Art. 33 SVHC communication"
+        },
+        {
+          "category": "documents",
+          "title": "Required import documentation",
+          "detail": "Prepare: commercial invoice, packing list, A.TR movement certificate (stamped by Turkish customs), CMR/airway bill, and EU import declaration via customs broker in Germany. Without A.TR, claim origin via supplier declaration cannot replace it for industrial goods under the Customs Union.",
+          "risk_level": "low",
+          "source_url": "https://www.zoll.de/EN/Businesses/Movement-of-goods/Import/Duties-and-taxes/Preferences/preferences_node.html",
+          "citation": "EU-Turkey Customs Union, A.TR requirements; UCC (EU) 952/2013"
+        },
+        {
+          "category": "labeling",
+          "title": "German VerpackG packaging registration",
+          "detail": "Any packaging (box, polybag, filler) accompanying the wallets into Germany triggers registration obligations under the German Packaging Act (VerpackG). Importer must register with LUCID (ZSVR) and contract a dual system before first shipment — fines up to €200,000 per violation.",
+          "risk_level": "medium",
+          "source_url": "https://www.verpackungsregister.org/en",
+          "citation": "Verpackungsgesetz (VerpackG), §§ 7, 9"
+        },
+        {
+          "category": "labeling",
+          "title": "Origin marking and material labeling",
+          "detail": "Mark 'Made in Turkey' clearly and durably. For leather goods, indicate material composition (e.g., 'Genuine leather / Echtes Leder') per German consumer expectations; pictogram labeling under Commission Decision 94/11/EC is mandatory for footwear but recommended best practice for wallets.",
+          "risk_level": "low",
+          "source_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:31994D0011",
+          "citation": "Commission Decision 94/11/EC; UCC origin rules"
+        },
+        {
+          "category": "origin",
+          "title": "EU customs risk channel (red/orange/yellow/green)",
+          "detail": "German customs (Zoll) applies the EU Risk Management Framework: green (automated release, AEO-C/F), yellow (documentary check), orange (targeted doc + intel), red (full physical exam). First-time Turkish leather importers without AEO typically route yellow/orange — expect A.TR and REACH compliance scrutiny. Equivalent to Turkey's sarı/kırmızı hat. Use a licensed customs broker (e.g., at Hamburg, Frankfurt, or road crossings via Bulgaria).",
+          "risk_level": "low",
+          "source_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32013R0952",
+          "citation": "Union Customs Code (EU) 952/2013, Art. 46 (risk management)"
+        },
+        {
+          "category": "sanctions",
+          "title": "Sanctions screening clear",
+          "detail": "Turkey is not subject to EU sanctions. Standard denied-party screening of the Turkish exporter/manufacturer against the EU Consolidated List is still required as due diligence.",
+          "risk_level": "low",
+          "source_url": "https://www.sanctionsmap.eu/",
+          "citation": "EU Consolidated Financial Sanctions List"
+        }
+      ],
+      "overall_risk": "high",
+      "recommended_actions": [
+        "Obtain ISO 17075 test report confirming Cr(VI) < 3 mg/kg before shipment",
+        "Secure a valid, stamped A.TR movement certificate from the Turkish exporter to claim 0% duty",
+        "Register with LUCID (ZSVR) and contract a dual system under VerpackG before goods enter Germany",
+        "Request supplier Declaration of Conformity covering REACH Annex XVII (azo dyes, Cr VI, SVHCs)",
+        "Engage a German customs broker; file import declaration via ATLAS since value > €150 de minimis",
+        "Screen the Turkish manufacturer/exporter against the EU Consolidated Sanctions List",
+        "Apply durable 'Made in Turkey' marking and retain compliance file (tests, A.TR, invoices) for 10 years"
+      ]
+    },
+    {
+      "country": "GB",
+      "hs_code": "420231",
+      "tariff_rate": 0.0,
+      "findings": [
+        {
+          "category": "tariff",
+          "title": "0% preferential duty under UK-Turkey FTA",
+          "detail": "Leather wallets with outer surface of leather classify under HS 4202.31. Under the UK-Turkey Free Trade Agreement (2021), originating Turkish leather goods benefit from a 0% preferential tariff versus the MFN rate of 3%. Total shipment value is USD 4,500 — duty savings ~USD 135 if EUR.1 or origin declaration is presented.",
+          "risk_level": "low",
+          "source_url": "https://www.trade-tariff.service.gov.uk/commodities/4202310000",
+          "citation": "UK-Turkey FTA (2021), HS 4202.31; UK Global Tariff"
+        },
+        {
+          "category": "origin",
+          "title": "EUR.1 movement certificate required for preference",
+          "detail": "To claim 0% duty, the Turkish exporter must issue a EUR.1 certificate stamped by Turkish customs, or an origin declaration on invoice if an approved exporter. Wholly obtained/sufficiently worked rules require leather tanning/manufacturing to occur in Turkey — chrome-tanned handcrafted production meets this if raw hides are Turkish or meet the change-of-tariff-heading rule.",
+          "risk_level": "medium",
+          "source_url": "https://www.gov.uk/guidance/trading-with-turkey",
+          "citation": "UK-Turkey FTA, Protocol on Rules of Origin, Art. 16-17"
+        },
+        {
+          "category": "chemicals",
+          "title": "UK REACH — Chromium VI limit in leather articles",
+          "detail": "Chrome-tanned leather in direct/prolonged skin contact (wallets qualify) must not contain Chromium VI ≥ 3 mg/kg of dry leather weight. Request a Cr(VI) test report (EN ISO 17075) from the Turkish tannery. Non-compliance triggers product withdrawal under UK REACH enforcement.",
+          "risk_level": "high",
+          "source_url": "https://www.hse.gov.uk/reach/restrictions.htm",
+          "citation": "UK REACH Regulation, Annex XVII, Entry 47 (Chromium VI in leather)"
+        },
+        {
+          "category": "labeling",
+          "title": "Leather composition labeling & country of origin",
+          "detail": "Under Consumer Protection from Unfair Trading Regulations 2008, material claims ('genuine cowhide', 'handcrafted') must be accurate and substantiated. 'Made in Turkey' country-of-origin marking is required for retail sale. UKCA marking does NOT apply to leather wallets (non-regulated product).",
+          "risk_level": "low",
+          "source_url": "https://www.legislation.gov.uk/uksi/2008/1277/contents",
+          "citation": "Consumer Protection from Unfair Trading Regulations 2008, Reg. 5"
+        },
+        {
+          "category": "documents",
+          "title": "BTOM Customs Declaration Service (CDS) entry",
+          "detail": "Commercial invoice, packing list, EUR.1, transport document (CMR/AWB), and CDS import declaration required. Shipment value USD 4,500 exceeds the £135 low-value consignment threshold, so import VAT (20%, ~£720) is payable at the border unless postponed VAT accounting (PVA) is used by a VAT-registered importer.",
+          "risk_level": "low",
+          "source_url": "https://www.gov.uk/government/publications/the-border-target-operating-model-august-2023",
+          "citation": "Border Target Operating Model (BTOM); CDS Tariff Vol. 3"
+        },
+        {
+          "category": "documents",
+          "title": "HMRC risk routing — expect Route 6 automated or Route 2 documentary",
+          "detail": "Leather accessories from Turkey are low-risk goods. Most shipments clear via Route 6 (automated release, analog to Turkey's Yeşil hat). Occasional Route 2 (documentary, analog to Sarı hat) checks verify EUR.1 authenticity. Route 1 physical inspection (Kırmızı hat equivalent) is rare for this commodity unless consignor is flagged.",
+          "risk_level": "low",
+          "source_url": "https://www.gov.uk/guidance/check-when-you-need-a-customs-declaration",
+          "citation": "HMRC CDS Risk Routing; UCC-aligned risk framework"
+        },
+        {
+          "category": "sanctions",
+          "title": "OFSI screening — low but mandatory",
+          "detail": "Screen the Turkish exporter and its beneficial owners against the UK Sanctions List (OFSI consolidated list). No sector-wide sanctions apply to Turkish leather goods, but individual entity checks are mandatory under the Sanctions and Anti-Money Laundering Act 2018.",
+          "risk_level": "low",
+          "source_url": "https://www.gov.uk/government/publications/the-uk-sanctions-list",
+          "citation": "Sanctions and Anti-Money Laundering Act 2018; OFSI Consolidated List"
+        }
+      ],
+      "overall_risk": "high",
+      "recommended_actions": [
+        "Obtain Cr(VI) test report (EN ISO 17075) from the Turkish tannery showing < 3 mg/kg — this is the single highest compliance risk.",
+        "Secure EUR.1 movement certificate from Turkish customs at export, or confirm exporter is an approved exporter for invoice declarations, to claim 0% duty.",
+        "Register with HMRC for a GB EORI number and, if VAT-registered, enable Postponed VAT Accounting to avoid £720 upfront VAT cash outlay.",
+        "Ensure each wallet is marked 'Made in Turkey' in a permanent and conspicuous manner for UK retail compliance.",
+        "Screen exporter against the OFSI UK Sanctions List before payment and shipment.",
+        "Prepare full CDS import pack: commercial invoice, packing list, EUR.1, CMR/AWB, and chemical test certificate.",
+        "Engage a UK customs broker/freight forwarder to file the CDS declaration under commodity code 4202.31.00.00."
+      ]
+    },
+    {
+      "country": "JP",
+      "hs_code": "420231",
+      "tariff_rate": 0.09,
+      "findings": [
+        {
+          "category": "tariff",
+          "title": "MFN tariff applies — no Japan-Turkey EPA in force",
+          "detail": "Leather wallets with outer surface of leather classify under HS 4202.31. Japan's MFN rate is 9%. No preferential rate applies since the Japan-Turkey EPA remains under negotiation. Total duty on this shipment (100 × USD 45 = USD 4,500) is approximately USD 405 plus 10% consumption tax on CIF+duty.",
+          "risk_level": "low",
+          "source_url": "https://www.customs.go.jp/english/tariff/2024_4/index.htm",
+          "citation": "Japan Customs Tariff Schedule 2024, HS 4202.31"
+        },
+        {
+          "category": "chemicals",
+          "title": "Chrome tanning — Cr(VI) residual limits",
+          "detail": "Chrome-tanned leather goods in direct skin contact are subject to scrutiny under the Act on Control of Household Products Containing Harmful Substances. Hexavalent chromium (Cr VI) must be below detection limits. Request a Cr(VI) test report (EN ISO 17075) from the tannery before shipment.",
+          "risk_level": "medium",
+          "source_url": "https://www.mhlw.go.jp/english/policy/health/health/index.html",
+          "citation": "Act on Control of Household Products Containing Harmful Substances (Act No. 112 of 1973)"
+        },
+        {
+          "category": "labeling",
+          "title": "Japanese-language quality labeling required",
+          "detail": "Under the Household Goods Quality Labeling Act, leather wallets sold at retail must bear a Japanese-language label indicating material composition (e.g., 牛革 for cowhide), care instructions, and the name/address of the importer or seller. Labels must be affixed before retail distribution; the importer is legally responsible.",
+          "risk_level": "medium",
+          "source_url": "https://www.caa.go.jp/en/policy/representation/quality/",
+          "citation": "Household Goods Quality Labeling Act (Act No. 104 of 1962)"
+        },
+        {
+          "category": "documents",
+          "title": "Standard import documentation set",
+          "detail": "Required: commercial invoice, packing list, B/L or AWB, and Certificate of Origin (Form A no longer required absent preference). Declare CIF value in JPY on the import declaration (form C-5020). Shipment value (~USD 4,500) exceeds the ¥200,000 simplified-declaration threshold, so a full import declaration is mandatory.",
+          "risk_level": "low",
+          "source_url": "https://www.customs.go.jp/english/summary/import.htm",
+          "citation": "Customs Law Article 67; Customs Tariff Law"
+        },
+        {
+          "category": "origin",
+          "title": "CITES check — confirm cowhide only, no exotic inserts",
+          "detail": "Domestic cowhide (Bos taurus) is not CITES-listed, so no CITES permit is required. However, if any trim, lining, or accent uses reptile, crocodile, or other protected species, a CITES export permit from Turkey and import permit from METI are mandatory. Confirm with supplier in writing.",
+          "risk_level": "low",
+          "source_url": "https://www.meti.go.jp/policy/external_economy/trade_control/02_exandim/06_washington/",
+          "citation": "Washington Convention (CITES) / Foreign Exchange and Foreign Trade Act"
+        },
+        {
+          "category": "documents",
+          "title": "Japan customs clearance lane (NACCS)",
+          "detail": "Via NACCS, this shipment will likely be routed to Category 2 (NAK — documentary exam, equivalent to Turkey's Sarı hat) on first imports from a new Turkish supplier. Repeat shipments with clean history may shift to Category 1 (IDE — immediate release, equivalent to Yeşil hat). Physical inspection (KEN / Kırmızı hat) is unlikely for low-risk accessories but possible if Cr(VI) documentation is missing.",
+          "risk_level": "low",
+          "source_url": "https://www.customs.go.jp/english/",
+          "citation": "Customs Law Article 67-3; NACCS operating procedures"
+        },
+        {
+          "category": "tariff",
+          "title": "Consumption tax at import",
+          "detail": "10% Japan Consumption Tax (JCT) is levied at import on (CIF value + customs duty). For this shipment, approximate JCT = 10% × (USD 4,500 + USD 405) ≈ USD 490. The importer of record pays JCT at clearance and may reclaim it if registered as a JCT taxable business.",
+          "risk_level": "low",
+          "source_url": "https://www.customs.go.jp/english/summary/tariff.htm",
+          "citation": "Consumption Tax Act Article 4(2)"
+        }
+      ],
+      "overall_risk": "medium",
+      "recommended_actions": [
+        "Obtain Cr(VI) test report (EN ISO 17075) from the Turkish tannery before shipment departs.",
+        "Prepare Japanese-language quality labels (material 牛革, care instructions, importer name/address) to affix before retail sale.",
+        "Confirm in writing with supplier that the wallet contains no CITES-listed species (reptile trim, exotic leather inserts).",
+        "Budget approximately USD 405 in customs duty and USD 490 in consumption tax (total ~USD 895) on top of landed cost.",
+        "File a full import declaration (C-5020) via NACCS — value exceeds ¥200,000 simplified threshold.",
+        "Engage a licensed Japanese customs broker (通関業者) for first shipments to minimize routing to KEN inspection lane.",
+        "Retain all documents for 7 years per Customs Law record-keeping requirements."
+      ]
+    }
+  ],
+  "summary": "# MasterBorder Trade Solution — Turkish Leather Wallet (HS 4202.31)\nShipment: 100 units × $45 = $4,500 FOB, origin Türkiye\n\n## 1. Compliance Synthesis\n\n**Shared across all markets (do once):**\n- Permanent \"Made in Turkey\" marking on each wallet (embossed/stitched)\n- Cr(VI) test report per EN ISO 17075 (<3 mg/kg) — single most important document\n- Commercial invoice with full material breakdown, packing list, HS 4202.31\n- OFAC / EU / OFSI sanctions screening of tannery + forwarder\n- Written supplier confirmation: no CITES-listed trim (reptile, croc)\n\n**Divergent / gating requirements:**\n| Market | BLOCKER if missing | Cost/risk item |\n|---|---|---|\n| **US** | Cr(VI) report for CA (Prop 65), customs bond, broker | 8% duty + MPF/HMF; FTC leather claims |\n| **DE** | A.TR certificate (else 3% duty); LUCID/VerpackG registration | REACH Cr(VI) hard limit; RAPEX recall risk |\n| **GB** | EUR.1 (else 3% duty); GB EORI | UK REACH Cr(VI); 20% import VAT unless PVA |\n| **JP** | Japanese-language quality label (牛革) | 9% duty + 10% JCT (~USD 895 combined) |\n\n## 2. Route Selection (April 2026 reality)\n\nRussian airspace closed, Red Sea/Suez under Houthi threat (Cape reroute +14 days), Hormuz insurance premium elevated. Turkey is EU-adjacent, so **TIR road via Kapıkule–Halkalı is live and fast** for EU/UK.\n\n| Dest | PRIMARY | Transit | Cost band | BACKUP |\n|---|---|---|---|---|\n| **DE** | TIR truck İstanbul→Hamburg via Kapıkule | 6–8 days | $$ | Rail (Halkalı–Duisburg), 10–12 d |\n| **GB** | TIR truck + Channel ferry (Dover) | 8–10 days | $$ | Air ex-IST to LHR, 2–3 d, $$$ |\n| **US** | Air cargo IST→JFK/ORD (small, high-value) | 4–7 days | $$$ | Sea IST→NY (no Suez exposure, direct Atlantic), 18–22 d |\n| **JP** | Air cargo IST→NRT via Gulf hub (Hormuz insurance priced in) | 5–7 days | $$$$ | Sea IST→Yokohama via **Cape of Good Hope** (Suez unsafe), 40–45 d |\n\nAt 100 wallets (~25 kg, 1 carton), **air is economically defensible for US/JP**; sea only makes sense if this is a pilot for larger follow-on volumes. UAE/Jebel Ali transit is **not** beneficial here — Turkey has direct lanes to all four markets.\n\n## 3. Document Checklist (per route)\n- **All**: Commercial Invoice, Packing List, Certificate of Origin, Cr(VI) test report, sanctions screening log\n- **DE/GB road/rail**: CMR + A.TR (DE) **or** EUR.1 (GB)\n- **US/JP air**: AWB, CBP 7501 (US) / C-5020 via NACCS (JP), customs bond (US)\n- **DE extra**: LUCID registration number, REACH DoC\n- **JP extra**: Japanese-language retail label, importer name/address\n\n## 4. Weighted Ranking (lower score = easier entry)\n\n| Market | Landed cost | Time-to-market | Risk pts | Weighted (0.40/0.35/0.25) |\n|---|---|---|---|---|\n| **GB** | $4,500 + ~$250 freight + $0 duty + $720 PVA-deferred = **$4,750** | 10 compliance + 9 transit = **19 d** | 7+3+1+1+1+1=**14** | (0.40×0.29) + (0.35×0.29) + (0.25×0.37) = **0.31** |\n| **DE** | $4,500 + ~$250 + $0 duty + VerpackG ~$200 = **$4,950** | 12 + 7 = **19 d** | 7+3+3+1+1+1+1+1=**18** | **0.34** |\n| **US** | $4,500 + ~$600 air + $360 duty + $60 MPF + broker $250 = **$5,770** | 14 + 6 = **20 d** | 3+3+1+1+1+1+1=**11** | **0.41** |\n| **JP** | $4,500 + ~$700 air + $405 duty + $490 JCT + label $150 = **$6,245** | 16 + 6 = **22 d** | 3+3+1+1+1+1+1=**11** | **0.48** |\n\nGB and DE are within 10% — GB wins on lower compliance-file count (no VerpackG/LUCID registration, no dual-system contract) and native-English documentation.\n\n## 5. Concrete First Step → **Start with the United Kingdom**\n\n**Why:** 0% duty under UK-Turkey FTA, no VerpackG/LUCID overhead, UKCA not applicable to wallets, fastest TIR corridor from İstanbul, PVA eliminates the £720 VAT cash drag.\n\n**This week:**\n1. Commission EN ISO 17075 Cr(VI) test at tannery (unlocks GB, DE, US-CA, JP simultaneously).\n2. Instruct Turkish exporter to issue **EUR.1** at export; apply for approved-exporter status for future shipments.\n3. Register GB EORI + enable Postponed VAT Accounting with HMRC.\n4. Engage a UK customs broker for CDS filing under 4202.31.00.00.\n5. Run OFSI + OFAC + EU screening on tannery and forwarder; archive 5–10 years.\n\nValidate in GB, then replicate the compliance file for DE (add LUCID) as market #2.",
+  "token_usage": {
+    "input_tokens": 19604,
+    "output_tokens": 10779,
+    "estimated_cost_usd": 1.1025
+  }
+}

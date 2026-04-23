@@ -26,6 +26,7 @@ export const es: Translations = {
     cardTitle: "Analizar un producto",
     cardDescription: "Introduce los detalles de tu producto y elige mercados objetivo, o prueba una muestra.",
     trySample: "Probar muestra",
+    seeExample: "Ver ejemplo",
     sampleProductName: "Billetera de cuero",
     sampleProductDescription: "Billetera de piel de vacuno genuina, curtida al cromo, 4 ranuras para tarjetas y bolsillo para monedas. Hecha a mano en Estambul.",
     quantityLabel: "Cantidad",
@@ -166,6 +167,13 @@ export const es: Translations = {
     waiting: "esperando agentes",
     synthesizing: "sintetizando resumen…",
     done: "listo",
+  },
+  example: {
+    bannerTitle: "Este es un análisis de ejemplo precomputado",
+    bannerBody: "Salida real de Opus 4.7 de una ejecución en vivo — congelada aquí para que vea el producto sin gastar créditos de API.",
+    ctaRunYourOwn: "Ejecuta el tuyo",
+    deepDiveDisabled: "El análisis profundo está deshabilitado en los ejemplos — ejecute su propio análisis para chatear con el agente.",
+    footerNote: "Análisis de ejemplo — precomputado. Ejecute su propio análisis desde la página de inicio para obtener un informe actualizado.",
   },
 
 };

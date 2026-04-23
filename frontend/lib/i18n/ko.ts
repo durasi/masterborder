@@ -26,6 +26,7 @@ export const ko: Translations = {
     cardTitle: "제품 분석",
     cardDescription: "제품 세부 정보를 입력하고 대상 시장을 선택하거나 샘플을 시도해 보세요.",
     trySample: "샘플 시도",
+    seeExample: "예제 보기",
     sampleProductName: "가죽 지갑",
     sampleProductDescription: "정품 소가죽 반지갑, 크롬 무두질, 4개의 카드 슬롯과 동전 주머니. 이스탄불에서 수제 제작.",
     quantityLabel: "수량",
@@ -166,6 +167,13 @@ export const ko: Translations = {
     waiting: "에이전트 대기 중",
     synthesizing: "요약 생성 중…",
     done: "완료",
+  },
+  example: {
+    bannerTitle: "이것은 미리 계산된 예제 분석입니다",
+    bannerBody: "실시간 실행의 실제 Opus 4.7 출력 — API 크레딧 소모 없이 제품을 볼 수 있도록 여기에 고정되어 있습니다.",
+    ctaRunYourOwn: "직접 실행하기",
+    deepDiveDisabled: "예제에서는 심층 분석이 비활성화되어 있습니다 — 에이전트와 대화하려면 자체 분석을 실행하세요.",
+    footerNote: "예제 분석 — 미리 계산됨. 최신 보고서를 받으려면 홈페이지에서 자체 분석을 실행하세요.",
   },
 
 };

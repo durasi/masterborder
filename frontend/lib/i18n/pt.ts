@@ -26,6 +26,7 @@ export const pt: Translations = {
     cardTitle: "Analisar um produto",
     cardDescription: "Insira os detalhes do seu produto e escolha mercados-alvo, ou experimente uma amostra.",
     trySample: "Testar amostra",
+    seeExample: "Ver exemplo",
     sampleProductName: "Carteira de Couro",
     sampleProductDescription: "Carteira de couro bovino genuíno, curtido ao cromo, 4 compartimentos para cartões e porta-moedas. Feita à mão em Istambul.",
     quantityLabel: "Quantidade",
@@ -166,6 +167,13 @@ export const pt: Translations = {
     waiting: "aguardando agentes",
     synthesizing: "sintetizando resumo…",
     done: "concluído",
+  },
+  example: {
+    bannerTitle: "Esta é uma análise de exemplo pré-computada",
+    bannerBody: "Saída real do Opus 4.7 de uma execução ao vivo — congelada aqui para você ver o produto sem gastar créditos de API.",
+    ctaRunYourOwn: "Execute a sua",
+    deepDiveDisabled: "A análise profunda está desativada em exemplos — execute sua própria análise para conversar com o agente.",
+    footerNote: "Análise de exemplo — pré-computada. Execute sua própria análise na página inicial para obter um relatório atualizado.",
   },
 
 };

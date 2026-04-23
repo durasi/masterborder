@@ -31,6 +31,7 @@ export const en = {
     cardDescription:
       "Enter your product details and pick target markets, or try a sample to see what the output looks like.",
     trySample: "Try sample",
+    seeExample: "See example",
     sampleProductName: "Leather Wallet",
     sampleProductDescription: "Genuine cowhide bifold wallet, chrome-tanned, 4 card slots and coin pocket. Handcrafted in Istanbul.",
     quantityLabel: "Quantity",
@@ -177,6 +178,14 @@ export const en = {
     done: "done",
   },
 
+  example: {
+    bannerTitle: "This is a pre-computed example analysis",
+    bannerBody: "Real Opus 4.7 output from a live run — frozen here so you can see the product without burning API credits.",
+    ctaRunYourOwn: "Run your own",
+    deepDiveDisabled: "Deep-dive is disabled on examples — run your own analysis to chat with the agent.",
+    footerNote: "Example analysis — pre-computed. Run your own from the home page to get a fresh, up-to-the-minute report.",
+  },
+
 };
 
 export type Translations = {
@@ -202,6 +211,7 @@ export type Translations = {
     cardTitle: string;
     cardDescription: string;
     trySample: string;
+    seeExample: string;
     sampleProductName: string;
     sampleProductDescription: string;
     quantityLabel: string;
@@ -337,6 +347,14 @@ export type Translations = {
     waiting: string;
     synthesizing: string;
     done: string;
+  };
+
+  example: {
+    bannerTitle: string;
+    bannerBody: string;
+    ctaRunYourOwn: string;
+    deepDiveDisabled: string;
+    footerNote: string;
   };
 
 };

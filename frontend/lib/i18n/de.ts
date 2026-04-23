@@ -26,6 +26,7 @@ export const de: Translations = {
     cardTitle: "Produkt analysieren",
     cardDescription: "Produktdaten eingeben und Zielmärkte wählen oder ein Beispiel ausprobieren.",
     trySample: "Beispiel laden",
+    seeExample: "Beispiel ansehen",
     sampleProductName: "Ledergeldbörse",
     sampleProductDescription: "Echte Rindsleder-Geldbörse, chromgegerbt, 4 Kartenfächer und Münzfach. Handgefertigt in Istanbul.",
     quantityLabel: "Menge",
@@ -166,6 +167,13 @@ export const de: Translations = {
     waiting: "warte auf Agenten",
     synthesizing: "Zusammenfassung wird erstellt…",
     done: "fertig",
+  },
+  example: {
+    bannerTitle: "Dies ist eine vorberechnete Beispielanalyse",
+    bannerBody: "Echter Opus 4.7 Output eines Live-Laufs — hier eingefroren, damit Sie das Produkt ohne API-Credit-Verbrauch sehen können.",
+    ctaRunYourOwn: "Eigene Analyse starten",
+    deepDiveDisabled: "Deep-Dive ist bei Beispielen deaktiviert — führen Sie Ihre eigene Analyse aus, um mit dem Agenten zu chatten.",
+    footerNote: "Beispielanalyse — vorberechnet. Führen Sie von der Startseite eine eigene Analyse aus, um einen aktuellen Bericht zu erhalten.",
   },
 
 };

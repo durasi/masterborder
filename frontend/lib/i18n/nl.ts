@@ -26,6 +26,7 @@ export const nl: Translations = {
     cardTitle: "Product analyseren",
     cardDescription: "Voer productgegevens in en kies doelmarkten, of probeer een voorbeeld.",
     trySample: "Probeer voorbeeld",
+    seeExample: "Bekijk voorbeeld",
     sampleProductName: "Leren Portemonnee",
     sampleProductDescription: "Echt rundleren portemonnee, chroomgelooid, 4 kaartvakken en muntenvak. Handgemaakt in Istanbul.",
     quantityLabel: "Hoeveelheid",
@@ -166,6 +167,13 @@ export const nl: Translations = {
     waiting: "wacht op agenten",
     synthesizing: "samenvatting wordt opgesteld…",
     done: "klaar",
+  },
+  example: {
+    bannerTitle: "Dit is een vooraf berekende voorbeeldanalyse",
+    bannerBody: "Echte Opus 4.7-output van een live run — hier bevroren zodat u het product kunt zien zonder API-credits te verbruiken.",
+    ctaRunYourOwn: "Voer je eigen uit",
+    deepDiveDisabled: "Deep-dive is uitgeschakeld voor voorbeelden — voer uw eigen analyse uit om met de agent te chatten.",
+    footerNote: "Voorbeeldanalyse — vooraf berekend. Voer uw eigen analyse uit vanaf de startpagina voor een actueel rapport.",
   },
 
 };

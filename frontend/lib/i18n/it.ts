@@ -26,6 +26,7 @@ export const it: Translations = {
     cardTitle: "Analizza un prodotto",
     cardDescription: "Inserisci i dettagli del prodotto e scegli mercati target, o prova un campione.",
     trySample: "Prova campione",
+    seeExample: "Vedi esempio",
     sampleProductName: "Portafoglio in Pelle",
     sampleProductDescription: "Portafoglio in vera pelle bovina, conciato al cromo, 4 slot per carte e taschino per monete. Fatto a mano a Istanbul.",
     quantityLabel: "Quantità",
@@ -166,6 +167,13 @@ export const it: Translations = {
     waiting: "in attesa degli agenti",
     synthesizing: "sintesi del riepilogo…",
     done: "completato",
+  },
+  example: {
+    bannerTitle: "Questa è un'analisi di esempio pre-calcolata",
+    bannerBody: "Output reale di Opus 4.7 da un'esecuzione live — congelato qui per mostrarti il prodotto senza consumare crediti API.",
+    ctaRunYourOwn: "Esegui la tua",
+    deepDiveDisabled: "L'analisi approfondita è disabilitata negli esempi — esegui la tua analisi per chattare con l'agente.",
+    footerNote: "Analisi di esempio — pre-calcolata. Esegui la tua analisi dalla home page per ottenere un report aggiornato.",
   },
 
 };

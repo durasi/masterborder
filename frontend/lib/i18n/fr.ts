@@ -26,6 +26,7 @@ export const fr: Translations = {
     cardTitle: "Analyser un produit",
     cardDescription: "Saisissez les détails de votre produit et choisissez les marchés cibles, ou essayez un exemple.",
     trySample: "Essayer un exemple",
+    seeExample: "Voir l'exemple",
     sampleProductName: "Portefeuille en cuir",
     sampleProductDescription: "Portefeuille en cuir de vachette véritable, tanné au chrome, 4 emplacements pour cartes et poche à monnaie. Fait main à Istanbul.",
     quantityLabel: "Quantité",
@@ -166,6 +167,13 @@ export const fr: Translations = {
     waiting: "en attente des agents",
     synthesizing: "synthèse du résumé…",
     done: "terminé",
+  },
+  example: {
+    bannerTitle: "Ceci est une analyse d'exemple précalculée",
+    bannerBody: "Sortie réelle d'Opus 4.7 d'une exécution en direct — figée ici pour que vous puissiez voir le produit sans consommer de crédits API.",
+    ctaRunYourOwn: "Lancez la vôtre",
+    deepDiveDisabled: "L'analyse approfondie est désactivée sur les exemples — lancez votre propre analyse pour discuter avec l'agent.",
+    footerNote: "Analyse d'exemple — précalculée. Lancez votre propre analyse depuis la page d'accueil pour obtenir un rapport à jour.",
   },
 
 };

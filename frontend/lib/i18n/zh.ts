@@ -26,6 +26,7 @@ export const zh: Translations = {
     cardTitle: "分析产品",
     cardDescription: "输入产品详情并选择目标市场,或尝试样品查看输出效果。",
     trySample: "尝试样品",
+    seeExample: "查看示例",
     sampleProductName: "皮革钱包",
     sampleProductDescription: "真正的牛皮双折钱包,铬鞣,4个卡槽和硬币袋。伊斯坦布尔手工制作。",
     quantityLabel: "数量",
@@ -166,6 +167,13 @@ export const zh: Translations = {
     waiting: "等待代理中",
     synthesizing: "正在生成执行摘要…",
     done: "完成",
+  },
+  example: {
+    bannerTitle: "这是一个预先计算的示例分析",
+    bannerBody: "来自实时运行的真实 Opus 4.7 输出 — 在此冻结,让您在不消耗 API 额度的情况下查看产品。",
+    ctaRunYourOwn: "运行您自己的",
+    deepDiveDisabled: "示例中已禁用深入分析 — 运行您自己的分析以与代理对话。",
+    footerNote: "示例分析 — 预先计算。从首页运行您自己的分析以获取最新报告。",
   },
 
 };

@@ -31,6 +31,7 @@ export const tr: Translations = {
     cardDescription:
       "Ürün bilgilerini gir ve hedef pazarları seç, veya çıktının nasıl göründüğünü görmek için örneği dene.",
     trySample: "Örneği dene",
+    seeExample: "Örneği görüntüle",
     sampleProductName: "Deri Cüzdan",
     sampleProductDescription: "Gerçek dana derisi cüzdan, krom tabaklı, 4 kart yuvası ve bozuk para cebi. İstanbul'da el yapımı.",
     quantityLabel: "Miktar",
@@ -175,6 +176,13 @@ export const tr: Translations = {
     waiting: "agent'lar bekleniyor",
     synthesizing: "özet hazırlanıyor…",
     done: "tamam",
+  },
+  example: {
+    bannerTitle: "Bu, önceden hazırlanmış bir örnek analizdir",
+    bannerBody: "Canlı bir analizin gerçek Opus 4.7 çıktısı — ürünü görmeniz için dondurulmuş halde, API kredisi harcanmaz.",
+    ctaRunYourOwn: "Kendi analizini çalıştır",
+    deepDiveDisabled: "Derin analiz örneklerde devre dışı — agent ile sohbet etmek için kendi analizini çalıştır.",
+    footerNote: "Örnek analiz — önceden hazırlanmış. Güncel bir rapor için ana sayfadan kendi analizinizi çalıştırın.",
   },
 
 };

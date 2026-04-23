@@ -26,6 +26,7 @@ export const pl: Translations = {
     cardTitle: "Analiza produktu",
     cardDescription: "Wprowadź dane produktu i wybierz rynki docelowe lub wypróbuj próbkę.",
     trySample: "Wypróbuj próbkę",
+    seeExample: "Zobacz przykład",
     sampleProductName: "Skórzany Portfel",
     sampleProductDescription: "Prawdziwy skórzany portfel, garbowany chromem, 4 przegródki na karty i kieszeń na monety. Ręcznie robiony w Stambule.",
     quantityLabel: "Ilość",
@@ -166,6 +167,13 @@ export const pl: Translations = {
     waiting: "oczekiwanie na agentów",
     synthesizing: "tworzenie podsumowania…",
     done: "gotowe",
+  },
+  example: {
+    bannerTitle: "To jest wstępnie obliczona przykładowa analiza",
+    bannerBody: "Rzeczywisty wynik Opus 4.7 z uruchomienia na żywo — zamrożony tutaj, abyś mógł zobaczyć produkt bez zużywania kredytów API.",
+    ctaRunYourOwn: "Uruchom własną",
+    deepDiveDisabled: "Szczegółowa analiza jest wyłączona dla przykładów — uruchom własną analizę, aby porozmawiać z agentem.",
+    footerNote: "Analiza przykładowa — wstępnie obliczona. Uruchom własną analizę ze strony głównej, aby uzyskać aktualny raport.",
   },
 
 };

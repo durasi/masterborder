@@ -26,6 +26,7 @@ export const id: Translations = {
     cardTitle: "Analisis produk",
     cardDescription: "Masukkan detail produk dan pilih pasar target, atau coba sampel.",
     trySample: "Coba sampel",
+    seeExample: "Lihat contoh",
     sampleProductName: "Dompet Kulit",
     sampleProductDescription: "Dompet kulit sapi asli, disamak krom, 4 slot kartu dan saku koin. Buatan tangan di Istanbul.",
     quantityLabel: "Jumlah",
@@ -166,6 +167,13 @@ export const id: Translations = {
     waiting: "menunggu agen",
     synthesizing: "menyusun ringkasan eksekutif…",
     done: "selesai",
+  },
+  example: {
+    bannerTitle: "Ini adalah analisis contoh yang sudah dihitung sebelumnya",
+    bannerBody: "Output Opus 4.7 asli dari run langsung — dibekukan di sini agar Anda dapat melihat produk tanpa menghabiskan kredit API.",
+    ctaRunYourOwn: "Jalankan milik Anda",
+    deepDiveDisabled: "Analisis mendalam dinonaktifkan pada contoh — jalankan analisis Anda sendiri untuk mengobrol dengan agen.",
+    footerNote: "Analisis contoh — sudah dihitung. Jalankan analisis Anda sendiri dari beranda untuk mendapatkan laporan terkini.",
   },
 
 };

@@ -26,6 +26,7 @@ export const ja: Translations = {
     cardTitle: "製品を分析",
     cardDescription: "製品の詳細を入力してターゲット市場を選ぶか、サンプルで出力を確認してください。",
     trySample: "サンプルを試す",
+    seeExample: "サンプルを見る",
     sampleProductName: "レザーウォレット",
     sampleProductDescription: "本物の牛革二つ折り財布、クロームなめし、カードスロット4つと小銭入れ付き。イスタンブールで手作り。",
     quantityLabel: "数量",
@@ -166,6 +167,13 @@ export const ja: Translations = {
     waiting: "エージェントを待機中",
     synthesizing: "エグゼクティブ・サマリー生成中…",
     done: "完了",
+  },
+  example: {
+    bannerTitle: "これは事前計算済みのサンプル分析です",
+    bannerBody: "ライブ実行の実際の Opus 4.7 出力 — API クレジットを消費せずに製品を確認できるようここで固定されています。",
+    ctaRunYourOwn: "自分で実行",
+    deepDiveDisabled: "サンプルではディープダイブは無効です — エージェントとチャットするには独自の分析を実行してください。",
+    footerNote: "サンプル分析 — 事前計算済み。最新のレポートを取得するには、ホームページから独自の分析を実行してください。",
   },
 
 };

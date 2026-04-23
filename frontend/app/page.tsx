@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
 
@@ -317,16 +318,32 @@ export default function HomePage() {
                   {t.form.cardDescription}
                 </CardDescription>
               </div>
-              <Button
-                type="button"
-                variant="outline"
-                size="sm"
-                onClick={fillSampleProduct}
-                disabled={loading}
-                className="shrink-0"
-              >
-                {t.form.trySample}
-              </Button>
+              <div className="flex gap-2 shrink-0">
+                <Link
+                  href="/examples/leather-wallet-tr-to-us-de-uk-jp"
+                  tabIndex={loading ? -1 : 0}
+                  aria-disabled={loading}
+                >
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    disabled={loading}
+                    className="border-blue-500/40 bg-blue-50/50 hover:bg-blue-100/50 dark:bg-blue-950/20 dark:hover:bg-blue-950/40"
+                  >
+                    {t.form.seeExample}
+                  </Button>
+                </Link>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={fillSampleProduct}
+                  disabled={loading}
+                >
+                  {t.form.trySample}
+                </Button>
+              </div>
             </div>
           </CardHeader>
 
