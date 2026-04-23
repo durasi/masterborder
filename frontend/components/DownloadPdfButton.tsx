@@ -21,7 +21,7 @@ interface DownloadPdfButtonProps {
  * lazily so none of them weigh down the initial page bundle.
  */
 export function DownloadPdfButton({ data, filename }: DownloadPdfButtonProps) {
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -59,6 +59,7 @@ export function DownloadPdfButton({ data, filename }: DownloadPdfButtonProps) {
           data={data}
           verifyQrDataUrl={verifyQrDataUrl}
           verifyUrl={verifyUrl}
+          locale={locale}
         />,
       ).toBlob();
 

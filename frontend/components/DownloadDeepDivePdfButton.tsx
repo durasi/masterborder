@@ -28,7 +28,7 @@ export function DownloadDeepDivePdfButton({
   country,
   messages,
 }: DownloadDeepDivePdfButtonProps) {
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -67,6 +67,7 @@ export function DownloadDeepDivePdfButton({
           messages={messages}
           verifyQrDataUrl={verifyQrDataUrl}
           verifyUrl={verifyUrl}
+          locale={locale}
         />,
       ).toBlob();
 

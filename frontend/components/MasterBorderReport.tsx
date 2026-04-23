@@ -61,13 +61,16 @@ const LOGO_URL =
     ? `${window.location.origin}/masterborder-logo.svg`
     : "/masterborder-logo.svg";
 
-const styles = StyleSheet.create({
+type PdfStyles = ReturnType<typeof makeStyles>;
+
+function makeStyles(primaryFont: string) {
+  return StyleSheet.create({
   page: {
     paddingTop: 36,
     paddingHorizontal: 40,
     paddingBottom: 28,
     fontSize: 10,
-    fontFamily: "Noto Sans",
+    fontFamily: primaryFont,
     color: "#0a0a0a",
     lineHeight: 1.45,
   },
@@ -89,14 +92,14 @@ const styles = StyleSheet.create({
   },
   brand: {
     fontSize: 8,
-    fontFamily: "Noto Sans",
+    fontFamily: primaryFont,
     letterSpacing: 0.8,
     color: "#737373",
     marginBottom: 6,
   },
   productName: {
     fontSize: 22,
-    fontFamily: "Noto Sans",
+    fontFamily: primaryFont,
     marginBottom: 8,
     textTransform: "capitalize",
     lineHeight: 1.15,
@@ -113,7 +116,7 @@ const styles = StyleSheet.create({
     lineHeight: 1,
     color: "#737373",
     letterSpacing: 0.8,
-    fontFamily: "Noto Sans",
+    fontFamily: primaryFont,
   },
   reportIdValue: {
     fontSize: 8,
@@ -146,7 +149,7 @@ const styles = StyleSheet.create({
   },
   badgeValue: {
     fontSize: 8,
-    fontFamily: "Noto Sans",
+    fontFamily: primaryFont,
     color: "#0a0a0a",
     textAlign: "center",
     marginBottom: 2,
@@ -162,7 +165,7 @@ const styles = StyleSheet.create({
   // Section headings
   sectionHeading: {
     fontSize: 13,
-    fontFamily: "Noto Sans",
+    fontFamily: primaryFont,
     marginTop: 12,
     marginBottom: 6,
   },
@@ -182,7 +185,7 @@ const styles = StyleSheet.create({
   },
   summaryListHeading: {
     fontSize: 10.5,
-    fontFamily: "Noto Sans",
+    fontFamily: primaryFont,
     marginTop: 8,
     marginBottom: 4,
   },
@@ -204,7 +207,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: "#e5e5e5",
   },
-  countryName: { fontSize: 14, fontFamily: "Noto Sans" },
+  countryName: { fontSize: 14, fontFamily: primaryFont },
   countryMeta: { fontSize: 8, color: "#525252", marginTop: 2 },
   riskPill: {
     paddingHorizontal: 8,
@@ -212,13 +215,13 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 1,
     fontSize: 8,
-    fontFamily: "Noto Sans",
+    fontFamily: primaryFont,
   },
 
   // Findings
   findingsLabel: {
     fontSize: 9,
-    fontFamily: "Noto Sans",
+    fontFamily: primaryFont,
     marginBottom: 4,
     color: "#404040",
   },
@@ -235,27 +238,27 @@ const styles = StyleSheet.create({
   },
   findingTitle: {
     fontSize: 9,
-    fontFamily: "Noto Sans",
+    fontFamily: primaryFont,
     flex: 1,
     paddingRight: 6,
   },
   findingCategory: { fontSize: 7, color: "#737373" },
   findingRisk: {
     fontSize: 7,
-    fontFamily: "Noto Sans",
+    fontFamily: primaryFont,
     letterSpacing: 0.5,
   },
   findingDetail: { fontSize: 8.5, marginTop: 2, color: "#262626" },
   footnoteMarker: {
     fontSize: 7,
-    fontFamily: "Noto Sans",
+    fontFamily: primaryFont,
     color: "#1d4ed8",
   },
 
   // Recommended actions
   actionsLabel: {
     fontSize: 9,
-    fontFamily: "Noto Sans",
+    fontFamily: primaryFont,
     marginTop: 8,
     marginBottom: 4,
     color: "#404040",
@@ -280,7 +283,7 @@ const styles = StyleSheet.create({
   sourcesHeaderLogo: { width: 36, height: 36 },
   sourcesHeaderTitle: {
     fontSize: 16,
-    fontFamily: "Noto Sans",
+    fontFamily: primaryFont,
   },
   sourcesHeaderSubtitle: {
     fontSize: 8,
@@ -305,7 +308,7 @@ const styles = StyleSheet.create({
     top: 1,
     width: 18,
     fontSize: 8,
-    fontFamily: "Noto Sans",
+    fontFamily: primaryFont,
     color: "#1d4ed8",
   },
   sourceContext: {
@@ -315,7 +318,7 @@ const styles = StyleSheet.create({
   },
   sourceCitation: {
     fontSize: 9,
-    fontFamily: "Noto Sans",
+    fontFamily: primaryFont,
     color: "#0a0a0a",
     marginBottom: 1,
   },
@@ -342,7 +345,7 @@ const styles = StyleSheet.create({
   footerLeft: { flex: 1, paddingRight: 8 },
   footerBrand: {
     fontSize: 7,
-    fontFamily: "Noto Sans",
+    fontFamily: primaryFont,
     color: "#404040",
     marginBottom: 1,
   },
@@ -371,7 +374,8 @@ const styles = StyleSheet.create({
     letterSpacing: 0.3,
   },
   qrImage: { width: 44, height: 44 },
-});
+  });
+}
 
 interface Footnote {
   index: number;
@@ -478,13 +482,17 @@ interface Props {
   data: AnalysisResponse;
   verifyQrDataUrl?: string;
   verifyUrl?: string;
+  locale?: string;
 }
 
 export function MasterBorderReport({
   data,
   verifyQrDataUrl,
   verifyUrl,
+  locale = "en",
 }: Props) {
+  const primaryFont = fontFor(locale).regular;
+  const styles = makeStyles(primaryFont);
   const { product, target_countries } = data.request;
   const reportDate = new Date(data.created_at).toLocaleDateString("en-US", {
     year: "numeric",
@@ -571,6 +579,7 @@ export function MasterBorderReport({
               footnoteOf={(i) =>
                 byFindingKey.get(`${firstCountry.country}|${i}`)
               }
+              styles={styles}
             />
           </>
         )}
@@ -579,6 +588,7 @@ export function MasterBorderReport({
             key={report.country}
             report={report}
             footnoteOf={(i) => byFindingKey.get(`${report.country}|${i}`)}
+            styles={styles}
           />
         ))}
 
@@ -587,6 +597,7 @@ export function MasterBorderReport({
           shortId={shortId}
           verifyQrDataUrl={verifyQrDataUrl}
           verifyUrl={verifyUrl}
+          styles={styles}
         />
       </Page>
 
@@ -632,6 +643,7 @@ export function MasterBorderReport({
             shortId={shortId}
             verifyQrDataUrl={verifyQrDataUrl}
             verifyUrl={verifyUrl}
+            styles={styles}
           />
         </Page>
       )}
@@ -643,10 +655,12 @@ function FixedFooter({
   shortId,
   verifyQrDataUrl,
   verifyUrl,
+  styles,
 }: {
   shortId: string;
   verifyQrDataUrl?: string;
   verifyUrl?: string;
+  styles: PdfStyles;
 }) {
   return (
     <View style={styles.footerWrapper} fixed>
@@ -680,9 +694,11 @@ function FixedFooter({
 function CountryCardPdf({
   report,
   footnoteOf,
+  styles,
 }: {
   report: CountryReport;
   footnoteOf: (findingIndex: number) => number | undefined;
+  styles: PdfStyles;
 }) {
   const risk = RISK_COLORS[report.overall_risk];
 
@@ -727,6 +743,7 @@ function CountryCardPdf({
               key={i}
               finding={f}
               footnoteNumber={footnoteOf(i)}
+              styles={styles}
             />
           ))}
         </>
@@ -749,9 +766,11 @@ function CountryCardPdf({
 function FindingPdf({
   finding,
   footnoteNumber,
+  styles,
 }: {
   finding: ComplianceFinding;
   footnoteNumber: number | undefined;
+  styles: PdfStyles;
 }) {
   const risk = RISK_COLORS[finding.risk_level];
   return (

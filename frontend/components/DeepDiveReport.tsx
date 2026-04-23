@@ -45,15 +45,19 @@ interface Props {
   messages: ChatMessage[];
   verifyQrDataUrl?: string;
   verifyUrl?: string;
+  locale?: string;
 }
 
-const styles = StyleSheet.create({
+type PdfStyles = ReturnType<typeof makeStyles>;
+
+function makeStyles(primaryFont: string) {
+  return StyleSheet.create({
   page: {
     paddingTop: 36,
     paddingHorizontal: 40,
     paddingBottom: 28,
     fontSize: 10,
-    fontFamily: "Noto Sans",
+    fontFamily: primaryFont,
     color: "#0a0a0a",
     lineHeight: 1.45,
   },
@@ -69,21 +73,21 @@ const styles = StyleSheet.create({
   headerLeft: { flex: 1, paddingRight: 20, paddingTop: 8 },
   brand: {
     fontSize: 8,
-    fontFamily: "Noto Sans",
+    fontFamily: primaryFont,
     letterSpacing: 0.8,
     color: "#737373",
     marginBottom: 6,
   },
   title: {
     fontSize: 18,
-    fontFamily: "Noto Sans",
+    fontFamily: primaryFont,
     marginBottom: 6,
     lineHeight: 1.2,
   },
   subtitle: {
     fontSize: 10,
     color: "#404040",
-    fontFamily: "Noto Sans",
+    fontFamily: primaryFont,
     marginBottom: 6,
   },
   meta: { fontSize: 9, color: "#525252", lineHeight: 1.5 },
@@ -98,7 +102,7 @@ const styles = StyleSheet.create({
     lineHeight: 1,
     color: "#737373",
     letterSpacing: 0.8,
-    fontFamily: "Noto Sans",
+    fontFamily: primaryFont,
   },
   reportIdValue: {
     fontSize: 8,
@@ -121,7 +125,7 @@ const styles = StyleSheet.create({
   },
   badgeValue: {
     fontSize: 8,
-    fontFamily: "Noto Sans",
+    fontFamily: primaryFont,
     color: "#0a0a0a",
     textAlign: "center",
     marginBottom: 2,
@@ -144,7 +148,7 @@ const styles = StyleSheet.create({
   turnBlock: { marginBottom: 14 },
   turnLabel: {
     fontSize: 8,
-    fontFamily: "Noto Sans",
+    fontFamily: primaryFont,
     letterSpacing: 1,
     marginBottom: 4,
   },
@@ -164,19 +168,19 @@ const styles = StyleSheet.create({
   // Assistant response rendering
   responseHeading1: {
     fontSize: 14,
-    fontFamily: "Noto Sans",
+    fontFamily: primaryFont,
     marginTop: 8,
     marginBottom: 5,
   },
   responseHeading2: {
     fontSize: 12,
-    fontFamily: "Noto Sans",
+    fontFamily: primaryFont,
     marginTop: 6,
     marginBottom: 4,
   },
   responseHeading3: {
     fontSize: 11,
-    fontFamily: "Noto Sans",
+    fontFamily: primaryFont,
     marginTop: 5,
     marginBottom: 3,
   },
@@ -221,7 +225,7 @@ const styles = StyleSheet.create({
   footerLeft: { flex: 1, paddingRight: 8 },
   footerBrand: {
     fontSize: 7,
-    fontFamily: "Noto Sans",
+    fontFamily: primaryFont,
     color: "#404040",
     marginBottom: 1,
   },
@@ -246,6 +250,7 @@ const styles = StyleSheet.create({
   },
   qrImage: { width: 44, height: 44 },
 });
+}
 
 // ─────────────────────────────────────────────────────────────
 // Structured markdown parser (same shape used by the main report)
@@ -326,7 +331,7 @@ function parseMarkdown(markdown: string): Block[] {
   return blocks;
 }
 
-function MarkdownBlocks({ markdown }: { markdown: string }) {
+function MarkdownBlocks({ markdown, styles }: { markdown: string; styles: PdfStyles }) {
   const blocks = parseMarkdown(markdown);
   return (
     <>
@@ -384,7 +389,10 @@ export function DeepDiveReport({
   messages,
   verifyQrDataUrl,
   verifyUrl,
+  locale = "en",
 }: Props) {
+  const primaryFont = fontFor(locale).regular;
+  const styles = makeStyles(primaryFont);
   const { product } = data.request;
   const reportDate = new Date().toLocaleDateString("en-US", {
     year: "numeric",
@@ -447,7 +455,7 @@ export function DeepDiveReport({
                       AGENT RESPONSE
                     </Text>
                   )}
-                  <MarkdownBlocks markdown={msg.content} />
+                  <MarkdownBlocks markdown={msg.content} styles={styles} />
                 </>
               ) : (
                 <>
