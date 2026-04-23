@@ -153,5 +153,19 @@ export const nl: Translations = {
     faster: "sneller",
     disclaimer: "Expediteur-referentie: branchegebruikelijk $500–$2.000 / 5–15 dagen per zending.",
   },
+  telemetry: {
+    headline: "Live agent-telemetrie",
+    elapsed: "Verstreken",
+    progress: "Voortgang",
+    tokensSoFar: "tokens tot nu toe",
+    tokensAbbr: "tokens",
+    queued: "in wachtrij",
+    risk: "Risico",
+    failed: "mislukt",
+    harmonizer: "Harmonizer-agent",
+    waiting: "wacht op agenten",
+    synthesizing: "samenvatting wordt opgesteld…",
+    done: "klaar",
+  },
 
 };

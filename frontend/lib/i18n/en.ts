@@ -162,6 +162,21 @@ export const en = {
     disclaimer: "Broker benchmark: industry-typical $500–$2,000 / 5–15 days per shipment.",
   },
 
+  telemetry: {
+    headline: "Live agent telemetry",
+    elapsed: "Elapsed",
+    progress: "Progress",
+    tokensSoFar: "tokens so far",
+    tokensAbbr: "tokens",
+    queued: "queued",
+    risk: "Risk",
+    failed: "failed",
+    harmonizer: "Harmonizer Agent",
+    waiting: "waiting for agents",
+    synthesizing: "synthesizing executive summary…",
+    done: "done",
+  },
+
 };
 
 export type Translations = {
@@ -307,6 +322,21 @@ export type Translations = {
     lowerCost: string;
     faster: string;
     disclaimer: string;
+  };
+
+  telemetry: {
+    headline: string;
+    elapsed: string;
+    progress: string;
+    tokensSoFar: string;
+    tokensAbbr: string;
+    queued: string;
+    risk: string;
+    failed: string;
+    harmonizer: string;
+    waiting: string;
+    synthesizing: string;
+    done: string;
   };
 
 };

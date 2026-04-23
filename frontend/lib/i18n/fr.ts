@@ -153,5 +153,19 @@ export const fr: Translations = {
     faster: "plus rapide",
     disclaimer: "Référence courtier : fourchette sectorielle de 500 à 2 000 $ / 5 à 15 jours par expédition.",
   },
+  telemetry: {
+    headline: "Télémétrie des agents en direct",
+    elapsed: "Écoulé",
+    progress: "Progression",
+    tokensSoFar: "tokens jusqu'à présent",
+    tokensAbbr: "tokens",
+    queued: "en file d'attente",
+    risk: "Risque",
+    failed: "échec",
+    harmonizer: "Agent Harmonizer",
+    waiting: "en attente des agents",
+    synthesizing: "synthèse du résumé…",
+    done: "terminé",
+  },
 
 };

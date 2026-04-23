@@ -153,5 +153,19 @@ export const zh: Translations = {
     faster: "更快",
     disclaimer: "报关行基准:行业通常每批货物 $500–$2,000 / 5–15 天。",
   },
+  telemetry: {
+    headline: "实时代理遥测",
+    elapsed: "已用时",
+    progress: "进度",
+    tokensSoFar: "目前令牌数",
+    tokensAbbr: "令牌",
+    queued: "排队中",
+    risk: "风险",
+    failed: "失败",
+    harmonizer: "协调代理",
+    waiting: "等待代理中",
+    synthesizing: "正在生成执行摘要…",
+    done: "完成",
+  },
 
 };

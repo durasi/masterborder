@@ -153,5 +153,19 @@ export const pl: Translations = {
     faster: "szybciej",
     disclaimer: "Odniesienie dla agencji: typowy zakres branżowy $500–$2000 / 5–15 dni na przesyłkę.",
   },
+  telemetry: {
+    headline: "Telemetria agentów na żywo",
+    elapsed: "Upłynęło",
+    progress: "Postęp",
+    tokensSoFar: "tokenów do tej pory",
+    tokensAbbr: "tokenów",
+    queued: "w kolejce",
+    risk: "Ryzyko",
+    failed: "niepowodzenie",
+    harmonizer: "Agent Harmonizer",
+    waiting: "oczekiwanie na agentów",
+    synthesizing: "tworzenie podsumowania…",
+    done: "gotowe",
+  },
 
 };

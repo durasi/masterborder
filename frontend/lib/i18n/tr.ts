@@ -162,5 +162,19 @@ export const tr: Translations = {
     faster: "daha hızlı",
     disclaimer: "Müşavir referansı: sevkiyat başına sektörde tipik $500–$2.000 / 5–15 gün.",
   },
+  telemetry: {
+    headline: "Canlı agent telemetrisi",
+    elapsed: "Geçen süre",
+    progress: "İlerleme",
+    tokensSoFar: "token şu ana kadar",
+    tokensAbbr: "token",
+    queued: "sırada",
+    risk: "Risk",
+    failed: "başarısız",
+    harmonizer: "Harmonizer Agent",
+    waiting: "agent'lar bekleniyor",
+    synthesizing: "özet hazırlanıyor…",
+    done: "tamam",
+  },
 
 };

@@ -153,5 +153,19 @@ export const de: Translations = {
     faster: "schneller",
     disclaimer: "Richtwert Zollagent: branchenüblich $500–$2.000 / 5–15 Tage pro Sendung.",
   },
+  telemetry: {
+    headline: "Live-Agent-Telemetrie",
+    elapsed: "Verstrichen",
+    progress: "Fortschritt",
+    tokensSoFar: "Token bisher",
+    tokensAbbr: "Token",
+    queued: "Warteschlange",
+    risk: "Risiko",
+    failed: "fehlgeschlagen",
+    harmonizer: "Harmonizer-Agent",
+    waiting: "warte auf Agenten",
+    synthesizing: "Zusammenfassung wird erstellt…",
+    done: "fertig",
+  },
 
 };

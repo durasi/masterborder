@@ -153,5 +153,19 @@ export const it: Translations = {
     faster: "più veloce",
     disclaimer: "Riferimento spedizioniere: fascia tipica del settore $500–$2.000 / 5–15 giorni per spedizione.",
   },
+  telemetry: {
+    headline: "Telemetria agenti in tempo reale",
+    elapsed: "Trascorso",
+    progress: "Avanzamento",
+    tokensSoFar: "token finora",
+    tokensAbbr: "token",
+    queued: "in coda",
+    risk: "Rischio",
+    failed: "fallito",
+    harmonizer: "Agente Harmonizer",
+    waiting: "in attesa degli agenti",
+    synthesizing: "sintesi del riepilogo…",
+    done: "completato",
+  },
 
 };

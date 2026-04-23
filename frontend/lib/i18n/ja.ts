@@ -153,5 +153,19 @@ export const ja: Translations = {
     faster: "高速",
     disclaimer: "通関業者基準:業界標準で1出荷あたり$500〜$2,000 / 5〜15日。",
   },
+  telemetry: {
+    headline: "ライブ・エージェント・テレメトリ",
+    elapsed: "経過",
+    progress: "進捗",
+    tokensSoFar: "現時点のトークン",
+    tokensAbbr: "トークン",
+    queued: "待機中",
+    risk: "リスク",
+    failed: "失敗",
+    harmonizer: "ハーモナイザー・エージェント",
+    waiting: "エージェントを待機中",
+    synthesizing: "エグゼクティブ・サマリー生成中…",
+    done: "完了",
+  },
 
 };

@@ -153,5 +153,19 @@ export const id: Translations = {
     faster: "lebih cepat",
     disclaimer: "Referensi agen: kisaran industri tipikal $500–$2.000 / 5–15 hari per pengiriman.",
   },
+  telemetry: {
+    headline: "Telemetri agen langsung",
+    elapsed: "Berjalan",
+    progress: "Kemajuan",
+    tokensSoFar: "token sejauh ini",
+    tokensAbbr: "token",
+    queued: "antrean",
+    risk: "Risiko",
+    failed: "gagal",
+    harmonizer: "Agen Harmonizer",
+    waiting: "menunggu agen",
+    synthesizing: "menyusun ringkasan eksekutif…",
+    done: "selesai",
+  },
 
 };

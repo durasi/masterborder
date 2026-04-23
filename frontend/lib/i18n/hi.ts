@@ -153,5 +153,19 @@ export const hi: Translations = {
     faster: "तेज़",
     disclaimer: "ब्रोकर संदर्भ: प्रति शिपमेंट उद्योग मानक $500–$2,000 / 5–15 दिन।",
   },
+  telemetry: {
+    headline: "लाइव एजेंट टेलीमेट्री",
+    elapsed: "बीता समय",
+    progress: "प्रगति",
+    tokensSoFar: "अब तक टोकन",
+    tokensAbbr: "टोकन",
+    queued: "कतार में",
+    risk: "जोखिम",
+    failed: "विफल",
+    harmonizer: "हार्मोनाइज़र एजेंट",
+    waiting: "एजेंटों की प्रतीक्षा",
+    synthesizing: "कार्यकारी सारांश तैयार हो रहा है…",
+    done: "पूर्ण",
+  },
 
 };

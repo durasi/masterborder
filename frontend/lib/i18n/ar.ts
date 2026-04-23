@@ -153,5 +153,19 @@ export const ar: Translations = {
     faster: "أسرع",
     disclaimer: "مرجع الوسيط: النطاق المعتاد في القطاع 500$–2000$ / 5–15 يومًا لكل شحنة.",
   },
+  telemetry: {
+    headline: "القياس عن بُعد المباشر للوكلاء",
+    elapsed: "المنقضي",
+    progress: "التقدم",
+    tokensSoFar: "رمز حتى الآن",
+    tokensAbbr: "رمز",
+    queued: "في قائمة الانتظار",
+    risk: "المخاطر",
+    failed: "فشل",
+    harmonizer: "وكيل التنسيق",
+    waiting: "في انتظار الوكلاء",
+    synthesizing: "تجميع الملخص التنفيذي…",
+    done: "تم",
+  },
 
 };

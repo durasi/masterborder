@@ -153,5 +153,19 @@ export const pt: Translations = {
     faster: "mais rápido",
     disclaimer: "Referência do despachante: faixa típica do setor $500–$2.000 / 5–15 dias por envio.",
   },
+  telemetry: {
+    headline: "Telemetria de agentes ao vivo",
+    elapsed: "Decorrido",
+    progress: "Progresso",
+    tokensSoFar: "tokens até agora",
+    tokensAbbr: "tokens",
+    queued: "na fila",
+    risk: "Risco",
+    failed: "falhou",
+    harmonizer: "Agente Harmonizer",
+    waiting: "aguardando agentes",
+    synthesizing: "sintetizando resumo…",
+    done: "concluído",
+  },
 
 };

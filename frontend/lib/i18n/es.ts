@@ -153,5 +153,19 @@ export const es: Translations = {
     faster: "más rápido",
     disclaimer: "Referencia de agente: típico del sector $500–$2.000 / 5–15 días por envío.",
   },
+  telemetry: {
+    headline: "Telemetría de agentes en vivo",
+    elapsed: "Transcurrido",
+    progress: "Progreso",
+    tokensSoFar: "tokens hasta ahora",
+    tokensAbbr: "tokens",
+    queued: "en cola",
+    risk: "Riesgo",
+    failed: "fallido",
+    harmonizer: "Agente Harmonizer",
+    waiting: "esperando agentes",
+    synthesizing: "sintetizando resumen…",
+    done: "listo",
+  },
 
 };

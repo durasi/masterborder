@@ -153,5 +153,19 @@ export const ru: Translations = {
     faster: "быстрее",
     disclaimer: "Ориентир по брокеру: типичный диапазон $500–$2000 / 5–15 дней на отгрузку.",
   },
+  telemetry: {
+    headline: "Телеметрия агентов в реальном времени",
+    elapsed: "Прошло",
+    progress: "Прогресс",
+    tokensSoFar: "токенов до сих пор",
+    tokensAbbr: "токенов",
+    queued: "в очереди",
+    risk: "Риск",
+    failed: "ошибка",
+    harmonizer: "Агент Harmonizer",
+    waiting: "ожидание агентов",
+    synthesizing: "формирование резюме…",
+    done: "готово",
+  },
 
 };

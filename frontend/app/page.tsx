@@ -24,7 +24,12 @@ import {
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 
-import { api, APIError } from "@/lib/api";
+import { api, APIError, analyzeStream } from "@/lib/api";
+import {
+  AgentTelemetryOverlay,
+  type AgentState,
+  type HarmonizerState,
+} from "@/components/AgentTelemetryOverlay";
 import {
   COUNTRY_LABELS,
   type CountryCode,
@@ -53,6 +58,11 @@ export default function HomePage() {
 
   const [loading, setLoading] = useState(false);
   const [progressStep, setProgressStep] = useState(0);
+  const [streamAgents, setStreamAgents] = useState<AgentState[]>([]);
+  const [streamHarmonizer, setStreamHarmonizer] = useState<HarmonizerState>("idle");
+  const [streamTokens, setStreamTokens] = useState(0);
+  const [streamStartedAt, setStreamStartedAt] = useState<number | null>(null);
+  const [streamElapsedS, setStreamElapsedS] = useState(0);
 
   // Rotate progress messages while analyzing — keeps the user engaged during the ~25-35s wait
   useEffect(() => {
@@ -65,6 +75,19 @@ export default function HomePage() {
     }, 3500);
     return () => clearInterval(interval);
   }, [loading]);
+
+  // Live-ticking total elapsed timer while streaming.
+  useEffect(() => {
+    if (!loading || streamStartedAt === null) {
+      setStreamElapsedS(0);
+      return;
+    }
+    const id = setInterval(() => {
+      setStreamElapsedS((Date.now() - streamStartedAt) / 1000);
+    }, 200);
+    return () => clearInterval(id);
+  }, [loading, streamStartedAt]);
+  
   const [error, setError] = useState<string | null>(null);
 
   const toggleCountry = (code: CountryCode) => {
@@ -91,31 +114,112 @@ export default function HomePage() {
       return;
     }
 
+    // Reset streaming state
+    const targetCountriesArr = Array.from(selectedCountries);
+    setStreamAgents(
+      targetCountriesArr.map((c) => ({ status: "pending", country: c })),
+    );
+    setStreamHarmonizer("idle");
+    setStreamTokens(0);
+    setStreamStartedAt(Date.now());
     setLoading(true);
-    try {
-      const valueNum = estimatedValue.trim()
-        ? Number.parseFloat(estimatedValue)
-        : undefined;
-      const quantityNum = quantity.trim()
-        ? Number.parseFloat(quantity)
-        : undefined;
 
-      const response = await api.analyze({
-        product: {
-          name: productName.trim(),
-          description: productDescription.trim(),
-          category: category.trim() || null,
-          origin_country: originCountry,
-          estimated_value_usd: Number.isFinite(valueNum) ? valueNum : null,
-          quantity: Number.isFinite(quantityNum ?? NaN) ? quantityNum : null,
-          unit: Number.isFinite(quantityNum ?? NaN) ? unit : null,
+    const valueNum = estimatedValue.trim()
+      ? Number.parseFloat(estimatedValue)
+      : undefined;
+    const quantityNum = quantity.trim()
+      ? Number.parseFloat(quantity)
+      : undefined;
+
+    const body = {
+      product: {
+        name: productName.trim(),
+        description: productDescription.trim(),
+        category: category.trim() || null,
+        origin_country: originCountry,
+        estimated_value_usd: Number.isFinite(valueNum) ? valueNum : null,
+        quantity: Number.isFinite(quantityNum ?? NaN) ? quantityNum : null,
+        unit: Number.isFinite(quantityNum ?? NaN) ? unit : null,
+      },
+      target_countries: targetCountriesArr,
+      include_route_risk: includeRouteRisk,
+      preferred_language: locale,
+    };
+
+    try {
+      let finalJobId: string | null = null;
+
+      await analyzeStream(body, {
+        onEvent: (event) => {
+          switch (event.type) {
+            case "started":
+              // job_id is already known; nothing more to do here for now.
+              break;
+
+            case "agent_start":
+              setStreamAgents((prev) =>
+                prev.map((a) =>
+                  a.country === event.country
+                    ? { status: "running", country: a.country, startedAt: Date.now() }
+                    : a,
+                ),
+              );
+              break;
+
+            case "agent_complete":
+              setStreamAgents((prev) =>
+                prev.map((a) => {
+                  if (a.country !== event.country) return a;
+                  if (event.status === "ok" && event.tokens && event.risk) {
+                    return {
+                      status: "complete",
+                      country: a.country,
+                      durationS: event.duration_s,
+                      tokens: event.tokens,
+                      findingsCount: event.findings_count ?? 0,
+                      risk: event.risk,
+                      hsCode: event.hs_code,
+                      tariffRate: event.tariff_rate,
+                    };
+                  }
+                  return {
+                    status: "error",
+                    country: a.country,
+                    durationS: event.duration_s,
+                    error: event.error ?? "unknown",
+                  };
+                }),
+              );
+              if (event.status === "ok" && event.tokens) {
+                setStreamTokens(
+                  (prev) => prev + event.tokens!.input + event.tokens!.output,
+                );
+              }
+              break;
+
+            case "harmonize_start":
+              setStreamHarmonizer("running");
+              break;
+
+            case "done":
+              setStreamHarmonizer("done");
+              finalJobId = event.response.job_id;
+              break;
+
+            case "error":
+              setStreamHarmonizer("error");
+              setError(event.message);
+              break;
+          }
         },
-        target_countries: Array.from(selectedCountries),
-        include_route_risk: includeRouteRisk,
-        preferred_language: locale,
       });
 
-      router.push(`/results/${response.job_id}`);
+      if (finalJobId) {
+        router.push(`/results/${finalJobId}`);
+      } else {
+        setError(t.form.errorGeneric);
+        setLoading(false);
+      }
     } catch (err) {
       if (err instanceof APIError && err.isRateLimit) {
         setError(err.rateLimitMessage ?? t.form.errorRateLimit);
@@ -444,22 +548,13 @@ export default function HomePage() {
                 )}
               </Button>
 
-              {loading && (
-                <div className="text-center space-y-1">
-                  <p className="text-sm font-medium text-blue-700 dark:text-blue-300 transition-opacity">
-                    {[
-                      t.form.progressStep1,
-                      t.form.progressStep2,
-                      t.form.progressStep3,
-                      t.form.progressStep4,
-                      t.form.progressStep5,
-                      t.form.progressStep6,
-                    ][progressStep]}
-                  </p>
-                  <p className="text-xs text-muted-foreground">
-                    {t.form.dispatchingHint}
-                  </p>
-                </div>
+              {loading && streamAgents.length > 0 && (
+                <AgentTelemetryOverlay
+                  agents={streamAgents}
+                  harmonizer={streamHarmonizer}
+                  totalTokens={streamTokens}
+                  elapsedS={streamElapsedS}
+                />
               )}
             </form>
           </CardContent>

@@ -153,5 +153,19 @@ export const ko: Translations = {
     faster: "더 빠름",
     disclaimer: "관세사 기준: 업계 일반 선적당 $500–$2,000 / 5–15일.",
   },
+  telemetry: {
+    headline: "실시간 에이전트 텔레메트리",
+    elapsed: "경과 시간",
+    progress: "진행률",
+    tokensSoFar: "현재까지 토큰",
+    tokensAbbr: "토큰",
+    queued: "대기 중",
+    risk: "위험",
+    failed: "실패",
+    harmonizer: "하모나이저 에이전트",
+    waiting: "에이전트 대기 중",
+    synthesizing: "요약 생성 중…",
+    done: "완료",
+  },
 
 };
