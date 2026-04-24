@@ -191,6 +191,7 @@ async def extract_conflicts(
         msg = await client.messages.create(
             model=MODEL,
             max_tokens=1500,
+            thinking={"type": "adaptive"},
             system=system,
             messages=[{"role": "user", "content": user_prompt}],
         )

@@ -158,6 +158,7 @@ async def grade_confidence(
         msg = await client.messages.create(
             model=MODEL,
             max_tokens=4000,
+            thinking={"type": "adaptive"},
             system=SYSTEM_PROMPT,
             messages=[{"role": "user", "content": user_prompt}],
         )

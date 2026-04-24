@@ -193,11 +193,32 @@ Return the JSON report."""
     response = await client.messages.create(
         model=MODEL,
         max_tokens=4096,
+        thinking={"type": "adaptive"},
         system=_build_system_prompt(profile, language),
         messages=[{"role": "user", "content": user_message}],
     )
 
-    raw = response.content[0].text.strip()
+    # Adaptive thinking responses can emit a thinking block before the text
+    # block. Join all text blocks so JSON parsing stays correct regardless
+    # of block ordering. Without this filter, ``content[0].text`` would
+    # raise AttributeError whenever the model decided to think first.
+    raw_parts: list[str] = []
+    thinking_chars = 0
+    for block in response.content:
+        block_type = getattr(block, "type", None)
+        if block_type == "text":
+            raw_parts.append(block.text)
+        elif block_type == "thinking":
+            trace = getattr(block, "thinking", "") or ""
+            thinking_chars += len(trace)
+
+    if thinking_chars > 0:
+        print(
+            f"[country:{country.value}] Adaptive thinking: "
+            f"{thinking_chars:,} chars of reasoning trace"
+        )
+
+    raw = "".join(raw_parts).strip()
     # Some models wrap JSON in markdown code fences; strip if present
     if raw.startswith("```"):
         raw = raw.split("```")[1]

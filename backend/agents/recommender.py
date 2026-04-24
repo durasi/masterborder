@@ -231,11 +231,40 @@ async def recommend_for_country(
     result = await client.messages.create(
         model=MODEL,
         max_tokens=8192,
+        thinking={"type": "adaptive"},
         system=system_prompt,
         messages=messages,
     )
 
-    return result.content[0].text
+    # Adaptive thinking responses can interleave thinking + text blocks.
+    # Concatenate every text block for the user-facing reply, and log the
+    # total thinking-trace length so the behaviour is observable in server
+    # logs. Without this filter, content[0] could be a thinking block whose
+    # ``.text`` attribute doesn't exist, which would break the deep-dive.
+    text_parts: list[str] = []
+    thinking_chars = 0
+    for block in result.content:
+        block_type = getattr(block, "type", None)
+        if block_type == "text":
+            text_parts.append(block.text)
+        elif block_type == "thinking":
+            trace = getattr(block, "thinking", "") or ""
+            thinking_chars += len(trace)
+
+    final_text = "".join(text_parts).strip()
+
+    if thinking_chars > 0:
+        print(
+            f"[recommender] Adaptive thinking: {thinking_chars:,} chars of "
+            f"reasoning trace for {chosen_country.value} deep-dive"
+        )
+    else:
+        print(
+            f"[recommender] Adaptive thinking: no trace emitted (model chose "
+            f"direct response for {chosen_country.value} deep-dive)"
+        )
+
+    return final_text
 
 
 if __name__ == "__main__":
