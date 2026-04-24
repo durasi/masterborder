@@ -208,7 +208,7 @@ export const it: Translations = {
   },
 
   results: {
-    backToAnalysis: "← Nuova analisi",
+    backToAnalysis: "Nuova analisi",
     analyzedFor: "Analizzato per",
     origin: "Origine:",
     executiveSummary: "Riassunto Esecutivo",
@@ -225,7 +225,7 @@ export const it: Translations = {
   },
 
   deepDive: {
-    backToResults: "← Torna ai risultati",
+    backToResults: "Torna ai risultati",
     subtitle: "Approfondimento di conformità interattivo · {country}",
     placeholder: "Fai una domanda di approfondimento (es., opzioni di trasporto, selezione laboratorio, tempistiche)…",
     send: "Invia",

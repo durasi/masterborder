@@ -208,7 +208,7 @@ export const de: Translations = {
   },
 
   results: {
-    backToAnalysis: "← Neue Analyse",
+    backToAnalysis: "Neue Analyse",
     analyzedFor: "Analysiert für",
     origin: "Ursprung:",
     executiveSummary: "Zusammenfassung",
@@ -225,7 +225,7 @@ export const de: Translations = {
   },
 
   deepDive: {
-    backToResults: "← Zurück zu Ergebnissen",
+    backToResults: "Zurück zu Ergebnissen",
     subtitle: "Interaktives Compliance-Deep-Dive · {country}",
     placeholder: "Stellen Sie eine Folgefrage (z.B. Frachtoptionen, Laborauswahl, Zeitplan)…",
     send: "Senden",

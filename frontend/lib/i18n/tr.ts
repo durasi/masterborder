@@ -208,7 +208,7 @@ export const tr: Translations = {
   },
 
   results: {
-    backToAnalysis: "← Yeni analiz",
+    backToAnalysis: "Yeni analiz",
     analyzedFor: "Analiz edilen",
     origin: "Menşei:",
     executiveSummary: "Yönetici Özeti",
@@ -225,7 +225,7 @@ export const tr: Translations = {
   },
 
   deepDive: {
-    backToResults: "← Sonuçlara dön",
+    backToResults: "Sonuçlara dön",
     subtitle: "Etkileşimli uyum derinlemesine inceleme · {country}",
     placeholder: "Bir takip sorusu sorun (örn., navlun seçenekleri, laboratuvar seçimi, zaman çizelgesi)…",
     send: "Gönder",

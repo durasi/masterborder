@@ -208,7 +208,7 @@ export const zh: Translations = {
   },
 
   results: {
-    backToAnalysis: "← 新建分析",
+    backToAnalysis: "新建分析",
     analyzedFor: "分析对象",
     origin: "原产:",
     executiveSummary: "执行摘要",
@@ -225,7 +225,7 @@ export const zh: Translations = {
   },
 
   deepDive: {
-    backToResults: "← 返回结果",
+    backToResults: "返回结果",
     subtitle: "交互式合规深入研究 · {country}",
     placeholder: "提出跟进问题(例如:货运选项、实验室选择、时间表)…",
     send: "发送",

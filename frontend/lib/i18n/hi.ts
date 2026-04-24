@@ -208,7 +208,7 @@ export const hi: Translations = {
   },
 
   results: {
-    backToAnalysis: "← नया विश्लेषण",
+    backToAnalysis: "नया विश्लेषण",
     analyzedFor: "विश्लेषण के लिए",
     origin: "मूल:",
     executiveSummary: "कार्यकारी सारांश",
@@ -225,7 +225,7 @@ export const hi: Translations = {
   },
 
   deepDive: {
-    backToResults: "← परिणामों पर वापस",
+    backToResults: "परिणामों पर वापस",
     subtitle: "इंटरैक्टिव अनुपालन डीप-डाइव · {country}",
     placeholder: "एक अनुवर्ती प्रश्न पूछें (उदा., माल ढुलाई विकल्प, प्रयोगशाला चयन, समयरेखा)…",
     send: "भेजें",

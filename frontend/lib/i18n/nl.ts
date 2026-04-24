@@ -208,7 +208,7 @@ export const nl: Translations = {
   },
 
   results: {
-    backToAnalysis: "← Nieuwe analyse",
+    backToAnalysis: "Nieuwe analyse",
     analyzedFor: "Geanalyseerd voor",
     origin: "Oorsprong:",
     executiveSummary: "Executive Summary",
@@ -225,7 +225,7 @@ export const nl: Translations = {
   },
 
   deepDive: {
-    backToResults: "← Terug naar resultaten",
+    backToResults: "Terug naar resultaten",
     subtitle: "Interactieve compliance deep-dive · {country}",
     placeholder: "Stel een vervolgvraag (bijv., vrachtopties, laboratoriumkeuze, tijdlijn)…",
     send: "Versturen",

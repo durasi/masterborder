@@ -208,7 +208,7 @@ export const ar: Translations = {
   },
 
   results: {
-    backToAnalysis: "← تحليل جديد",
+    backToAnalysis: "تحليل جديد",
     analyzedFor: "تحليل لـ",
     origin: "المنشأ:",
     executiveSummary: "الملخص التنفيذي",
@@ -225,7 +225,7 @@ export const ar: Translations = {
   },
 
   deepDive: {
-    backToResults: "← العودة إلى النتائج",
+    backToResults: "العودة إلى النتائج",
     subtitle: "غوص امتثال تفاعلي · {country}",
     placeholder: "اطرح سؤال متابعة (مثال: خيارات الشحن، اختيار المختبر، الجدول الزمني)…",
     send: "إرسال",

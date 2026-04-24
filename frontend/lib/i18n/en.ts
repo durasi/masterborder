@@ -80,7 +80,7 @@ export const en = {
       },
       pdf: {
         title: "Verifiable PDF export",
-        body: "One click produces a professional report with QR verification, full regulatory sources section and jury-ready typography.",
+        body: "One click produces a professional report with QR verification, full regulatory sources section and beautifully-typeset typography.",
       },
       costTransparency: {
         title: "Cost transparency",
@@ -208,7 +208,7 @@ export const en = {
   },
 
   results: {
-    backToAnalysis: "← New analysis",
+    backToAnalysis: "New analysis",
     analyzedFor: "Analyzed for",
     origin: "Origin:",
     executiveSummary: "Executive Summary",
@@ -225,7 +225,7 @@ export const en = {
   },
 
   deepDive: {
-    backToResults: "← Back to results",
+    backToResults: "Back to results",
     subtitle: "Interactive compliance deep-dive · {country}",
     placeholder: "Ask a follow-up question (e.g., freight options, lab selection, timeline)…",
     send: "Send",

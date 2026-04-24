@@ -208,7 +208,7 @@ export const pl: Translations = {
   },
 
   results: {
-    backToAnalysis: "← Nowa analiza",
+    backToAnalysis: "Nowa analiza",
     analyzedFor: "Analizowane dla",
     origin: "Pochodzenie:",
     executiveSummary: "Streszczenie Wykonawcze",
@@ -225,7 +225,7 @@ export const pl: Translations = {
   },
 
   deepDive: {
-    backToResults: "← Wróć do wyników",
+    backToResults: "Wróć do wyników",
     subtitle: "Interaktywne zgłębianie zgodności · {country}",
     placeholder: "Zadaj pytanie uzupełniające (np., opcje frachtu, wybór laboratorium, harmonogram)…",
     send: "Wyślij",

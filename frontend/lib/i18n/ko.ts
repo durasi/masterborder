@@ -208,7 +208,7 @@ export const ko: Translations = {
   },
 
   results: {
-    backToAnalysis: "← 새 분석",
+    backToAnalysis: "새 분석",
     analyzedFor: "분석 대상",
     origin: "원산지:",
     executiveSummary: "실행 요약",
@@ -225,7 +225,7 @@ export const ko: Translations = {
   },
 
   deepDive: {
-    backToResults: "← 결과로 돌아가기",
+    backToResults: "결과로 돌아가기",
     subtitle: "대화형 컴플라이언스 심층 분석 · {country}",
     placeholder: "후속 질문하기 (예: 운송 옵션, 실험실 선택, 일정)…",
     send: "보내기",

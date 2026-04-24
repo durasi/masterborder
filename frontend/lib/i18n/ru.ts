@@ -208,7 +208,7 @@ export const ru: Translations = {
   },
 
   results: {
-    backToAnalysis: "← Новый анализ",
+    backToAnalysis: "Новый анализ",
     analyzedFor: "Анализ для",
     origin: "Происхождение:",
     executiveSummary: "Исполнительное резюме",
@@ -225,7 +225,7 @@ export const ru: Translations = {
   },
 
   deepDive: {
-    backToResults: "← Назад к результатам",
+    backToResults: "Назад к результатам",
     subtitle: "Интерактивное погружение в соответствие · {country}",
     placeholder: "Задайте уточняющий вопрос (напр., варианты фрахта, выбор лаборатории, сроки)…",
     send: "Отправить",

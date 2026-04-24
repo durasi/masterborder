@@ -208,7 +208,7 @@ export const ja: Translations = {
   },
 
   results: {
-    backToAnalysis: "← 新しい分析",
+    backToAnalysis: "新しい分析",
     analyzedFor: "分析対象",
     origin: "原産:",
     executiveSummary: "エグゼクティブサマリー",
@@ -225,7 +225,7 @@ export const ja: Translations = {
   },
 
   deepDive: {
-    backToResults: "← 結果に戻る",
+    backToResults: "結果に戻る",
     subtitle: "インタラクティブコンプライアンス深掘り · {country}",
     placeholder: "フォローアップ質問をしてください(例: 運送オプション、ラボ選択、タイムライン)…",
     send: "送信",

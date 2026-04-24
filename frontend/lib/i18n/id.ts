@@ -208,7 +208,7 @@ export const id: Translations = {
   },
 
   results: {
-    backToAnalysis: "← Analisis baru",
+    backToAnalysis: "Analisis baru",
     analyzedFor: "Dianalisis untuk",
     origin: "Asal:",
     executiveSummary: "Ringkasan Eksekutif",
@@ -225,7 +225,7 @@ export const id: Translations = {
   },
 
   deepDive: {
-    backToResults: "← Kembali ke hasil",
+    backToResults: "Kembali ke hasil",
     subtitle: "Deep-dive kepatuhan interaktif · {country}",
     placeholder: "Ajukan pertanyaan lanjutan (mis., opsi pengiriman, pemilihan lab, jadwal)…",
     send: "Kirim",
