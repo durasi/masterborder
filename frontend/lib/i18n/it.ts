@@ -220,7 +220,11 @@ export const it: Translations = {
     deepDive: "Approfondimento in {country}",
     downloadPdf: "Scarica PDF",
     jobId: "ID Lavoro:",
+    agentsFooter: "Agenti",
     notFound: "Analisi non trovata. Potrebbe essere scaduta — esegui una nuova analisi.",
+    expired: "Analisi scaduta",
+    expiredBody: "Questa analisi non è più nella cache — conserviamo i job per 24 ore. Esegui una nuova analisi per risultati aggiornati.",
+    runNewAnalysis: "Esegui nuova analisi",
     loading: "Caricamento analisi…",
   },
 
@@ -279,6 +283,16 @@ export const it: Translations = {
     headline: "Approfondisci questo mercato",
     body: "Piano settimanale di ingresso al mercato — documenti, laboratori di test, stime di costi, tempistiche. Alimentato da Opus 4.7.",
     button: "Inizia approfondimento",
+  },
+
+  deepDiveHero: {
+    eyebrow: "Analisi approfondita interattiva",
+    title: "Vuoi un piano settimana per settimana?",
+    body: "Ogni scheda paese sotto apre una chat multi-turno con Opus 4.7. Contesto normativo completo preservato — chiedi qualsiasi cosa, in qualsiasi lingua.",
+    bullet1: "Timeline di ingresso al mercato settimanale",
+    bullet2: "Elenco di documenti e laboratori con costi",
+    bullet3: "Domande e risposte — rispecchia la tua lingua",
+    scrollCta: "Scegli un mercato sotto",
   },
 
   roi: {

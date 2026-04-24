@@ -19,10 +19,17 @@ import uuid
 from datetime import datetime
 from typing import AsyncIterator
 
-from backend.agents.harmonizer import harmonize
-from backend.agents.conflict_extractor import extract_conflicts
-from backend.agents.confidence_grader import grade_confidence
-from backend.countries.agent import analyze_country
+from backend.agents.harmonizer import harmonize, AGENT_VERSION as _V_HARM
+from backend.agents.conflict_extractor import (
+    extract_conflicts,
+    AGENT_VERSION as _V_CONFLICT,
+)
+from backend.agents.confidence_grader import (
+    grade_confidence,
+    AGENT_VERSION as _V_GRADER,
+)
+from backend.agents.recommender import AGENT_VERSION as _V_RECOMMENDER
+from backend.countries.agent import analyze_country, AGENT_VERSION as _V_COUNTRY
 from backend.schemas.models import (
     AnalysisRequest,
     AnalysisResponse,
@@ -205,6 +212,13 @@ async def stream_pipeline(
         response.token_usage = TokenUsage.from_counts(
             total_in + grade_in, total_out + grade_out
         )
+        response.agents_version = {
+            "country-agent": _V_COUNTRY,
+            "harmonizer": _V_HARM,
+            "conflict-extractor": _V_CONFLICT,
+            "confidence-grader": _V_GRADER,
+            "recommender": _V_RECOMMENDER,
+        }
         yield (
             "done",
             {
@@ -225,6 +239,14 @@ async def stream_pipeline(
         total_out + harm_out + conf_out + grade_out,
     )
     response.completed_at = datetime.utcnow()
+
+    response.agents_version = {
+        "country-agent": _V_COUNTRY,
+        "harmonizer": _V_HARM,
+        "conflict-extractor": _V_CONFLICT,
+        "confidence-grader": _V_GRADER,
+        "recommender": _V_RECOMMENDER,
+    }
 
     yield (
         "done",

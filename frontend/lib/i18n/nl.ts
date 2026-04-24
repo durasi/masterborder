@@ -220,7 +220,11 @@ export const nl: Translations = {
     deepDive: "Deep-dive in {country}",
     downloadPdf: "PDF downloaden",
     jobId: "Taak-ID:",
+    agentsFooter: "Agents",
     notFound: "Analyse niet gevonden. Kan verlopen zijn — voer een nieuwe analyse uit.",
+    expired: "Analyse verlopen",
+    expiredBody: "Deze analyse is niet meer in onze cache — we bewaren taken 24 uur. Voer een nieuwe analyse uit voor actuele resultaten.",
+    runNewAnalysis: "Nieuwe analyse uitvoeren",
     loading: "Analyse laden…",
   },
 
@@ -279,6 +283,16 @@ export const nl: Translations = {
     headline: "Duik dieper in deze markt",
     body: "Wekelijkse marktbetreding-plan — documenten, testlaboratoria, kostenschattingen, tijdlijnen. Aangedreven door Opus 4.7.",
     button: "Start deep-dive",
+  },
+
+  deepDiveHero: {
+    eyebrow: "Interactieve diepte-analyse",
+    title: "Wil je een wekelijks plan?",
+    body: "Elke landkaart hieronder opent een meertraps chat met Opus 4.7. Volledige regelgevingscontext behouden — stel alles, in elke taal.",
+    bullet1: "Wekelijkse go-to-market tijdlijn",
+    bullet2: "Document- en testlab-checklist met kosten",
+    bullet3: "Meertraps Q&A — spiegelt jouw taal",
+    scrollCta: "Kies hieronder een markt",
   },
 
   roi: {

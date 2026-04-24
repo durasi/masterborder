@@ -220,7 +220,11 @@ export const de: Translations = {
     deepDive: "Deep-Dive in {country}",
     downloadPdf: "PDF herunterladen",
     jobId: "Job-ID:",
+    agentsFooter: "Agenten",
     notFound: "Analyse nicht gefunden. Möglicherweise abgelaufen — bitte neue Analyse starten.",
+    expired: "Analyse abgelaufen",
+    expiredBody: "Diese Analyse ist nicht mehr im Cache — wir speichern Jobs 24 Stunden. Führen Sie eine neue Analyse für aktuelle Ergebnisse durch.",
+    runNewAnalysis: "Neue Analyse starten",
     loading: "Analyse wird geladen…",
   },
 
@@ -279,6 +283,16 @@ export const de: Translations = {
     headline: "Tauchen Sie tiefer in diesen Markt ein",
     body: "Wochenbasierter Go-to-Market-Plan — Dokumente, Testlabore, Kostenschätzungen, Zeitpläne. Angetrieben von Opus 4.7.",
     button: "Deep-Dive starten",
+  },
+
+  deepDiveHero: {
+    eyebrow: "Interaktive Tiefenanalyse",
+    title: "Willst du einen wochenweisen Plan?",
+    body: "Jede Länderkarte unten öffnet einen mehrstufigen Chat mit Opus 4.7. Vollständiger regulatorischer Kontext bleibt erhalten — frag alles, in jeder Sprache.",
+    bullet1: "Wochenweiser Go-to-Market Zeitplan",
+    bullet2: "Dokumenten- und Prüflabor-Checkliste mit Kosten",
+    bullet3: "Mehrstufige Fragerunde — in deiner Sprache",
+    scrollCta: "Wähle unten einen Markt",
   },
 
   roi: {

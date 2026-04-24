@@ -27,6 +27,7 @@ from backend.schemas.models import (
 load_dotenv()
 
 MODEL = "claude-opus-4-7"
+AGENT_VERSION = "harmonizer-1.0"
 
 
 SYSTEM_PROMPT = """You are the MasterBorder Harmonization & Recommendation Agent.

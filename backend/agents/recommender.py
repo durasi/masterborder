@@ -25,6 +25,7 @@ from backend.schemas.models import (
 load_dotenv()
 
 MODEL = "claude-opus-4-7"
+AGENT_VERSION = "recommender-1.0"
 
 
 def _build_system_prompt(

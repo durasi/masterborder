@@ -24,6 +24,7 @@ from backend.schemas.models import (
 load_dotenv()
 
 MODEL = "claude-opus-4-7"
+AGENT_VERSION = "country-agent-1.0"
 
 
 def _build_system_prompt(profile: CountryProfile, language: str = "en") -> str:

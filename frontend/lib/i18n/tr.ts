@@ -220,7 +220,11 @@ export const tr: Translations = {
     deepDive: "{country} için derinlemesine inceleme",
     downloadPdf: "PDF indir",
     jobId: "İş Kimliği:",
+    agentsFooter: "Ajanlar",
     notFound: "Analiz bulunamadı. Süresi dolmuş olabilir — lütfen yeni bir analiz çalıştırın.",
+    expired: "Analiz süresi doldu",
+    expiredBody: "Bu analiz artık önbellekte değil — işleri 24 saat saklıyoruz. Güncel sonuçlar için yeni bir analiz çalıştırın.",
+    runNewAnalysis: "Yeni analiz çalıştır",
     loading: "Analiz yükleniyor…",
   },
 
@@ -279,6 +283,16 @@ export const tr: Translations = {
     headline: "Bu pazara daha derinlemesine inin",
     body: "Hafta bazında pazara giriş planı — belgeler, test laboratuvarları, maliyet tahminleri, zaman çizelgeleri. Opus 4.7 tarafından desteklenir.",
     button: "Derinlemesine incelemeye başla",
+  },
+
+  deepDiveHero: {
+    eyebrow: "Etkileşimli derin inceleme",
+    title: "Haftalık plan ister misin?",
+    body: "Aşağıdaki her ülke kartı Opus 4.7 ile çok-turlu bir sohbet açar. Tüm düzenleyici bağlam turlar arasında korunur — her şeyi, her dilde sorabilirsin.",
+    bullet1: "Haftalık pazara giriş takvimi",
+    bullet2: "Belge ve test laboratuvarı kontrol listesi + maliyetler",
+    bullet3: "Çok turlu soru-cevap — dilinize uyum sağlar",
+    scrollCta: "Aşağıdan bir pazar seç",
   },
 
   roi: {

@@ -220,7 +220,11 @@ export const pl: Translations = {
     deepDive: "Zgłębianie w {country}",
     downloadPdf: "Pobierz PDF",
     jobId: "ID Zadania:",
+    agentsFooter: "Agenci",
     notFound: "Nie znaleziono analizy. Mogła wygasnąć — uruchom nową.",
+    expired: "Analiza wygasła",
+    expiredBody: "Ta analiza nie jest już w naszym cache — przechowujemy zadania przez 24 godziny. Uruchom nową analizę, aby zobaczyć aktualne wyniki.",
+    runNewAnalysis: "Uruchom nową analizę",
     loading: "Ładowanie analizy…",
   },
 
@@ -279,6 +283,16 @@ export const pl: Translations = {
     headline: "Zgłęb ten rynek",
     body: "Tygodniowy plan wejścia na rynek — dokumenty, laboratoria testowe, szacunki kosztów, harmonogramy. Zasilane przez Opus 4.7.",
     button: "Rozpocznij zgłębianie",
+  },
+
+  deepDiveHero: {
+    eyebrow: "Interaktywna analiza pogłębiona",
+    title: "Chcesz plan tydzień po tygodniu?",
+    body: "Każda karta kraju poniżej otwiera wieloetapową rozmowę z Opus 4.7. Pełny kontekst regulacyjny zachowany — zapytaj o wszystko, w dowolnym języku.",
+    bullet1: "Tygodniowy harmonogram wejścia na rynek",
+    bullet2: "Lista dokumentów i laboratoriów z kosztami",
+    bullet3: "Wieloetapowe Q&A — dopasowane do Twojego języka",
+    scrollCta: "Wybierz rynek poniżej",
   },
 
   roi: {

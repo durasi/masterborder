@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
@@ -12,11 +12,13 @@ import {
   Sparkles,
   Loader2,
   MessageSquare,
+  Target,
   CheckCircle2,
   AlertCircle,
   XCircle,
   Shield,
   ShieldCheck,
+  Clock,
   Info,
   HelpCircle,
   ExternalLink,
@@ -61,6 +63,8 @@ export default function ResultsPage() {
 
   const [response, setResponse] = useState<AnalysisResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [expired, setExpired] = useState<boolean>(false);
+  const countriesRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!jobId) return;
@@ -73,7 +77,7 @@ export default function ResultsPage() {
       } catch (err) {
         if (cancelled) return;
         if (err instanceof APIError && err.status === 404) {
-          setError(t.results.notFound);
+          setExpired(true);
         } else {
           setError(err instanceof Error ? err.message : t.results.notFound);
         }
@@ -85,6 +89,37 @@ export default function ResultsPage() {
       cancelled = true;
     };
   }, [jobId, t.results.notFound]);
+
+  // -------- Expired state (404 from the backend cache) ---------------
+  if (expired) {
+    return (
+      <>
+        <MeshBackground />
+        <div className="relative min-h-screen flex items-center justify-center px-4">
+          <div className="max-w-md w-full rounded-2xl border border-blue-500/30 bg-gradient-to-br from-blue-500/[0.06] via-card/80 to-violet-500/[0.04] backdrop-blur-md p-8 shadow-[0_1px_3px_rgba(0,0,0,0.04),_0_20px_60px_rgba(0,0,0,0.06)]">
+            <div className="flex items-center gap-3 mb-5">
+              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-violet-600 text-white shadow-md shadow-blue-500/20">
+                <Clock className="h-5 w-5" />
+              </div>
+              <h2 className="text-[17px] font-semibold tracking-[-0.015em]">
+                {t.results.expired}
+              </h2>
+            </div>
+            <p className="text-[13.5px] text-muted-foreground leading-[1.6] mb-6">
+              {t.results.expiredBody}
+            </p>
+            <Button
+              onClick={() => router.push("/")}
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white shadow-sm"
+            >
+              <Sparkles className="mr-2 h-4 w-4" />
+              {t.results.runNewAnalysis}
+            </Button>
+          </div>
+        </div>
+      </>
+    );
+  }
 
   // -------- Error state -------------------------------------------------
   if (error) {
@@ -235,6 +270,92 @@ export default function ResultsPage() {
               <ConflictsCard conflicts={response.conflicts} />
             </div>
           )}
+          {/* Deep-dive hero CTA — educational card that introduces the
+              feature so reviewers don't have to scroll through every
+              country card to notice that follow-up Q&A is available. */}
+          <section
+            data-pdf-hide="true"
+            className="print-hidden mb-8 mb-fade-up mb-d2 overflow-hidden rounded-2xl border border-blue-500/25 bg-gradient-to-br from-blue-500/[0.04] via-card/80 to-violet-500/[0.05] backdrop-blur-md shadow-[0_1px_3px_rgba(0,0,0,0.04),_0_16px_50px_rgba(59,130,246,0.06)]"
+          >
+            <div className="px-6 py-6 sm:px-7 sm:py-7">
+              <div className="flex flex-col gap-5 sm:flex-row sm:items-start">
+                <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-violet-600 text-white shadow-md shadow-blue-500/25">
+                  <Sparkles className="h-5 w-5" />
+                </div>
+
+                <div className="min-w-0 flex-1">
+                  <div className="mb-2 inline-flex items-center gap-1.5 rounded-full bg-blue-500/10 px-2.5 py-0.5 text-[10.5px] font-medium uppercase tracking-[0.08em] text-blue-700 dark:text-blue-300">
+                    {t.deepDiveHero.eyebrow}
+                  </div>
+
+                  <h2
+                    className="mb-2 font-semibold tracking-[-0.025em] leading-[1.15]"
+                    style={{ fontSize: "clamp(1.25rem, 2.5vw, 1.75rem)" }}
+                  >
+                    <span
+                      className="mb-shimmer inline-block italic font-semibold"
+                      style={{
+                        fontFamily:
+                          "var(--font-geist-sans), var(--font-sans), sans-serif",
+                        paddingRight: "0.08em",
+                        letterSpacing: "-0.01em",
+                        overflow: "visible",
+                      }}
+                    >
+                      {t.deepDiveHero.title}
+                    </span>
+                  </h2>
+
+                  <p className="mb-5 text-[13.5px] leading-[1.6] text-muted-foreground max-w-2xl">
+                    {t.deepDiveHero.body}
+                  </p>
+
+                  <ul className="mb-5 grid gap-2 sm:grid-cols-3 sm:gap-3">
+                    <li className="flex items-start gap-2 text-[12.5px] leading-[1.5]">
+                      <div className="mt-0.5 flex h-4 w-4 flex-shrink-0 items-center justify-center rounded bg-blue-500/15 text-blue-600 dark:text-blue-300">
+                        <Target className="h-2.5 w-2.5" />
+                      </div>
+                      <span className="text-foreground/80">
+                        {t.deepDiveHero.bullet1}
+                      </span>
+                    </li>
+                    <li className="flex items-start gap-2 text-[12.5px] leading-[1.5]">
+                      <div className="mt-0.5 flex h-4 w-4 flex-shrink-0 items-center justify-center rounded bg-blue-500/15 text-blue-600 dark:text-blue-300">
+                        <Shield className="h-2.5 w-2.5" />
+                      </div>
+                      <span className="text-foreground/80">
+                        {t.deepDiveHero.bullet2}
+                      </span>
+                    </li>
+                    <li className="flex items-start gap-2 text-[12.5px] leading-[1.5]">
+                      <div className="mt-0.5 flex h-4 w-4 flex-shrink-0 items-center justify-center rounded bg-blue-500/15 text-blue-600 dark:text-blue-300">
+                        <MessageSquare className="h-2.5 w-2.5" />
+                      </div>
+                      <span className="text-foreground/80">
+                        {t.deepDiveHero.bullet3}
+                      </span>
+                    </li>
+                  </ul>
+
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() =>
+                      countriesRef.current?.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start",
+                      })
+                    }
+                    className="border-blue-500/40 text-blue-700 hover:bg-blue-500/10 dark:text-blue-300"
+                  >
+                    {t.deepDiveHero.scrollCta}
+                    <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </section>
+
 
           {/* Executive summary — the harmonizer's markdown output */}
           {response.summary && (
@@ -277,7 +398,7 @@ export default function ResultsPage() {
           )}
 
           {/* Per-country reports */}
-          <section className="space-y-6">
+          <section ref={countriesRef} className="space-y-6">
             <div className="flex items-baseline justify-between">
               <h2 className="text-[20px] font-semibold tracking-[-0.02em]">
                 {t.results.countryReports}
@@ -308,6 +429,20 @@ export default function ResultsPage() {
                 {response.job_id}
               </code>
             </p>
+            {response.agents_version &&
+              Object.keys(response.agents_version).length > 0 && (
+                <p className="text-[11px] text-muted-foreground/80">
+                  <span className="uppercase tracking-[0.06em]">
+                    {t.results.agentsFooter}
+                  </span>
+                  :{" "}
+                  <span className="font-mono text-[10.5px] text-foreground/60">
+                    {Object.entries(response.agents_version)
+                      .map(([name, ver]) => `${name} ${ver}`)
+                      .join("  ·  ")}
+                  </span>
+                </p>
+              )}
             <p className="text-[11px]">{t.footer.license}</p>
           </footer>
         </div>

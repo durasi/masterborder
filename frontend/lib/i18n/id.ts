@@ -220,7 +220,11 @@ export const id: Translations = {
     deepDive: "Deep-dive di {country}",
     downloadPdf: "Unduh PDF",
     jobId: "ID Pekerjaan:",
+    agentsFooter: "Agen",
     notFound: "Analisis tidak ditemukan. Mungkin sudah kedaluwarsa — jalankan analisis baru.",
+    expired: "Analisis kedaluwarsa",
+    expiredBody: "Analisis ini tidak lagi dalam cache kami — kami menyimpan pekerjaan selama 24 jam. Jalankan analisis baru untuk hasil terkini.",
+    runNewAnalysis: "Jalankan analisis baru",
     loading: "Memuat analisis…",
   },
 
@@ -279,6 +283,16 @@ export const id: Translations = {
     headline: "Selami lebih dalam pasar ini",
     body: "Rencana masuk pasar mingguan — dokumen, lab uji, estimasi biaya, jadwal. Didukung oleh Opus 4.7.",
     button: "Mulai deep-dive",
+  },
+
+  deepDiveHero: {
+    eyebrow: "Analisis mendalam interaktif",
+    title: "Ingin rencana mingguan?",
+    body: "Setiap kartu negara di bawah membuka obrolan multi-putaran dengan Opus 4.7. Konteks peraturan lengkap dipertahankan — tanyakan apa saja, dalam bahasa apa saja.",
+    bullet1: "Jadwal mingguan masuk pasar",
+    bullet2: "Daftar dokumen dan laboratorium uji dengan biaya",
+    bullet3: "Tanya jawab multi-putaran — cerminkan bahasa Anda",
+    scrollCta: "Pilih pasar di bawah",
   },
 
   roi: {

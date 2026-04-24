@@ -43,6 +43,7 @@ from backend.schemas.models import (
 load_dotenv()
 
 MODEL = "claude-opus-4-7"
+AGENT_VERSION = "confidence-grader-1.0"
 
 
 SYSTEM_PROMPT = """You grade the CONFIDENCE of compliance findings based on

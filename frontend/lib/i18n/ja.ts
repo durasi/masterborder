@@ -220,7 +220,11 @@ export const ja: Translations = {
     deepDive: "{country}の深掘り",
     downloadPdf: "PDFダウンロード",
     jobId: "ジョブID:",
+    agentsFooter: "エージェント",
     notFound: "分析が見つかりません。期限切れの可能性 — 新しい分析を実行してください。",
+    expired: "分析の有効期限切れ",
+    expiredBody: "この分析はキャッシュにありません — ジョブは24時間保持されます。最新の結果を得るには新しい分析を実行してください。",
+    runNewAnalysis: "新しい分析を実行",
     loading: "分析を読み込み中…",
   },
 
@@ -279,6 +283,16 @@ export const ja: Translations = {
     headline: "この市場をより深く掘り下げる",
     body: "週ごとの市場投入計画 — 書類、テストラボ、コスト見積もり、タイムライン。Opus 4.7による。",
     button: "深掘りを開始",
+  },
+
+  deepDiveHero: {
+    eyebrow: "インタラクティブなディープダイブ",
+    title: "週ごとの計画が必要ですか？",
+    body: "下記の各国カードは Opus 4.7 とのマルチターン チャットを開きます。完全な規制コンテキストが保持されます — 何でも、どの言語でも質問できます。",
+    bullet1: "週ごとの市場参入タイムライン",
+    bullet2: "文書とテストラボのチェックリスト（コスト付き）",
+    bullet3: "マルチターン Q&A — あなたの言語を反映",
+    scrollCta: "下から市場を選択",
   },
 
   roi: {

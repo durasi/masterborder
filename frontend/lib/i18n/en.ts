@@ -220,7 +220,11 @@ export const en = {
     deepDive: "Deep dive into {country}",
     downloadPdf: "Download PDF",
     jobId: "Job ID:",
+    agentsFooter: "Agents",
     notFound: "Analysis not found. It may have expired — please run a new analysis.",
+    expired: "Analysis expired",
+    expiredBody: "This analysis is no longer in our cache — we keep jobs for 24 hours. Run a fresh analysis to see up-to-date results.",
+    runNewAnalysis: "Run a new analysis",
     loading: "Loading analysis…",
   },
 
@@ -279,6 +283,16 @@ export const en = {
     headline: "Go deeper into this market",
     body: "Week-by-week go-to-market plan — documents, test labs, cost estimates, timelines. Powered by Opus 4.7.",
     button: "Start deep-dive",
+  },
+
+  deepDiveHero: {
+    eyebrow: "Interactive deep-dive",
+    title: "Want a week-by-week plan?",
+    body: "Every country card below unlocks a multi-turn chat with Opus 4.7. Full regulatory context preserved across turns — ask anything, in any language.",
+    bullet1: "Week-by-week go-to-market timeline",
+    bullet2: "Document and test-lab checklist with costs",
+    bullet3: "Multi-turn Q&A — mirrors your language",
+    scrollCta: "Pick a market below",
   },
 
   roi: {
@@ -481,7 +495,11 @@ export type Translations = {
     deepDive: string;
     downloadPdf: string;
     jobId: string;
+    agentsFooter: string;
     notFound: string;
+    expired: string;
+    expiredBody: string;
+    runNewAnalysis: string;
     loading: string;
   };
   deepDive: {
@@ -533,6 +551,15 @@ export type Translations = {
     headline: string;
     body: string;
     button: string;
+  };
+  deepDiveHero: {
+    eyebrow: string;
+    title: string;
+    body: string;
+    bullet1: string;
+    bullet2: string;
+    bullet3: string;
+    scrollCta: string;
   };
   roi: {
     headline: string;

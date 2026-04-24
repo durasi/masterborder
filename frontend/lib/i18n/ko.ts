@@ -220,7 +220,11 @@ export const ko: Translations = {
     deepDive: "{country} 심층 분석",
     downloadPdf: "PDF 다운로드",
     jobId: "작업 ID:",
+    agentsFooter: "에이전트",
     notFound: "분석을 찾을 수 없습니다. 만료되었을 수 있습니다 — 새 분석을 실행하세요.",
+    expired: "분석 만료됨",
+    expiredBody: "이 분석은 더 이상 캐시에 없습니다 — 작업은 24시간 동안 보관됩니다. 최신 결과를 보려면 새 분석을 실행하세요.",
+    runNewAnalysis: "새 분석 실행",
     loading: "분석 로딩 중…",
   },
 
@@ -279,6 +283,16 @@ export const ko: Translations = {
     headline: "이 시장을 더 깊이 파헤치세요",
     body: "주간 시장 진입 계획 — 문서, 시험 실험실, 비용 추정, 일정. Opus 4.7 기반.",
     button: "심층 분석 시작",
+  },
+
+  deepDiveHero: {
+    eyebrow: "대화형 심층 분석",
+    title: "주별 계획이 필요하신가요?",
+    body: "아래의 각 국가 카드는 Opus 4.7과의 다중 턴 채팅을 엽니다. 전체 규제 맥락이 보존됩니다 — 어떤 언어로든 무엇이든 질문하세요.",
+    bullet1: "주별 시장 진출 타임라인",
+    bullet2: "비용이 포함된 문서 및 테스트 랩 체크리스트",
+    bullet3: "다중 턴 Q&A — 귀하의 언어를 반영",
+    scrollCta: "아래에서 시장 선택",
   },
 
   roi: {

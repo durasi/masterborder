@@ -11,7 +11,11 @@ import asyncio
 import uuid
 from datetime import datetime
 
-from backend.countries.agent import analyze_country
+from backend.countries.agent import analyze_country, AGENT_VERSION as _V_COUNTRY
+from backend.agents.harmonizer import AGENT_VERSION as _V_HARM
+from backend.agents.conflict_extractor import AGENT_VERSION as _V_CONFLICT
+from backend.agents.confidence_grader import AGENT_VERSION as _V_GRADER
+from backend.agents.recommender import AGENT_VERSION as _V_RECOMMENDER
 from backend.schemas.models import (
     AnalysisRequest,
     AnalysisResponse,
@@ -57,6 +61,13 @@ async def run_pipeline(request: AnalysisRequest) -> AnalysisResponse:
         country_reports=reports,
         summary=None,  # Filled by Harmonization Agent (next step)
         token_usage=TokenUsage.from_counts(total_in, total_out),
+        agents_version={
+            "country-agent": _V_COUNTRY,
+            "harmonizer": _V_HARM,
+            "conflict-extractor": _V_CONFLICT,
+            "confidence-grader": _V_GRADER,
+            "recommender": _V_RECOMMENDER,
+        },
     )
 
 

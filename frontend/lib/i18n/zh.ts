@@ -220,7 +220,11 @@ export const zh: Translations = {
     deepDive: "深入研究{country}",
     downloadPdf: "下载PDF",
     jobId: "任务ID:",
+    agentsFooter: "代理",
     notFound: "未找到分析。可能已过期 — 请运行新分析。",
+    expired: "分析已过期",
+    expiredBody: "此分析已不在缓存中 — 我们保留任务24小时。运行新分析以查看最新结果。",
+    runNewAnalysis: "运行新分析",
     loading: "加载分析中…",
   },
 
@@ -279,6 +283,16 @@ export const zh: Translations = {
     headline: "深入了解此市场",
     body: "按周市场准入计划 — 文件、测试实验室、成本估算、时间表。由Opus 4.7驱动。",
     button: "开始深入研究",
+  },
+
+  deepDiveHero: {
+    eyebrow: "交互式深度分析",
+    title: "想要一个逐周计划吗？",
+    body: "下方每个国家卡片都会打开与 Opus 4.7 的多轮对话。完整的监管背景在对话中保留 — 用任何语言询问任何问题。",
+    bullet1: "逐周市场进入时间表",
+    bullet2: "文件和测试实验室清单及成本",
+    bullet3: "多轮问答 — 匹配您的语言",
+    scrollCta: "在下方选择一个市场",
   },
 
   roi: {

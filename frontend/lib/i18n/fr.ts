@@ -220,7 +220,11 @@ export const fr: Translations = {
     deepDive: "Exploration approfondie de {country}",
     downloadPdf: "Télécharger PDF",
     jobId: "ID du Job :",
+    agentsFooter: "Agents",
     notFound: "Analyse introuvable. Elle a peut-être expiré — veuillez lancer une nouvelle analyse.",
+    expired: "Analyse expirée",
+    expiredBody: "Cette analyse n'est plus dans notre cache — nous conservons les tâches 24 heures. Lancez une nouvelle analyse pour des résultats à jour.",
+    runNewAnalysis: "Lancer une nouvelle analyse",
     loading: "Chargement de l'analyse…",
   },
 
@@ -279,6 +283,16 @@ export const fr: Translations = {
     headline: "Explorez ce marché en profondeur",
     body: "Plan de mise sur le marché semaine par semaine — documents, laboratoires, estimations de coûts, calendriers. Propulsé par Opus 4.7.",
     button: "Démarrer l'exploration",
+  },
+
+  deepDiveHero: {
+    eyebrow: "Analyse approfondie interactive",
+    title: "Envie d'un plan semaine par semaine ?",
+    body: "Chaque fiche pays ci-dessous ouvre un chat multi-tours avec Opus 4.7. Contexte réglementaire complet conservé — posez toutes vos questions, dans n'importe quelle langue.",
+    bullet1: "Calendrier go-to-market hebdomadaire",
+    bullet2: "Liste des documents et laboratoires avec coûts",
+    bullet3: "Q&R multi-tours — s'adapte à votre langue",
+    scrollCta: "Choisissez un marché ci-dessous",
   },
 
   roi: {

@@ -55,6 +55,7 @@ export interface AnalysisResponse {
   summary?: string | null;
   conflicts?: Conflict[];
   token_usage?: TokenUsage;
+  agents_version?: Record<string, string>;
 }
 
 export interface RecommendRequest {

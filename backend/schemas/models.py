@@ -191,3 +191,13 @@ class AnalysisResponse(BaseModel):
         description="Cross-market contradictions extracted from the country reports.",
     )
     token_usage: Optional[TokenUsage] = Field(None, description="Aggregate Opus 4.7 usage across all agents")
+    agents_version: dict[str, str] = Field(
+        default_factory=dict,
+        description=(
+            "Version string of every Opus 4.7 agent that contributed to this "
+            "response, keyed by a short agent name (country-agent, harmonizer, "
+            "conflict-extractor, confidence-grader, recommender). Surfaced in "
+            "the Results footer so reviewers can tell which agent revisions "
+            "produced the output."
+        ),
+    )
