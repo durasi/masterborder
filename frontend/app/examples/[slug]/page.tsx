@@ -3,37 +3,57 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { AlertTriangle, ArrowRight, Sparkles, Loader2, BookOpen } from "lucide-react";
+import {
+  AlertTriangle,
+  ArrowLeft,
+  Sparkles,
+  Loader2,
+  BookOpen,
+  ArrowRight,
+  CheckCircle2,
+  AlertCircle,
+  XCircle,
+  Shield,
+  ShieldCheck,
+  Info,
+  HelpCircle,
+  ExternalLink,
+} from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
 
 import { DownloadPdfButton } from "@/components/DownloadPdfButton";
 import {
   COUNTRY_LABELS,
-  RISK_COLORS,
   type AnalysisResponse,
   type CountryReport,
   type RiskLevel,
+  type ConfidenceLevel,
 } from "@/lib/types";
 import { TokenUsageBadge } from "@/components/TokenUsageBadge";
 import { RoiCard } from "@/components/RoiCard";
+import { ConflictsCard } from "@/components/ConflictsCard";
 import { LanguagePicker } from "@/components/LanguagePicker";
+import { MeshBackground } from "@/components/landing/MeshBackground";
 import { useLocale } from "@/lib/i18n/context";
 import type { Translations } from "@/lib/i18n/en";
 
-// Known examples live as static JSON files under /public/examples/<slug>.json.
-// Fetching them at runtime (rather than importing at build time) keeps the
-// example fresh whenever the JSON is regenerated without rebuilding the app.
+/**
+ * Examples page — pre-computed analyses served from /public/examples/*.json.
+ *
+ * Visually aligned with the Results page so a reviewer clicking "See example"
+ * from the landing page lands on something that feels like the real product,
+ * not a legacy template. The only differences from the live Results page:
+ *
+ *   - An amber "pre-computed example" banner sits right under the navbar
+ *   - No deep-dive CTA (the job isn't live on the backend); each country
+ *     card ends in a muted card explaining the sample's limits
+ *   - Data source is a static JSON fetch instead of api.getJob()
+ */
+
 const KNOWN_EXAMPLES: Record<string, string> = {
   "leather-wallet-tr-to-us-de-uk-jp": "/examples/leather-wallet.json",
 };
@@ -73,147 +93,247 @@ export default function ExamplePage() {
     };
   }, [slug, t.results.notFound]);
 
+  // -------- Error state ------------------------------------------------
   if (error) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center p-4">
-        <Card className="max-w-md">
-          <CardHeader>
-            <div className="flex items-center gap-2">
-              <AlertTriangle className="h-5 w-5 text-destructive" />
-              <CardTitle>{t.results.notFound}</CardTitle>
+      <>
+        <MeshBackground />
+        <div className="relative min-h-screen flex items-center justify-center px-4">
+          <div className="max-w-md w-full rounded-2xl border border-border/60 bg-card/80 backdrop-blur-md p-8 shadow-[0_1px_3px_rgba(0,0,0,0.04),_0_12px_40px_rgba(0,0,0,0.04)]">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-destructive/10 text-destructive">
+                <AlertTriangle className="h-5 w-5" />
+              </div>
+              <h2 className="text-lg font-semibold tracking-tight">
+                {t.results.notFound}
+              </h2>
             </div>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <p className="text-sm text-muted-foreground">{error}</p>
+            <p className="text-sm text-muted-foreground leading-relaxed mb-6">
+              {error}
+            </p>
             <Link href="/">
-              <Button>{t.results.backToAnalysis}</Button>
+              <Button className="w-full">
+                <ArrowLeft className="mr-2 h-4 w-4" />
+                {t.results.backToAnalysis}
+              </Button>
             </Link>
-          </CardContent>
-        </Card>
-      </div>
+          </div>
+        </div>
+      </>
     );
   }
 
+  // -------- Loading state ----------------------------------------------
   if (!response) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="flex flex-col items-center gap-3">
-          <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
-          <p className="text-sm text-muted-foreground">{t.results.loading}</p>
+      <>
+        <MeshBackground />
+        <div className="relative min-h-screen flex items-center justify-center">
+          <div className="flex flex-col items-center gap-3">
+            <Loader2 className="h-7 w-7 animate-spin text-blue-600" />
+            <p className="text-sm text-muted-foreground">{t.results.loading}</p>
+          </div>
         </div>
-      </div>
+      </>
     );
   }
 
+  // -------- Loaded ------------------------------------------------------
   const { product, target_countries } = response.request;
   const numMarkets = response.country_reports.length;
 
   return (
-    <div className="min-h-screen bg-background py-8 px-4">
-      <div id="pdf-target" className="mx-auto max-w-4xl bg-background">
-        {/* Top bar with language picker */}
-        <div className="mb-4 flex justify-end print-hidden" data-pdf-hide="true">
-          <LanguagePicker />
-        </div>
+    <>
+      <MeshBackground />
 
-        {/* Example banner — makes it unmistakable this is a pre-computed sample */}
-        <div
-          className="mb-4 flex items-center gap-3 rounded-lg border-2 border-amber-400/50 bg-amber-50 dark:bg-amber-950/20 px-4 py-3 print-hidden"
-          data-pdf-hide="true"
-        >
-          <BookOpen className="h-5 w-5 text-amber-700 dark:text-amber-400 flex-shrink-0" />
-          <div className="flex-1 text-sm">
-            <div className="font-semibold text-amber-900 dark:text-amber-100">
-              {t.example.bannerTitle}
-            </div>
-            <div className="text-amber-800/80 dark:text-amber-200/80 text-xs">
-              {t.example.bannerBody}
-            </div>
-          </div>
-          <Link href="/" className="flex-shrink-0">
-            <Button size="sm" variant="outline">
-              {t.example.ctaRunYourOwn}
-              <ArrowRight className="ml-2 h-3.5 w-3.5" />
-            </Button>
+      {/* Sticky navbar — same vocabulary as the live Results page */}
+      <nav
+        data-pdf-hide="true"
+        className="print-hidden sticky top-0 z-40 border-b border-border/40 bg-background/70 backdrop-blur-lg"
+      >
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-5 py-3">
+          <Link
+            href="/"
+            className="group flex items-center gap-2.5 text-sm font-medium transition-colors hover:text-foreground text-muted-foreground"
+          >
+            <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" />
+            <span>{t.results.backToAnalysis}</span>
           </Link>
-        </div>
 
-        {/* Header */}
-        <header className="mb-6">
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <Link
-                href="/"
-                className="text-sm text-muted-foreground hover:text-foreground"
-              >
-                {t.results.backToAnalysis}
-              </Link>
-              <h1 className="text-3xl font-semibold tracking-tight mt-2">
-                {product.name}
-              </h1>
-              <p className="text-muted-foreground mt-1">
-                {t.results.analyzedFor}{" "}
-                {target_countries
-                  .map((c) => t.countries[c] ?? COUNTRY_LABELS[c].replace(/^\S+\s/, ""))
-                  .join(", ")}{" "}
-                · {t.results.origin}{" "}
-                {t.countries[product.origin_country] ?? COUNTRY_LABELS[product.origin_country]}
-              </p>
-            </div>
-            <div className="pt-8 print-hidden" data-pdf-hide="true">
-              <DownloadPdfButton data={response} filename={product.name} />
-            </div>
+          <Link
+            href="/"
+            className="hidden sm:flex items-center gap-2 px-2 py-1 rounded-lg hover:bg-muted/60 transition-colors"
+          >
+            <Image
+              src="/masterborder-logo.svg"
+              alt="MasterBorder"
+              width={22}
+              height={22}
+              priority
+            />
+            <span className="text-sm font-semibold tracking-tight">
+              MasterBorder
+            </span>
+          </Link>
+
+          <div className="flex items-center gap-2">
+            <LanguagePicker />
+            <DownloadPdfButton data={response} filename={product.name} />
           </div>
-        </header>
-
-        {/* Executive summary (harmonizer output) */}
-        {response.summary && (
-          <Card className="mb-6">
-            <CardHeader>
-              <CardTitle>{t.results.executiveSummary}</CardTitle>
-              <CardDescription>
-                {t.results.executiveSummaryDescription.replace(
-                  "{count}",
-                  String(numMarkets),
-                )}
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="prose prose-sm dark:prose-invert max-w-none">
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                  {response.summary}
-                </ReactMarkdown>
-              </div>
-            </CardContent>
-          </Card>
-        )}
-
-        {/* ROI badge — dramatic savings vs traditional broker */}
-        {response.token_usage && <RoiCard usage={response.token_usage} />}
-
-        {/* Token usage transparency badge */}
-        {response.token_usage && <TokenUsageBadge usage={response.token_usage} />}
-
-        {/* Per-country reports */}
-        <div className="space-y-4 mt-6">
-          <h2 className="text-xl font-semibold">{t.results.countryReports}</h2>
-          {response.country_reports.map((report) => (
-            <CountryCard key={report.country} report={report} t={t} />
-          ))}
         </div>
+      </nav>
 
-        <footer
-          data-pdf-hide="true"
-          className="print-hidden mt-10 text-center text-xs text-muted-foreground"
-        >
-          <p>
-            {t.example.footerNote}
-          </p>
-        </footer>
-      </div>
-    </div>
+      <main className="relative">
+        <div id="pdf-target" className="mx-auto max-w-5xl px-5 py-10 pb-20">
+          {/* Amber banner — makes it unmistakable this is a pre-computed sample */}
+          <div
+            data-pdf-hide="true"
+            className="print-hidden mb-8 flex items-center gap-4 rounded-2xl border border-amber-500/40 bg-gradient-to-br from-amber-500/[0.06] via-card/60 to-amber-500/[0.03] px-5 py-4 backdrop-blur-md"
+          >
+            <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-amber-500/15 text-amber-700 dark:text-amber-300">
+              <BookOpen className="h-5 w-5" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="text-[14px] font-semibold tracking-[-0.01em]">
+                {t.example.bannerTitle}
+              </div>
+              <div className="mt-0.5 text-[12.5px] leading-[1.5] text-muted-foreground">
+                {t.example.bannerBody}
+              </div>
+            </div>
+            <Link href="/" className="flex-shrink-0">
+              <Button size="sm" className="bg-blue-600 hover:bg-blue-700 text-white whitespace-nowrap">
+                {t.example.ctaRunYourOwn}
+                <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
+              </Button>
+            </Link>
+          </div>
+
+          {/* Hero-like header */}
+          <header className="mb-10 mb-fade-up mb-d1">
+            <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-emerald-500/10 px-3 py-1 text-[11.5px] font-medium uppercase tracking-[0.06em] text-emerald-700 dark:text-emerald-300">
+              <CheckCircle2 className="h-3 w-3" />
+              <span>{t.results.executiveSummary}</span>
+            </div>
+
+            <h1
+              className="mb-4 font-semibold tracking-[-0.035em] leading-[1.05]"
+              style={{ fontSize: "clamp(2rem, 5vw, 3.25rem)" }}
+            >
+              <span
+                className="mb-shimmer inline-block italic font-semibold"
+                style={{
+                  fontFamily:
+                    "var(--font-geist-sans), var(--font-sans), sans-serif",
+                  paddingRight: "0.1em",
+                  letterSpacing: "-0.01em",
+                  overflow: "visible",
+                }}
+              >
+                {product.name}
+              </span>
+            </h1>
+
+            <div className="flex flex-wrap items-center gap-2">
+              <div className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-card/80 backdrop-blur-sm px-3 py-1 text-[12px] font-medium">
+                <span className="text-muted-foreground">{t.results.origin}</span>
+                <span>
+                  {t.countries[product.origin_country] ??
+                    COUNTRY_LABELS[product.origin_country]}
+                </span>
+              </div>
+
+              <span className="text-muted-foreground mx-0.5">→</span>
+
+              {target_countries.map((code) => (
+                <div
+                  key={code}
+                  className="inline-flex items-center gap-1.5 rounded-full border border-blue-500/30 bg-blue-500/5 px-3 py-1 text-[12px] font-medium text-blue-900 dark:text-blue-100"
+                >
+                  <span>{t.countries[code] ?? COUNTRY_LABELS[code]}</span>
+                </div>
+              ))}
+            </div>
+          </header>
+
+          {/* Cross-market conflicts (silent when the example has none) */}
+          {response.conflicts && response.conflicts.length > 0 && (
+            <div className="mb-8 mb-fade-up mb-d2">
+              <ConflictsCard conflicts={response.conflicts} />
+            </div>
+          )}
+
+          {/* Executive Summary */}
+          {response.summary && (
+            <section className="mb-8 mb-fade-up mb-d3 overflow-hidden rounded-2xl border border-border/60 bg-card/80 backdrop-blur-md shadow-[0_1px_3px_rgba(0,0,0,0.04),_0_12px_40px_rgba(0,0,0,0.04)]">
+              <header className="flex items-start gap-3 border-b border-border/40 px-6 py-5">
+                <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-violet-600 text-white shadow-md shadow-blue-500/20">
+                  <Sparkles className="h-4 w-4" />
+                </div>
+                <div className="min-w-0">
+                  <h2 className="text-[17px] font-semibold tracking-[-0.015em]">
+                    {t.results.executiveSummary}
+                  </h2>
+                  <p className="mt-0.5 text-[12.5px] leading-[1.55] text-muted-foreground">
+                    {t.results.executiveSummaryDescription.replace(
+                      "{count}",
+                      String(numMarkets),
+                    )}
+                  </p>
+                </div>
+              </header>
+              <div className="px-6 py-6">
+                <div className="prose prose-sm dark:prose-invert max-w-none prose-headings:font-semibold prose-headings:tracking-tight prose-table:text-[13px] prose-th:font-semibold prose-td:align-top prose-a:text-blue-600 hover:prose-a:text-blue-700">
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                    {response.summary}
+                  </ReactMarkdown>
+                </div>
+              </div>
+            </section>
+          )}
+
+          {/* ROI + token usage */}
+          {response.token_usage && (
+            <div
+              className="mb-8 grid gap-4 md:grid-cols-2 mb-fade-up mb-d3 print-hidden"
+              data-pdf-hide="true"
+            >
+              <RoiCard usage={response.token_usage} />
+              <TokenUsageBadge usage={response.token_usage} />
+            </div>
+          )}
+
+          {/* Per-country reports */}
+          <section className="space-y-6">
+            <div className="flex items-baseline justify-between">
+              <h2 className="text-[20px] font-semibold tracking-[-0.02em]">
+                {t.results.countryReports}
+              </h2>
+              <span className="text-[12px] text-muted-foreground">
+                {numMarkets} / {target_countries.length}
+              </span>
+            </div>
+
+            {response.country_reports.map((report) => (
+              <CountryCard key={report.country} report={report} t={t} />
+            ))}
+          </section>
+
+          <footer
+            data-pdf-hide="true"
+            className="print-hidden mt-14 border-t border-border/40 pt-6 flex flex-col items-center gap-2 text-center text-[11.5px] text-muted-foreground"
+          >
+            <p>{t.example.footerNote}</p>
+          </footer>
+        </div>
+      </main>
+    </>
   );
 }
+
+// ---------------------------------------------------------------------------
+// CountryCard — one glass card per target market
+// ---------------------------------------------------------------------------
 
 function CountryCard({
   report,
@@ -224,96 +344,189 @@ function CountryCard({
 }) {
   const countryLabel =
     t.countries[report.country] ?? COUNTRY_LABELS[report.country];
+
   return (
-    <Card>
-      <CardHeader>
-        <div className="flex items-start justify-between gap-4">
-          <div>
-            <CardTitle className="text-xl">{countryLabel}</CardTitle>
-            <CardDescription className="mt-1 space-x-3">
-              {report.hs_code && (
-                <span>
-                  HS:{" "}
-                  <code className="font-mono text-xs">{report.hs_code}</code>
+    <article className="group overflow-hidden rounded-2xl border border-border/60 bg-card/80 backdrop-blur-md shadow-[0_1px_3px_rgba(0,0,0,0.04),_0_12px_40px_rgba(0,0,0,0.04)] transition-all duration-300 hover:border-border hover:shadow-[0_1px_3px_rgba(0,0,0,0.04),_0_20px_60px_rgba(0,0,0,0.06)]">
+      <header className="flex items-start justify-between gap-4 border-b border-border/40 px-6 py-5">
+        <div className="min-w-0">
+          <h3 className="text-[18px] font-semibold tracking-[-0.02em]">
+            {countryLabel}
+          </h3>
+          <div className="mt-1 flex flex-wrap items-center gap-x-4 gap-y-1 text-[12.5px] text-muted-foreground">
+            {report.hs_code && (
+              <span className="inline-flex items-center gap-1.5">
+                <span className="uppercase tracking-[0.06em] text-[10.5px]">HS</span>
+                <code className="font-mono tabular-nums text-foreground/80">
+                  {report.hs_code}
+                </code>
+              </span>
+            )}
+            {report.tariff_rate !== null &&
+              report.tariff_rate !== undefined && (
+                <span className="inline-flex items-center gap-1.5">
+                  <span className="uppercase tracking-[0.06em] text-[10.5px]">
+                    Tariff
+                  </span>
+                  <span className="font-semibold tabular-nums text-foreground/80">
+                    {(report.tariff_rate * 100).toFixed(1)}%
+                  </span>
                 </span>
               )}
-              {report.tariff_rate !== null &&
-                report.tariff_rate !== undefined && (
-                  <span>
-                    Tariff:{" "}
-                    <span className="font-medium">
-                      {(report.tariff_rate * 100).toFixed(1)}%
-                    </span>
-                  </span>
-                )}
-            </CardDescription>
-          </div>
-          <RiskBadge level={report.overall_risk} t={t} />
-        </div>
-      </CardHeader>
-
-      <CardContent className="space-y-4">
-        {report.findings.length > 0 && (
-          <div>
-            <h3 className="text-sm font-semibold mb-2">
-              {t.results.complianceFindings} ({report.findings.length})
-            </h3>
-            <ul className="space-y-2">
-              {report.findings.map((f, i) => (
-                <li
-                  key={i}
-                  className={
-                    "rounded-md border px-3 py-2 text-sm " +
-                    RISK_COLORS[f.risk_level]
-                  }
-                >
-                  <div className="flex items-start justify-between gap-2">
-                    <div>
-                      <span className="font-medium">{f.title}</span>
-                      <span className="text-xs ml-2 opacity-70">
-                        {f.category}
-                      </span>
-                    </div>
-                    <span className="text-xs uppercase tracking-wide opacity-70 shrink-0">
-                      {riskLabel(f.risk_level, t)}
-                    </span>
-                  </div>
-                  <p className="mt-1 opacity-90">{f.detail}</p>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        {report.recommended_actions.length > 0 && (
-          <>
-            <Separator />
-            <div>
-              <h3 className="text-sm font-semibold mb-2">
-                {t.results.recommendedActions}
-              </h3>
-              <ol className="list-decimal list-inside text-sm space-y-1 text-muted-foreground">
-                {report.recommended_actions.map((action, i) => (
-                  <li key={i}>{action}</li>
-                ))}
-              </ol>
-            </div>
-          </>
-        )}
-
-        {/* Deep-dive CTA intentionally disabled for examples —
-            the example job_id is no longer live on the backend. */}
-        <Separator />
-        <div className="rounded-lg border border-muted-foreground/20 bg-muted/30 p-4 mt-3">
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <Sparkles className="h-4 w-4 flex-shrink-0" />
-            <span>{t.example.deepDiveDisabled}</span>
           </div>
         </div>
-      </CardContent>
-    </Card>
+        <RiskBadge level={report.overall_risk} t={t} />
+      </header>
+
+      {report.findings.length > 0 && (
+        <div className="px-6 py-5">
+          <h4 className="mb-3 text-[11.5px] font-medium uppercase tracking-[0.08em] text-muted-foreground">
+            {t.results.complianceFindings}{" "}
+            <span className="text-foreground/60">({report.findings.length})</span>
+          </h4>
+          <ul className="space-y-2">
+            {report.findings.map((f, i) => (
+              <FindingRow key={i} finding={f} t={t} />
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {report.recommended_actions.length > 0 && (
+        <div className="border-t border-border/40 px-6 py-5">
+          <h4 className="mb-3 text-[11.5px] font-medium uppercase tracking-[0.08em] text-muted-foreground">
+            {t.results.recommendedActions}
+          </h4>
+          <ol className="space-y-1.5 text-[13.5px] leading-[1.55]">
+            {report.recommended_actions.map((action, i) => (
+              <li key={i} className="flex gap-3">
+                <span className="flex-shrink-0 mt-1 h-5 w-5 rounded-md bg-muted/60 text-[11px] font-medium tabular-nums flex items-center justify-center text-muted-foreground">
+                  {i + 1}
+                </span>
+                <span className="text-foreground/85">{action}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
+      )}
+
+      {/* Deep-dive disabled notice — the example job isn't live on the backend */}
+      <div
+        data-pdf-hide="true"
+        className="print-hidden border-t border-border/40 bg-muted/30 px-6 py-4"
+      >
+        <div className="flex items-center gap-2.5 text-[12.5px] text-muted-foreground">
+          <Sparkles className="h-3.5 w-3.5 flex-shrink-0" />
+          <span>{t.example.deepDiveDisabled}</span>
+        </div>
+      </div>
+    </article>
   );
 }
+
+// ---------------------------------------------------------------------------
+// FindingRow — one finding with a risk-coloured left border + icon + D4 UI
+// ---------------------------------------------------------------------------
+
+const RISK_ICON: Record<RiskLevel, React.ComponentType<{ className?: string }>> = {
+  low: CheckCircle2,
+  medium: AlertCircle,
+  high: AlertTriangle,
+  blocked: XCircle,
+};
+
+const RISK_ACCENT: Record<RiskLevel, string> = {
+  low: "border-l-emerald-500/70 bg-emerald-500/[0.03]",
+  medium: "border-l-amber-500/70 bg-amber-500/[0.03]",
+  high: "border-l-orange-500/70 bg-orange-500/[0.03]",
+  blocked: "border-l-red-500/70 bg-red-500/[0.04]",
+};
+
+const RISK_ICON_COLOR: Record<RiskLevel, string> = {
+  low: "text-emerald-600 dark:text-emerald-400",
+  medium: "text-amber-600 dark:text-amber-400",
+  high: "text-orange-600 dark:text-orange-400",
+  blocked: "text-red-600 dark:text-red-400",
+};
+
+function FindingRow({
+  finding,
+  t,
+}: {
+  finding: {
+    category: string;
+    title: string;
+    detail: string;
+    risk_level: RiskLevel;
+    confidence?: ConfidenceLevel | null;
+    citation?: string | null;
+    source_url?: string | null;
+  };
+  t: Translations;
+}) {
+  const Icon = RISK_ICON[finding.risk_level];
+  return (
+    <li
+      className={
+        "rounded-md border border-border/40 border-l-4 px-3.5 py-2.5 text-[13px] leading-[1.5] transition-colors hover:bg-background/80 " +
+        RISK_ACCENT[finding.risk_level]
+      }
+    >
+      <div className="flex items-start gap-2.5">
+        <Icon
+          className={
+            "h-3.5 w-3.5 flex-shrink-0 mt-0.5 " +
+            RISK_ICON_COLOR[finding.risk_level]
+          }
+        />
+        <div className="min-w-0 flex-1">
+          <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
+            <span className="font-semibold tracking-[-0.01em]">
+              {finding.title}
+            </span>
+            <span className="text-[10.5px] uppercase tracking-[0.08em] text-muted-foreground">
+              {finding.category}
+            </span>
+            <span className="ml-auto text-[10.5px] uppercase tracking-[0.08em] font-medium text-muted-foreground">
+              {riskLabel(finding.risk_level, t)}
+            </span>
+          </div>
+          <p className="mt-1 text-foreground/75">{finding.detail}</p>
+          {(finding.confidence || finding.citation || finding.source_url) && (
+            <div className="mt-2 flex flex-wrap items-center gap-2 text-[11.5px]">
+              {finding.confidence && (
+                <ConfidenceBadge level={finding.confidence} t={t} />
+              )}
+              {finding.citation && (
+                <span className="inline-flex items-center gap-1 text-muted-foreground">
+                  <Shield className="h-3 w-3" />
+                  <span className="font-mono text-[11px]">
+                    {finding.citation}
+                  </span>
+                </span>
+              )}
+              {finding.source_url && (
+                <a
+                  href={finding.source_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-blue-500/30 bg-blue-500/[0.06] hover:bg-blue-500/[0.12] px-2.5 py-1 text-[11px] font-medium text-blue-700 dark:text-blue-300 transition-colors"
+                >
+                  <ShieldCheck className="h-3 w-3" />
+                  {t.findings.verify}
+                  <ExternalLink className="h-2.5 w-2.5 opacity-70" />
+                </a>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+    </li>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// RiskBadge — pill for the country's overall_risk
+// ---------------------------------------------------------------------------
 
 function riskLabel(level: RiskLevel, t: Translations): string {
   switch (level) {
@@ -329,22 +542,73 @@ function riskLabel(level: RiskLevel, t: Translations): string {
 }
 
 function RiskBadge({ level, t }: { level: RiskLevel; t: Translations }) {
-  const colors: Record<RiskLevel, string> = {
-    low: "bg-green-100 text-green-800 border-green-300 dark:bg-green-900/30 dark:text-green-300 dark:border-green-800",
+  const styles: Record<RiskLevel, string> = {
+    low: "border-emerald-500/40 bg-gradient-to-br from-emerald-500/10 to-emerald-500/5 text-emerald-700 dark:text-emerald-300",
     medium:
-      "bg-yellow-100 text-yellow-800 border-yellow-300 dark:bg-yellow-900/30 dark:text-yellow-300 dark:border-yellow-800",
-    high: "bg-orange-100 text-orange-800 border-orange-300 dark:bg-orange-900/30 dark:text-orange-300 dark:border-orange-800",
+      "border-amber-500/40 bg-gradient-to-br from-amber-500/10 to-amber-500/5 text-amber-700 dark:text-amber-300",
+    high: "border-orange-500/40 bg-gradient-to-br from-orange-500/10 to-orange-500/5 text-orange-700 dark:text-orange-300",
     blocked:
-      "bg-red-100 text-red-800 border-red-300 dark:bg-red-900/30 dark:text-red-300 dark:border-red-800",
+      "border-red-500/40 bg-gradient-to-br from-red-500/10 to-red-500/5 text-red-700 dark:text-red-300",
+  };
+  const dotColor: Record<RiskLevel, string> = {
+    low: "bg-emerald-500",
+    medium: "bg-amber-500",
+    high: "bg-orange-500",
+    blocked: "bg-red-500",
   };
   return (
     <span
       className={
-        "inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold shrink-0 " +
-        colors[level]
+        "inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-[11.5px] font-semibold uppercase tracking-[0.06em] shrink-0 " +
+        styles[level]
       }
     >
+      <span className={"h-1.5 w-1.5 rounded-full " + dotColor[level]} />
       {riskLabel(level, t)} {t.risk.suffix}
+    </span>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// ConfidenceBadge — matches the Results page exactly
+// ---------------------------------------------------------------------------
+
+const CONFIDENCE_STYLES: Record<ConfidenceLevel, string> = {
+  high: "border-emerald-500/40 bg-emerald-500/[0.08] text-emerald-700 dark:text-emerald-300",
+  medium: "border-amber-500/40 bg-amber-500/[0.08] text-amber-700 dark:text-amber-300",
+  low: "border-slate-500/30 bg-slate-500/[0.06] text-slate-700 dark:text-slate-300",
+};
+
+const CONFIDENCE_ICON: Record<
+  ConfidenceLevel,
+  React.ComponentType<{ className?: string }>
+> = {
+  high: ShieldCheck,
+  medium: Info,
+  low: HelpCircle,
+};
+
+function ConfidenceBadge({
+  level,
+  t,
+}: {
+  level: ConfidenceLevel;
+  t: Translations;
+}) {
+  const Icon = CONFIDENCE_ICON[level];
+  const label =
+    t.findings.confidence[level] ??
+    level.charAt(0).toUpperCase() + level.slice(1);
+  return (
+    <span
+      className={
+        "inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[10.5px] font-medium uppercase tracking-[0.06em] " +
+        CONFIDENCE_STYLES[level]
+      }
+      title={t.findings.confidenceTooltip[level]}
+    >
+      <Icon className="h-2.5 w-2.5" />
+      {label}
     </span>
   );
 }
