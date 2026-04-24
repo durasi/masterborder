@@ -313,4 +313,17 @@ export const id: Translations = {
     deepDiveDisabled: "Deep-dive dinonaktifkan pada contoh — jalankan analisis Anda sendiri untuk mengobrol dengan agen.",
     footerNote: "Analisis-contoh — telah dihitung sebelumnya. Jalankan milik Anda dari beranda untuk laporan segar.",
   },
+  conflicts: {
+    title: "Konflik antar-pasar terdeteksi",
+    subtitle: "Perbedaan konkret antara pasar sasaran yang perlu Anda selaraskan.",
+    impactLabel: "Dampak:",
+    types: {
+      hs_code: "Kode HS",
+      labeling: "Pelabelan",
+      certification: "Sertifikasi",
+      documentation: "Dokumen",
+      tariff: "Tarif",
+      other: "Lainnya",
+    },
+  },
 };

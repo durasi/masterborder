@@ -124,6 +124,36 @@ class TokenUsage(BaseModel):
         )
 
 
+# ---------------------------------------------------------------------------
+# D3 — Cross-market conflict detection
+# ---------------------------------------------------------------------------
+
+
+class ConflictType(str, Enum):
+    """Kinds of cross-country compliance conflicts we call out explicitly."""
+    HS_CODE = "hs_code"
+    LABELING = "labeling"
+    CERTIFICATION = "certification"
+    DOCUMENTATION = "documentation"
+    TARIFF = "tariff"
+    OTHER = "other"
+
+
+class Conflict(BaseModel):
+    """A single cross-market contradiction between two or more Country Reports."""
+    type: ConflictType
+    countries: list[CountryCode] = Field(
+        description="The countries involved in the conflict (usually 2, can be more)."
+    )
+    title: str = Field(description="Short headline, e.g. 'HS code differs'.")
+    detail: str = Field(
+        description="Concrete divergence, e.g. '4202.31 (US) vs 4202.32 (DE)'."
+    )
+    impact: str = Field(
+        description="Why it matters in practice, e.g. 'Duty rate 8% vs 3.7%'."
+    )
+
+
 class AnalysisResponse(BaseModel):
     """Full harmonized response for an analysis job."""
     job_id: str
@@ -132,4 +162,8 @@ class AnalysisResponse(BaseModel):
     request: AnalysisRequest
     country_reports: list[CountryReport] = Field(default_factory=list)
     summary: Optional[str] = Field(None, description="Human-in-the-loop recommendation summary")
+    conflicts: list[Conflict] = Field(
+        default_factory=list,
+        description="Cross-market contradictions extracted from the country reports.",
+    )
     token_usage: Optional[TokenUsage] = Field(None, description="Aggregate Opus 4.7 usage across all agents")

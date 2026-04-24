@@ -313,4 +313,17 @@ export const zh: Translations = {
     deepDiveDisabled: "示例中深入研究已禁用 — 运行您自己的分析以与代理聊天。",
     footerNote: "示例分析 — 预先计算。从主页运行您自己的以获取最新报告。",
   },
+  conflicts: {
+    title: "检测到跨市场冲突",
+    subtitle: "目标市场之间需要协调的具体分歧。",
+    impactLabel: "影响:",
+    types: {
+      hs_code: "HS编码",
+      labeling: "标签",
+      certification: "认证",
+      documentation: "文件",
+      tariff: "关税",
+      other: "其他",
+    },
+  },
 };

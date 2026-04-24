@@ -313,4 +313,17 @@ export const nl: Translations = {
     deepDiveDisabled: "Deep-dive is uitgeschakeld in voorbeelden — voer uw eigen analyse uit om met de agent te chatten.",
     footerNote: "Voorbeeldanalyse — vooraf berekend. Voer uw eigen uit vanaf de homepage voor een vers rapport.",
   },
+  conflicts: {
+    title: "Markt-overstijgende conflicten gedetecteerd",
+    subtitle: "Concrete verschillen tussen doelmarkten die u moet verzoenen.",
+    impactLabel: "Impact:",
+    types: {
+      hs_code: "HS-code",
+      labeling: "Etikettering",
+      certification: "Certificering",
+      documentation: "Documenten",
+      tariff: "Tarief",
+      other: "Overig",
+    },
+  },
 };

@@ -314,6 +314,19 @@ export const en = {
     footerNote: "Example analysis — pre-computed. Run your own from the home page to get a fresh, up-to-the-minute report.",
   },
 
+  conflicts: {
+    title: "Cross-market conflicts detected",
+    subtitle: "Concrete disagreements between target markets you need to reconcile.",
+    impactLabel: "Impact:",
+    types: {
+      hs_code: "HS code",
+      labeling: "Labeling",
+      certification: "Certification",
+      documentation: "Documents",
+      tariff: "Tariff",
+      other: "Other",
+    },
+  },
 };
 
 export type Translations = {
@@ -537,5 +550,19 @@ export type Translations = {
     ctaRunYourOwn: string;
     deepDiveDisabled: string;
     footerNote: string;
+  };
+
+  conflicts: {
+    title: string;
+    subtitle: string;
+    impactLabel: string;
+    types: {
+      hs_code: string;
+      labeling: string;
+      certification: string;
+      documentation: string;
+      tariff: string;
+      other: string;
+    };
   };
 };

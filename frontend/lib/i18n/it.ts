@@ -313,4 +313,17 @@ export const it: Translations = {
     deepDiveDisabled: "L'approfondimento è disabilitato negli esempi — esegui la tua analisi per chattare con l'agente.",
     footerNote: "Analisi-esempio — pre-calcolata. Esegui la tua dalla home per un report aggiornato.",
   },
+  conflicts: {
+    title: "Conflitti tra mercati rilevati",
+    subtitle: "Divergenze concrete tra mercati target da conciliare.",
+    impactLabel: "Impatto:",
+    types: {
+      hs_code: "Codice HS",
+      labeling: "Etichettatura",
+      certification: "Certificazione",
+      documentation: "Documenti",
+      tariff: "Tariffa",
+      other: "Altro",
+    },
+  },
 };

@@ -313,4 +313,17 @@ export const ja: Translations = {
     deepDiveDisabled: "例では深掘りが無効 — エージェントとチャットするには独自の分析を実行してください。",
     footerNote: "分析例 — 事前計算済み。最新レポートはホームから独自に実行。",
   },
+  conflicts: {
+    title: "市場間の矛盾を検出",
+    subtitle: "対象市場間で調整が必要な具体的な相違点。",
+    impactLabel: "影響:",
+    types: {
+      hs_code: "HSコード",
+      labeling: "ラベル表示",
+      certification: "認証",
+      documentation: "書類",
+      tariff: "関税",
+      other: "その他",
+    },
+  },
 };

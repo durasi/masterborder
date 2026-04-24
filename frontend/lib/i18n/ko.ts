@@ -313,4 +313,17 @@ export const ko: Translations = {
     deepDiveDisabled: "예시에서는 심층 분석이 비활성화됨 — 에이전트와 채팅하려면 직접 분석을 실행하세요.",
     footerNote: "예시 분석 — 미리 계산됨. 최신 보고서를 원하면 홈에서 직접 실행하세요.",
   },
+  conflicts: {
+    title: "시장 간 충돌 감지됨",
+    subtitle: "대상 시장 간 조정이 필요한 구체적인 불일치.",
+    impactLabel: "영향:",
+    types: {
+      hs_code: "HS 코드",
+      labeling: "라벨링",
+      certification: "인증",
+      documentation: "문서",
+      tariff: "관세",
+      other: "기타",
+    },
+  },
 };

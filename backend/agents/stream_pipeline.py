@@ -20,6 +20,7 @@ from datetime import datetime
 from typing import AsyncIterator
 
 from backend.agents.harmonizer import harmonize
+from backend.agents.conflict_extractor import extract_conflicts
 from backend.countries.agent import analyze_country
 from backend.schemas.models import (
     AnalysisRequest,
@@ -158,27 +159,49 @@ async def stream_pipeline(
         token_usage=TokenUsage.from_counts(total_in, total_out),
     )
 
-    try:
-        summary_text, (harm_in, harm_out) = await harmonize(
-            response, request.preferred_language
-        )
-    except Exception as exc:  # noqa: BLE001
-        # Degrade gracefully: return the country reports without a summary so
-        # the frontend still has a usable analysis.
+    # Run the harmonizer and the conflict extractor in parallel. The extractor
+    # is best-effort (Haiku 4.5, ~2-3 s) and typically finishes well before
+    # the harmonizer (Opus 4.7, ~15-20 s), so it's effectively free latency.
+    # Any extractor failure is contained: we fall back to an empty conflicts
+    # list and continue serving the primary result.
+    async def _safe_harmonize():
+        try:
+            return await harmonize(response, request.preferred_language)
+        except Exception as exc:  # noqa: BLE001
+            return exc
+
+    async def _safe_extract():
+        try:
+            return await extract_conflicts(
+                response, None, request.preferred_language
+            )
+        except Exception:  # noqa: BLE001
+            return [], (0, 0)
+
+    harmonize_result, extract_result = await asyncio.gather(
+        _safe_harmonize(), _safe_extract()
+    )
+
+    if isinstance(harmonize_result, Exception):
         response.summary = None
+        response.conflicts = extract_result[0] if extract_result else []
         yield (
             "done",
             {
                 "response": response.model_dump(mode="json"),
-                "harmonizer_error": str(exc),
+                "harmonizer_error": str(harmonize_result),
                 "errors": errors,
             },
         )
         return
 
+    summary_text, (harm_in, harm_out) = harmonize_result
+    conflicts_list, (conf_in, conf_out) = extract_result
+
     response.summary = summary_text
+    response.conflicts = conflicts_list
     response.token_usage = TokenUsage.from_counts(
-        total_in + harm_in, total_out + harm_out
+        total_in + harm_in + conf_in, total_out + harm_out + conf_out
     )
     response.completed_at = datetime.utcnow()
 

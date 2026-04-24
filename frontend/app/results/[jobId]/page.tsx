@@ -28,6 +28,7 @@ import {
 } from "@/lib/types";
 import { TokenUsageBadge } from "@/components/TokenUsageBadge";
 import { RoiCard } from "@/components/RoiCard";
+import { ConflictsCard } from "@/components/ConflictsCard";
 import { LanguagePicker } from "@/components/LanguagePicker";
 import { useLocale } from "@/lib/i18n/context";
 import type { Translations } from "@/lib/i18n/en";
@@ -170,6 +171,12 @@ export default function ResultsPage() {
 
         {/* Per-country reports */}
         <div className="space-y-4 mt-6">
+      {response?.conflicts && response.conflicts.length > 0 && (
+        <div className="mb-8">
+          <ConflictsCard conflicts={response.conflicts} />
+        </div>
+      )}
+
           <h2 className="text-xl font-semibold">{t.results.countryReports}</h2>
           {response.country_reports.map((report) => (
             <CountryCard

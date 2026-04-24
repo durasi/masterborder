@@ -313,4 +313,17 @@ export const pt: Translations = {
     deepDiveDisabled: "Exploração profunda desativada em exemplos — execute a sua análise para conversar com o agente.",
     footerNote: "Análise-exemplo — pré-calculada. Execute a sua a partir do início para um relatório atualizado.",
   },
+  conflicts: {
+    title: "Conflitos entre mercados detectados",
+    subtitle: "Divergências concretas entre mercados-alvo que precisa conciliar.",
+    impactLabel: "Impacto:",
+    types: {
+      hs_code: "Código SH",
+      labeling: "Rotulagem",
+      certification: "Certificação",
+      documentation: "Documentos",
+      tariff: "Tarifa",
+      other: "Outro",
+    },
+  },
 };

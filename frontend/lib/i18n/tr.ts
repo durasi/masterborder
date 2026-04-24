@@ -313,4 +313,17 @@ export const tr: Translations = {
     deepDiveDisabled: "Örneklerde derinlemesine inceleme devre dışı — ajanla sohbet etmek için kendi analizinizi çalıştırın.",
     footerNote: "Örnek analiz — önceden hesaplanmış. Yeni, güncel bir rapor için ana sayfadan kendinizinkini çalıştırın.",
   },
+  conflicts: {
+    title: "Pazarlar arası çelişkiler tespit edildi",
+    subtitle: "Hedef pazarlar arasında uzlaştırmanız gereken somut farklılıklar.",
+    impactLabel: "Etki:",
+    types: {
+      hs_code: "HS kodu",
+      labeling: "Etiketleme",
+      certification: "Sertifikasyon",
+      documentation: "Belgeler",
+      tariff: "Gümrük",
+      other: "Diğer",
+    },
+  },
 };

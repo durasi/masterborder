@@ -313,4 +313,17 @@ export const de: Translations = {
     deepDiveDisabled: "Deep-Dive ist bei Beispielen deaktiviert — starten Sie Ihre eigene Analyse, um mit dem Agenten zu chatten.",
     footerNote: "Beispielanalyse — vorberechnet. Starten Sie Ihre eigene von der Startseite für einen aktuellen Bericht.",
   },
+  conflicts: {
+    title: "Markt-übergreifende Konflikte erkannt",
+    subtitle: "Konkrete Unterschiede zwischen Zielmärkten, die Sie abstimmen müssen.",
+    impactLabel: "Auswirkung:",
+    types: {
+      hs_code: "HS-Code",
+      labeling: "Kennzeichnung",
+      certification: "Zertifizierung",
+      documentation: "Dokumente",
+      tariff: "Zoll",
+      other: "Sonstiges",
+    },
+  },
 };

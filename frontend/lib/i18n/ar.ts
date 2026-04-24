@@ -313,4 +313,17 @@ export const ar: Translations = {
     deepDiveDisabled: "الغوص العميق معطل في الأمثلة — شغل تحليلك الخاص للدردشة مع الوكيل.",
     footerNote: "تحليل نموذجي — محسوب مسبقًا. شغل خاصتك من الصفحة الرئيسية للحصول على تقرير محدث.",
   },
+  conflicts: {
+    title: "تم اكتشاف تعارضات بين الأسواق",
+    subtitle: "اختلافات ملموسة بين الأسواق المستهدفة يجب التوفيق بينها.",
+    impactLabel: "التأثير:",
+    types: {
+      hs_code: "رمز HS",
+      labeling: "الوسم",
+      certification: "الشهادات",
+      documentation: "الوثائق",
+      tariff: "التعرفة",
+      other: "أخرى",
+    },
+  },
 };

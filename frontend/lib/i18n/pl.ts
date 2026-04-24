@@ -313,4 +313,17 @@ export const pl: Translations = {
     deepDiveDisabled: "Zgłębianie jest wyłączone w przykładach — uruchom własną analizę, aby porozmawiać z agentem.",
     footerNote: "Przykładowa analiza — wcześniej obliczona. Uruchom własne ze strony głównej, aby otrzymać świeży raport.",
   },
+  conflicts: {
+    title: "Wykryto konflikty między rynkami",
+    subtitle: "Konkretne rozbieżności między rynkami docelowymi do uzgodnienia.",
+    impactLabel: "Wpływ:",
+    types: {
+      hs_code: "Kod HS",
+      labeling: "Etykietowanie",
+      certification: "Certyfikacja",
+      documentation: "Dokumenty",
+      tariff: "Cło",
+      other: "Inne",
+    },
+  },
 };

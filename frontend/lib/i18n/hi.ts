@@ -313,4 +313,17 @@ export const hi: Translations = {
     deepDiveDisabled: "उदाहरणों में डीप-डाइव अक्षम — एजेंट के साथ चैट करने के लिए अपना विश्लेषण चलाएँ।",
     footerNote: "उदाहरण विश्लेषण — पहले से गणना किया गया। ताज़ा रिपोर्ट के लिए होम से अपना चलाएँ।",
   },
+  conflicts: {
+    title: "बाज़ारों के बीच संघर्ष मिले",
+    subtitle: "लक्ष्य बाज़ारों के बीच समेटने योग्य ठोस असहमतियाँ।",
+    impactLabel: "प्रभाव:",
+    types: {
+      hs_code: "HS कोड",
+      labeling: "लेबलिंग",
+      certification: "प्रमाणन",
+      documentation: "दस्तावेज़",
+      tariff: "शुल्क",
+      other: "अन्य",
+    },
+  },
 };

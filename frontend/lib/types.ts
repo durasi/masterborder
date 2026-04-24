@@ -51,6 +51,7 @@ export interface AnalysisResponse {
   request: AnalysisRequest;
   country_reports: CountryReport[];
   summary?: string | null;
+  conflicts?: Conflict[];
   token_usage?: TokenUsage;
 }
 
@@ -112,3 +113,24 @@ export interface TokenUsage {
   output_tokens: number;
   estimated_cost_usd: number;
 }
+
+// -----------------------------------------------------------------------------
+// D3 — Cross-market conflict detection
+// -----------------------------------------------------------------------------
+
+export type ConflictType =
+  | "hs_code"
+  | "labeling"
+  | "certification"
+  | "documentation"
+  | "tariff"
+  | "other";
+
+export interface Conflict {
+  type: ConflictType;
+  countries: CountryCode[];
+  title: string;
+  detail: string;
+  impact: string;
+}
+

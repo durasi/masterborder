@@ -313,4 +313,17 @@ export const fr: Translations = {
     deepDiveDisabled: "L'exploration est désactivée sur les exemples — lancez votre propre analyse pour chatter avec l'agent.",
     footerNote: "Analyse-exemple — pré-calculée. Lancez la vôtre depuis l'accueil pour un rapport frais.",
   },
+  conflicts: {
+    title: "Conflits inter-marchés détectés",
+    subtitle: "Divergences concrètes entre marchés cibles à concilier.",
+    impactLabel: "Impact :",
+    types: {
+      hs_code: "Code SH",
+      labeling: "Étiquetage",
+      certification: "Certification",
+      documentation: "Documents",
+      tariff: "Tarif",
+      other: "Autre",
+    },
+  },
 };
