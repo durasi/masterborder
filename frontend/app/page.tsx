@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
@@ -10,34 +10,29 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Separator } from "@/components/ui/separator";
 
-import { api, APIError, analyzeStream } from "@/lib/api";
+import { APIError, analyzeStream } from "@/lib/api";
 import {
   AgentTelemetryOverlay,
   type AgentState,
   type HarmonizerState,
 } from "@/components/AgentTelemetryOverlay";
-import {
-  COUNTRY_LABELS,
-  type CountryCode,
-} from "@/lib/types";
+import { COUNTRY_LABELS, type CountryCode } from "@/lib/types";
 import { UsageStatsFooter } from "@/components/UsageStatsFooter";
-import { LanguagePicker } from "@/components/LanguagePicker";
 import { useLocale } from "@/lib/i18n/context";
+
+import { MeshBackground } from "@/components/landing/MeshBackground";
+import { Navbar } from "@/components/landing/Navbar";
+import { Hero } from "@/components/landing/Hero";
+import { HowItWorks } from "@/components/landing/HowItWorks";
+import { FeatureGrid } from "@/components/landing/FeatureGrid";
+import { CountryChip } from "@/components/landing/CountryChip";
 
 const ALL_COUNTRIES: CountryCode[] = ["US", "DE", "GB", "TR", "JP"];
 
@@ -45,6 +40,7 @@ export default function HomePage() {
   const router = useRouter();
   const { t, locale } = useLocale();
 
+  // Form state (preserved from previous implementation)
   const [productName, setProductName] = useState("");
   const [productDescription, setProductDescription] = useState("");
   const [category, setCategory] = useState("");
@@ -53,10 +49,11 @@ export default function HomePage() {
   const [quantity, setQuantity] = useState<string>("");
   const [unit, setUnit] = useState<string>("pieces");
   const [selectedCountries, setSelectedCountries] = useState<Set<CountryCode>>(
-    new Set(["US", "DE", "GB"]),
+    new Set(["DE", "GB"]),
   );
   const [includeRouteRisk, setIncludeRouteRisk] = useState(true);
 
+  // Streaming state
   const [loading, setLoading] = useState(false);
   const [progressStep, setProgressStep] = useState(0);
   const [streamAgents, setStreamAgents] = useState<AgentState[]>([]);
@@ -64,8 +61,13 @@ export default function HomePage() {
   const [streamTokens, setStreamTokens] = useState(0);
   const [streamStartedAt, setStreamStartedAt] = useState<number | null>(null);
   const [streamElapsedS, setStreamElapsedS] = useState(0);
+  const [error, setError] = useState<string | null>(null);
 
-  // Rotate progress messages while analyzing — keeps the user engaged during the ~25-35s wait
+  // Auto-submit trigger — set to true by fillSampleProduct; a useEffect
+  // watches it and calls runAnalysis() on the next tick, so the form state
+  // is guaranteed to be flushed before we read it.
+  const [autoSubmitPending, setAutoSubmitPending] = useState(false);
+
   useEffect(() => {
     if (!loading) {
       setProgressStep(0);
@@ -77,7 +79,6 @@ export default function HomePage() {
     return () => clearInterval(interval);
   }, [loading]);
 
-  // Live-ticking total elapsed timer while streaming.
   useEffect(() => {
     if (!loading || streamStartedAt === null) {
       setStreamElapsedS(0);
@@ -88,8 +89,6 @@ export default function HomePage() {
     }, 200);
     return () => clearInterval(id);
   }, [loading, streamStartedAt]);
-  
-  const [error, setError] = useState<string | null>(null);
 
   const toggleCountry = (code: CountryCode) => {
     setSelectedCountries((prev) => {
@@ -100,10 +99,14 @@ export default function HomePage() {
     });
   };
 
+  // Origin country is filtered out of the target picker entirely.
   const targetCountries = ALL_COUNTRIES.filter((c) => c !== originCountry);
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
+  // Pull the analysis logic out of the form handler so it can be invoked
+  // either from the <form onSubmit> OR programmatically (by the Try sample
+  // auto-submit path). Reads state directly — callers must ensure state is
+  // already set before calling.
+  async function runAnalysis() {
     setError(null);
 
     if (!productName.trim() || !productDescription.trim()) {
@@ -115,7 +118,6 @@ export default function HomePage() {
       return;
     }
 
-    // Reset streaming state
     const targetCountriesArr = Array.from(selectedCountries);
     setStreamAgents(
       targetCountriesArr.map((c) => ({ status: "pending", country: c })),
@@ -154,7 +156,6 @@ export default function HomePage() {
         onEvent: (event) => {
           switch (event.type) {
             case "started":
-              // job_id is already known; nothing more to do here for now.
               break;
 
             case "agent_start":
@@ -231,7 +232,20 @@ export default function HomePage() {
     }
   }
 
-  function fillSampleProduct() {
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    await runAnalysis();
+  }
+
+  // Auto-submit once form state has been flushed following a sample fill.
+  useEffect(() => {
+    if (!autoSubmitPending) return;
+    setAutoSubmitPending(false);
+    runAnalysis();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [autoSubmitPending]);
+
+  function fillSampleProduct(triggerAnalysis: boolean = false) {
     setProductName(t.form.sampleProductName);
     setProductDescription(t.form.sampleProductDescription);
     setCategory("consumer_goods");
@@ -242,83 +256,33 @@ export default function HomePage() {
     setSelectedCountries(new Set(["DE", "GB"]));
     setIncludeRouteRisk(true);
     setError(null);
+    if (triggerAnalysis) setAutoSubmitPending(true);
   }
 
   const count = selectedCountries.size;
   const analyzingLabel = count === 1 ? t.form.analyzingMarket : t.form.analyzingMarkets;
 
   return (
-    <div className="min-h-screen bg-background py-10 px-4">
-      <div className="mx-auto max-w-3xl">
-        {/* Hero */}
-        <header className="mb-10 text-center">
-          <div className="mb-5 flex items-center justify-center gap-3">
-            <img
-              src="/masterborder-logo.svg"
-              alt=""
-              aria-hidden="true"
-              className="h-12 w-12"
-              width={48}
-              height={48}
-            />
-            <span className="text-2xl font-bold tracking-tight">
-              MasterBorder
-            </span>
-          </div>
-          <div className="mb-5 flex items-center justify-center gap-2 flex-wrap">
-            <span className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-muted/40 px-3 py-1 text-xs font-mono">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500"></span>
-              </span>
-              {t.hero.livePill}
-            </span>
-            <LanguagePicker />
-          </div>
-          <h1 className="text-4xl sm:text-5xl font-bold tracking-tight">
-            {t.hero.titleLine1}
-            <br />
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              {t.hero.titleLine2}
-            </span>
-          </h1>
-          <p className="mt-4 text-base sm:text-lg text-muted-foreground max-w-xl mx-auto">
-            {t.hero.subtitle}
-          </p>
-        </header>
+    <>
+      <MeshBackground />
+      <Navbar onTrySample={() => fillSampleProduct(true)} />
 
-        {/* Feature grid */}
-        <div className="mb-10 grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm">
-          <div className="rounded-lg border border-border/60 bg-muted/20 p-3">
-            <div className="font-semibold mb-0.5">{t.features.parallelTitle}</div>
-            <div className="text-xs text-muted-foreground">
-              {t.features.parallelBody}
-            </div>
-          </div>
-          <div className="rounded-lg border border-border/60 bg-muted/20 p-3">
-            <div className="font-semibold mb-0.5">{t.features.citationsTitle}</div>
-            <div className="text-xs text-muted-foreground">
-              {t.features.citationsBody}
-            </div>
-          </div>
-          <div className="rounded-lg border border-border/60 bg-muted/20 p-3">
-            <div className="font-semibold mb-0.5">{t.features.deepDiveTitle}</div>
-            <div className="text-xs text-muted-foreground">
-              {t.features.deepDiveBody}
-            </div>
-          </div>
-        </div>
+      <main className="mx-auto max-w-6xl px-5 py-14 pb-24">
+        <Hero />
 
-        <Card>
-          <CardHeader>
-            <div className="flex items-start justify-between gap-3">
+        {/* Form card */}
+        <section className="mx-auto mt-14 max-w-3xl mb-fade-up mb-d4">
+          <div className="overflow-hidden rounded-[20px] border border-border/60 bg-card/80 backdrop-blur-md shadow-[0_1px_3px_rgba(0,0,0,0.04),_0_12px_40px_rgba(0,0,0,0.04)] transition-all duration-300 hover:shadow-[0_1px_3px_rgba(0,0,0,0.04),_0_20px_60px_rgba(0,0,0,0.06)] hover:border-border dark:shadow-[0_1px_3px_rgba(0,0,0,0.3),_0_12px_40px_rgba(0,0,0,0.25)]">
+            <div className="flex items-start justify-between gap-3 border-b border-border/50 px-7 py-5">
               <div className="min-w-0">
-                <CardTitle>{t.form.cardTitle}</CardTitle>
-                <CardDescription>
+                <h2 className="text-[18px] font-semibold tracking-[-0.02em]">
+                  {t.form.cardTitle}
+                </h2>
+                <p className="mt-1 text-[13.5px] leading-[1.5] text-muted-foreground">
                   {t.form.cardDescription}
-                </CardDescription>
+                </p>
               </div>
-              <div className="flex gap-2 shrink-0">
+              <div className="flex shrink-0 gap-2">
                 <Link
                   href="/examples/leather-wallet-tr-to-us-de-uk-jp"
                   tabIndex={loading ? -1 : 0}
@@ -329,7 +293,6 @@ export default function HomePage() {
                     variant="outline"
                     size="sm"
                     disabled={loading}
-                    className="border-blue-500/40 bg-blue-50/50 hover:bg-blue-100/50 dark:bg-blue-950/20 dark:hover:bg-blue-950/40"
                   >
                     {t.form.seeExample}
                   </Button>
@@ -338,17 +301,16 @@ export default function HomePage() {
                   type="button"
                   variant="outline"
                   size="sm"
-                  onClick={fillSampleProduct}
+                  onClick={() => fillSampleProduct(true)}
                   disabled={loading}
+                  className="border-transparent bg-blue-500/10 text-blue-700 hover:bg-blue-500/15 hover:text-blue-700 dark:text-blue-300"
                 >
                   {t.form.trySample}
                 </Button>
               </div>
             </div>
-          </CardHeader>
 
-          <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-5">
+            <form onSubmit={handleSubmit} className="space-y-5 px-7 py-6">
               <div className="space-y-1.5">
                 <Label htmlFor="name">{t.form.productNameLabel}</Label>
                 <Input
@@ -374,21 +336,33 @@ export default function HomePage() {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div className="space-y-1.5">
-                  <Label htmlFor="category">
-                    {t.form.categoryLabel}{" "}
-                    <span className="text-muted-foreground text-xs">
-                      {t.form.categoryOptional}
-                    </span>
-                  </Label>
-                  <Input
-                    id="category"
-                    value={category}
-                    onChange={(e) => setCategory(e.target.value)}
-                    placeholder={t.form.categoryPlaceholder}
+                  <Label htmlFor="origin">{t.form.originLabel}</Label>
+                  <Select
+                    value={originCountry}
+                    onValueChange={(v) => {
+                      const next = v as CountryCode;
+                      setOriginCountry(next);
+                      setSelectedCountries((prev) => {
+                        const s = new Set(prev);
+                        s.delete(next);
+                        return s;
+                      });
+                    }}
                     disabled={loading}
-                  />
+                  >
+                    <SelectTrigger id="origin">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {ALL_COUNTRIES.map((code) => (
+                        <SelectItem key={code} value={code}>
+                          {COUNTRY_LABELS[code]}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </div>
                 <div className="space-y-1.5">
                   <Label htmlFor="value">
@@ -410,7 +384,7 @@ export default function HomePage() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-[1fr_140px] gap-4">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-[1fr_140px]">
                 <div className="space-y-1.5">
                   <Label htmlFor="quantity">
                     {t.form.quantityLabel}{" "}
@@ -458,76 +432,48 @@ export default function HomePage() {
               </div>
 
               <div className="space-y-1.5">
-                <Label htmlFor="origin">{t.form.originLabel}</Label>
-                <Select
-                  value={originCountry}
-                  onValueChange={(v) => {
-                    const next = v as CountryCode;
-                    setOriginCountry(next);
-                    setSelectedCountries((prev) => {
-                      const s = new Set(prev);
-                      s.delete(next);
-                      return s;
-                    });
-                  }}
+                <Label htmlFor="category">
+                  {t.form.categoryLabel}{" "}
+                  <span className="text-muted-foreground text-xs">
+                    {t.form.categoryOptional}
+                  </span>
+                </Label>
+                <Input
+                  id="category"
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                  placeholder={t.form.categoryPlaceholder}
                   disabled={loading}
-                >
-                  <SelectTrigger id="origin">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {ALL_COUNTRIES.map((code) => (
-                      <SelectItem key={code} value={code}>
-                        {COUNTRY_LABELS[code]}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                />
               </div>
 
-              <Separator />
-
-              <div className="space-y-2">
+              {/* Target markets */}
+              <div className="space-y-2.5">
                 <div>
                   <Label>{t.form.targetLabel}</Label>
-                  <p className="text-xs text-muted-foreground mt-0.5">
-                    {t.form.targetHint}
+                  <p className="mt-0.5 text-xs text-muted-foreground">
+                    {t.form.targetHint}{" "}
+                    <span className="font-medium text-foreground">
+                      {selectedCountries.size}
+                    </span>{" "}
+                    {t.form.selectedLabel}
                   </p>
                 </div>
-                <div className="grid grid-cols-2 gap-2">
-                  {targetCountries.map((code) => {
-                    const active = selectedCountries.has(code);
-                    return (
-                      <button
-                        type="button"
-                        key={code}
-                        onClick={() => toggleCountry(code)}
-                        disabled={loading}
-                        className={
-                          "flex items-center justify-between rounded-md border px-3 py-2 text-sm transition " +
-                          (active
-                            ? "border-primary bg-primary/5 text-foreground"
-                            : "border-border bg-background text-muted-foreground hover:border-ring")
-                        }
-                      >
-                        <span>{COUNTRY_LABELS[code]}</span>
-                        <span
-                          className={
-                            "inline-flex h-4 w-4 items-center justify-center rounded-full border text-[10px] " +
-                            (active
-                              ? "border-primary bg-primary text-primary-foreground"
-                              : "border-border")
-                          }
-                        >
-                          {active ? "✓" : ""}
-                        </span>
-                      </button>
-                    );
-                  })}
+                <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 md:grid-cols-4">
+                  {targetCountries.map((code) => (
+                    <CountryChip
+                      key={code}
+                      code={code}
+                      label={COUNTRY_LABELS[code]}
+                      selected={selectedCountries.has(code)}
+                      disabled={loading}
+                      onClick={() => toggleCountry(code)}
+                    />
+                  ))}
                 </div>
               </div>
 
-              <label className="flex items-start gap-3 cursor-pointer">
+              <label className="flex cursor-pointer items-start gap-3">
                 <input
                   type="checkbox"
                   checked={includeRouteRisk}
@@ -537,7 +483,7 @@ export default function HomePage() {
                 />
                 <span className="text-sm">
                   <span className="font-medium">{t.form.routeRiskTitle}</span>
-                  <span className="block text-muted-foreground text-xs">
+                  <span className="block text-xs text-muted-foreground">
                     {t.form.routeRiskBody}
                   </span>
                 </span>
@@ -574,14 +520,17 @@ export default function HomePage() {
                 />
               )}
             </form>
-          </CardContent>
-        </Card>
+          </div>
+        </section>
 
-        <footer className="mt-6 flex flex-col items-center gap-2 text-center text-xs text-muted-foreground">
+        <HowItWorks />
+        <FeatureGrid />
+
+        <footer className="mx-auto mt-20 flex max-w-3xl flex-col items-center gap-3 border-t border-border/40 pt-10 text-center text-xs text-muted-foreground">
           <UsageStatsFooter />
           <p>{t.footer.license}</p>
         </footer>
-      </div>
-    </div>
+      </main>
+    </>
   );
 }

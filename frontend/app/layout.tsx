@@ -1,19 +1,34 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { LocaleProvider } from "@/lib/i18n/context";
 
+// Inter — the modern sans-serif for the entire UI.
+// Variable font: pulls 100–900 weight range in one request.
+// Exposed as --font-sans so every shadcn component and layout section
+// inherits it consistently.
+const inter = Inter({
+  variable: "--font-sans",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+// Geist Sans — kept available for the hero accent specifically.
+// Inter's italic rendering with tight tracking clipped edges on longer
+// phrases; Geist's italic holds up better at display size.
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
+// Geist Mono for tabular numerics (metric strip) and code blocks.
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
 });
 
-// Disable static generation so URL query params (?lang=XX) are honored on every request
 export const dynamic = "force-dynamic";
 
 const SITE_URL = "https://masterborder.vercel.app";
@@ -60,7 +75,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${inter.variable} ${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <LocaleProvider>{children}</LocaleProvider>

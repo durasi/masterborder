@@ -130,3 +130,142 @@
   }
 }
 
+
+/* ═══════════════════════════════════════════════════════════
+   Landing page additions — mesh orbs, fade-up, category colors
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+  --cat-core: #2563eb;
+  --cat-compliance: #10b981;
+  --cat-shipping: #f59e0b;
+  --cat-experience: #8b5cf6;
+  --cat-reach: #0891b2;
+  --accent-glow: rgba(37, 99, 235, 0.28);
+  --gradient-1: #60a5fa;
+  --gradient-2: #3b82f6;
+  --gradient-3: #818cf8;
+}
+
+.dark {
+  --cat-core: #60a5fa;
+  --cat-compliance: #34d399;
+  --cat-shipping: #fbbf24;
+  --cat-experience: #a78bfa;
+  --cat-reach: #22d3ee;
+  --accent-glow: rgba(96, 165, 250, 0.38);
+}
+
+/* Mesh orb floating animations */
+@keyframes mb-floatA {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(80px, 40px) scale(1.08); }
+  66% { transform: translate(-40px, 80px) scale(0.95); }
+}
+
+@keyframes mb-floatB {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-100px, -60px) scale(1.12); }
+}
+
+@keyframes mb-floatC {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  40% { transform: translate(60px, -80px) scale(1.05); }
+  80% { transform: translate(-80px, 20px) scale(0.92); }
+}
+
+.mb-mesh-orb-1 {
+  animation: mb-floatA 22s ease-in-out infinite;
+  background: var(--gradient-1);
+}
+.mb-mesh-orb-2 {
+  animation: mb-floatB 26s ease-in-out infinite;
+  background: var(--gradient-2);
+}
+.mb-mesh-orb-3 {
+  animation: mb-floatC 30s ease-in-out infinite;
+  background: var(--gradient-3);
+}
+
+/* Shimmer for hero italic accent */
+@keyframes mb-shimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.mb-shimmer {
+  background: linear-gradient(120deg, var(--gradient-1) 0%, var(--cat-core) 45%, var(--gradient-3) 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: mb-shimmer 8s ease-in-out infinite;
+}
+
+/* Stagger fade-up on mount */
+@keyframes mb-fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.mb-fade-up {
+  opacity: 0;
+  animation: mb-fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.mb-d0 { animation-delay: 0.05s; }
+.mb-d1 { animation-delay: 0.15s; }
+.mb-d2 { animation-delay: 0.25s; }
+.mb-d3 { animation-delay: 0.4s; }
+.mb-d4 { animation-delay: 0.55s; }
+.mb-d5 { animation-delay: 0.7s; }
+.mb-d6 { animation-delay: 0.85s; }
+
+/* Country chip enter/leave (DOM-based origin exclusion) */
+@keyframes mb-chip-enter {
+  from { opacity: 0; transform: scale(0.8) translateY(-8px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes mb-chip-leave {
+  from { opacity: 1; transform: scale(1) translateY(0); }
+  to { opacity: 0; transform: scale(0.8) translateY(8px); }
+}
+
+.mb-chip-entering {
+  animation: mb-chip-enter 0.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.mb-chip-leaving {
+  animation: mb-chip-leave 0.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  pointer-events: none;
+}
+
+/* Ping pulse for navbar brand + status */
+@keyframes mb-ping {
+  75%, 100% { transform: scale(2.4); opacity: 0; }
+}
+
+.mb-pulse-dot {
+  position: relative;
+  width: 7px;
+  height: 7px;
+  display: inline-block;
+}
+
+.mb-pulse-dot::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--cat-compliance);
+  animation: mb-ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.mb-pulse-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--cat-compliance);
+}

@@ -11,19 +11,139 @@ export const en = {
     titleLine1: "Ship across borders,",
     titleLine2: "without the guesswork",
     subtitle:
-      "Tariffs, sanctions, labeling rules, and forced-labor checks for every target market — harmonized into one report, with official citations and an interactive deep-dive agent.",
+      "Turn a product description into an export-ready compliance report for up to 5 markets — in under a minute, for less than a cent.",
   },
 
   features: {
-    parallelTitle: "Parallel agents",
-    parallelBody:
-      "One Opus 4.7 agent per target market, dispatched concurrently. Five markets in ~25 seconds.",
-    citationsTitle: "Regulatory citations",
-    citationsBody:
-      "Every finding cites a primary source — HTS code, CFR section, EU regulation number, or official URL.",
-    deepDiveTitle: "Interactive deep-dive",
-    deepDiveBody:
-      "Pick a country and ask follow-up questions. The agent keeps full context across turns.",
+    eyebrow: "What's inside",
+    heading: "A full compliance workbench, purpose-built for global sellers.",
+    sub: "Every analysis draws on fifteen capabilities working in concert — from parallel agents to verifiable PDF exports.",
+    category: {
+      core: "Core",
+      compliance: "Compliance",
+      shipping: "Shipping",
+      experience: "Experience",
+      reach: "Reach",
+    },
+    items: {
+      parallel: {
+        title: "Parallel country agents",
+        body: "One agent per destination fires simultaneously. 5× speedup over sequential review — 60 seconds for work that used to take days.",
+      },
+      harmonizer: {
+        title: "End-to-end harmonizer",
+        body: "A dedicated agent synthesizes all country reports into a single executive summary with routing, ranking and concrete next steps.",
+      },
+      thinking: {
+        title: "Adaptive extended thinking",
+        body: "Opus 4.7 decides when deep reasoning is warranted — so tough trade-offs get the compute they need, easy ones don't waste tokens.",
+      },
+      citations: {
+        title: "Regulatory citations",
+        body: "Every finding links back to a primary source — 19 CFR, EU regulations, MoHAP, ESMA, JIS — verifiable by any reviewer.",
+      },
+      geopolitics: {
+        title: "Live geopolitics awareness",
+        body: "Red Sea disruption, Hormuz premiums, Russian airspace, Belt & Road rail, UAE transit hubs — all baked into every recommendation.",
+      },
+      ranking: {
+        title: "Multi-criteria ranking",
+        body: "Landed cost (0.40), time-to-market (0.35), compliance risk (0.25). The math is shown, not hidden — you can trust or challenge it.",
+      },
+      routes: {
+        title: "Route recommendations",
+        body: "Primary and backup routes across air, sea, rail and TIR — with transit time and indicative cost bands for every destination.",
+      },
+      checklist: {
+        title: "Per-route document checklist",
+        body: "A.TR, B/L, AWB, CMR, REACH test reports, UKCA / CE / JIS / ESMA declarations, OFAC/BIS screening records — nothing forgotten.",
+      },
+      landedCost: {
+        title: "Landed cost estimates",
+        body: "FOB, freight, insurance, duty, compliance overhead — broken down per country so you know exactly where the money goes.",
+      },
+      deepDive: {
+        title: "Interactive deep-dive",
+        body: "Ask follow-up questions per country. Each session retains full regulatory context so answers stay grounded, never generic.",
+      },
+      telemetry: {
+        title: "Live telemetry overlay",
+        body: "Server-sent events stream each agent's progress — country flag, elapsed seconds, tokens consumed, risk level — as it happens.",
+      },
+      humanLoop: {
+        title: "Human in the loop",
+        body: "Claude proposes. You decide. Every recommendation is framed as an option with trade-offs, never a black-box verdict.",
+      },
+      languages: {
+        title: "16-language support",
+        body: "Full UI, analysis output, and PDF rendering across 16 languages — including CJK, Arabic and Devanagari with proper font shaping.",
+      },
+      pdf: {
+        title: "Verifiable PDF export",
+        body: "One click produces a professional report with QR verification, full regulatory sources section and jury-ready typography.",
+      },
+      costTransparency: {
+        title: "Cost transparency",
+        body: "Every run shows real token usage and dollar cost — no hidden markup, no mystery pricing, just honest usage receipts.",
+      },
+    },
+  },
+
+  metrics: {
+    perAnalysis: "per analysis",
+    perRun: "per run",
+    parallelAgents: "parallel agents",
+    languages: "languages",
+  },
+
+  howItWorks: {
+    eyebrow: "How it works",
+    heading: "Cross-border trade has 100+ rules per product. We surface them in 60 seconds.",
+    sub: "A short tour of what happens between hitting \"Analyze\" and getting a signed, verifiable report.",
+    contextHeading: "Why cross-border compliance is hard today",
+    contextP1: "Every product crossing a border faces a tangle of regulations: tariffs, HS classification, sanctions screening, labeling rules, REACH/RoHS chemical limits, packaging laws, forced-labor attestations, and import licenses. A missing REACH test report will hold a container at Hamburg for weeks. A wrong HS code at US Customs can mean 25% duty instead of 8%.",
+    contextP2: "Traditional customs brokers charge $500–$2,000 per shipment and take 5–15 days per market. For a seller targeting five countries, that's weeks of coordination and five figures in fees — before a single box is packed.",
+    pipelineHeading: "The four-step pipeline",
+    steps: {
+      describe: {
+        title: "Describe",
+        body: "Product details, origin country, target markets. Natural language — no HS codes or customs terminology required.",
+      },
+      parallel: {
+        title: "Parallel analysis",
+        body: "N Opus 4.7 agents fire simultaneously — one per target market — each pulling its country's specific regulations, tariffs and sanctions lists.",
+      },
+      harmonize: {
+        title: "Harmonize",
+        body: "A harmonizer agent synthesizes all reports into a single executive summary with shipping routes, landed cost estimates and risk-ranked recommendations.",
+      },
+      deliver: {
+        title: "Deliver",
+        body: "Live report with interactive deep-dive chat, document checklist per route, and a verifiable PDF export — ready for counsel, broker or customer.",
+      },
+    },
+    impactHeading: "Why this matters",
+    impactLead: "Compliance isn't a paperwork problem — it's a market-access problem. Getting it wrong means gatekept from the world's biggest economies.",
+    impacts: {
+      smallExporter: {
+        title: "Small exporters stay local",
+        body: "A craftsperson in Turkey can't afford $1,500 × 5 markets to hire a broker for each destination. They sell only domestically and leave growth on the table.",
+      },
+      bigExporter: {
+        title: "Big exporters burn weeks on coordination",
+        body: "Five countries means five brokers, five email threads, five timelines. What should be a single decision becomes a month of operations work.",
+      },
+      mistakeCost: {
+        title: "Every mistake is expensive",
+        body: "A wrong HS code, a missing test report, a sanctions screening miss — each one means customs delays, fines, spoiled inventory, reputational damage.",
+      },
+      access: {
+        title: "AI closes the gap",
+        body: "Same analysis, $0.42 instead of $7,500. 60 seconds instead of weeks. Export expertise suddenly available to anyone with a product and an idea.",
+      },
+    },
+    bottomLineLabel: "The bottom line:",
+    bottomLine: "Opening a new market should be a decision, not a project. MasterBorder makes it one.",
   },
 
   form: {
@@ -65,7 +185,8 @@ export const en = {
     valuePlaceholder: "45.00",
     originLabel: "Origin country",
     targetLabel: "Target countries",
-    targetHint: "Pick one or more markets to analyze",
+    targetHint: "Pick one or more markets to analyze —",
+    selectedLabel: "selected",
     routeRiskTitle: "Include route risk analysis",
     routeRiskBody:
       "Consider active conflict zones, strait disruptions, and shipping lane risks (recommended).",
@@ -134,7 +255,12 @@ export const en = {
 
   nav: {
     languageLabel: "Language",
+    howItWorks: "How it works",
+    example: "Example",
+    github: "GitHub",
+    trySample: "Try sample",
   },
+
   countries: {
     US: "United States",
     DE: "Germany",
@@ -142,11 +268,13 @@ export const en = {
     TR: "Türkiye",
     JP: "Japan",
   },
+
   pdf: {
     downloadPdf: "Download PDF",
     generatingPdf: "Generating PDF…",
     pdfReady: "PDF ready",
   },
+
   deepDiveCta: {
     headline: "Go deeper into this market",
     body: "Week-by-week go-to-market plan — documents, test labs, cost estimates, timelines. Powered by Opus 4.7.",
@@ -200,12 +328,64 @@ export type Translations = {
     subtitle: string;
   };
   features: {
-    parallelTitle: string;
-    parallelBody: string;
-    citationsTitle: string;
-    citationsBody: string;
-    deepDiveTitle: string;
-    deepDiveBody: string;
+    eyebrow: string;
+    heading: string;
+    sub: string;
+    category: {
+      core: string;
+      compliance: string;
+      shipping: string;
+      experience: string;
+      reach: string;
+    };
+    items: {
+      parallel: { title: string; body: string };
+      harmonizer: { title: string; body: string };
+      thinking: { title: string; body: string };
+      citations: { title: string; body: string };
+      geopolitics: { title: string; body: string };
+      ranking: { title: string; body: string };
+      routes: { title: string; body: string };
+      checklist: { title: string; body: string };
+      landedCost: { title: string; body: string };
+      deepDive: { title: string; body: string };
+      telemetry: { title: string; body: string };
+      humanLoop: { title: string; body: string };
+      languages: { title: string; body: string };
+      pdf: { title: string; body: string };
+      costTransparency: { title: string; body: string };
+    };
+  };
+  metrics: {
+    perAnalysis: string;
+    perRun: string;
+    parallelAgents: string;
+    languages: string;
+  };
+  howItWorks: {
+    eyebrow: string;
+    heading: string;
+    sub: string;
+    contextHeading: string;
+    contextP1: string;
+    contextP2: string;
+    pipelineHeading: string;
+    steps: {
+      describe: { title: string; body: string };
+      parallel: { title: string; body: string };
+      harmonize: { title: string; body: string };
+      deliver: { title: string; body: string };
+    };
+    impactHeading: string;
+    impactLead: string;
+    impacts: {
+      smallExporter: { title: string; body: string };
+      bigExporter: { title: string; body: string };
+      mistakeCost: { title: string; body: string };
+      access: { title: string; body: string };
+    };
+    bottomLineLabel: string;
+    bottomLine: string;
   };
   form: {
     cardTitle: string;
@@ -245,6 +425,7 @@ export type Translations = {
     originLabel: string;
     targetLabel: string;
     targetHint: string;
+    selectedLabel: string;
     routeRiskTitle: string;
     routeRiskBody: string;
     analyzeButton: string;
@@ -305,6 +486,10 @@ export type Translations = {
   };
   nav: {
     languageLabel: string;
+    howItWorks: string;
+    example: string;
+    github: string;
+    trySample: string;
   };
   countries: {
     US: string;
@@ -323,7 +508,6 @@ export type Translations = {
     body: string;
     button: string;
   };
-
   roi: {
     headline: string;
     masterborderLabel: string;
@@ -333,7 +517,6 @@ export type Translations = {
     faster: string;
     disclaimer: string;
   };
-
   telemetry: {
     headline: string;
     elapsed: string;
@@ -348,7 +531,6 @@ export type Translations = {
     synthesizing: string;
     done: string;
   };
-
   example: {
     bannerTitle: string;
     bannerBody: string;
@@ -356,5 +538,4 @@ export type Translations = {
     deepDiveDisabled: string;
     footerNote: string;
   };
-
 };
