@@ -326,4 +326,17 @@ export const ko: Translations = {
       other: "기타",
     },
   },
+  findings: {
+    verify: "확인",
+    confidence: {
+      high: "높은 신뢰도",
+      medium: "중간 신뢰도",
+      low: "낮은 신뢰도",
+    },
+    confidenceTooltip: {
+      high: "명시적 규제 인용 또는 권위 있는 출처 URL로 뒷받침됨.",
+      medium: "확립된 관행 또는 평판 있는 2차 출처를 참조함.",
+      low: "인용된 권위 없는 추론 — 행동 전에 확인하십시오.",
+    },
+  },
 };

@@ -326,4 +326,17 @@ export const pl: Translations = {
       other: "Inne",
     },
   },
+  findings: {
+    verify: "Zweryfikuj",
+    confidence: {
+      high: "Wysoka pewność",
+      medium: "Średnia pewność",
+      low: "Niska pewność",
+    },
+    confidenceTooltip: {
+      high: "Poparte wyraźnym cytatem regulacyjnym lub autorytatywnym źródłem.",
+      medium: "Odwołuje się do utrwalonej praktyki lub wiarygodnego źródła wtórnego.",
+      low: "Wnioskowanie bez cytowanego autorytetu — zweryfikuj przed działaniem.",
+    },
+  },
 };

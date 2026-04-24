@@ -16,6 +16,9 @@ import {
   AlertCircle,
   XCircle,
   Shield,
+  ShieldCheck,
+  Info,
+  HelpCircle,
   ExternalLink,
 } from "lucide-react";
 import Image from "next/image";
@@ -29,6 +32,7 @@ import {
   type AnalysisResponse,
   type CountryReport,
   type RiskLevel,
+  type ConfidenceLevel,
 } from "@/lib/types";
 import { TokenUsageBadge } from "@/components/TokenUsageBadge";
 import { RoiCard } from "@/components/RoiCard";
@@ -469,6 +473,7 @@ function FindingRow({
     title: string;
     detail: string;
     risk_level: RiskLevel;
+    confidence?: ConfidenceLevel | null;
     citation?: string | null;
     source_url?: string | null;
   };
@@ -502,8 +507,11 @@ function FindingRow({
             </span>
           </div>
           <p className="mt-1 text-foreground/75">{finding.detail}</p>
-          {(finding.citation || finding.source_url) && (
-            <div className="mt-1.5 flex items-center gap-3 text-[11.5px]">
+          {(finding.confidence || finding.citation || finding.source_url) && (
+            <div className="mt-2 flex flex-wrap items-center gap-2 text-[11.5px]">
+              {finding.confidence && (
+                <ConfidenceBadge level={finding.confidence} t={t} />
+              )}
               {finding.citation && (
                 <span className="inline-flex items-center gap-1 text-muted-foreground">
                   <Shield className="h-3 w-3" />
@@ -517,10 +525,11 @@ function FindingRow({
                   href={finding.source_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-700 hover:underline"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-blue-500/30 bg-blue-500/[0.06] hover:bg-blue-500/[0.12] px-2.5 py-1 text-[11px] font-medium text-blue-700 dark:text-blue-300 transition-colors"
                 >
-                  Source
-                  <ExternalLink className="h-2.5 w-2.5" />
+                  <ShieldCheck className="h-3 w-3" />
+                  {t.findings.verify}
+                  <ExternalLink className="h-2.5 w-2.5 opacity-70" />
                 </a>
               )}
             </div>
@@ -575,3 +584,47 @@ function RiskBadge({ level, t }: { level: RiskLevel; t: Translations }) {
     </span>
   );
 }
+
+// ---------------------------------------------------------------------------
+// ConfidenceBadge — shows how well-sourced a single finding is
+// ---------------------------------------------------------------------------
+
+const CONFIDENCE_STYLES: Record<ConfidenceLevel, string> = {
+  high: "border-emerald-500/40 bg-emerald-500/[0.08] text-emerald-700 dark:text-emerald-300",
+  medium: "border-amber-500/40 bg-amber-500/[0.08] text-amber-700 dark:text-amber-300",
+  low: "border-slate-500/30 bg-slate-500/[0.06] text-slate-700 dark:text-slate-300",
+};
+
+const CONFIDENCE_ICON: Record<
+  ConfidenceLevel,
+  React.ComponentType<{ className?: string }>
+> = {
+  high: ShieldCheck,
+  medium: Info,
+  low: HelpCircle,
+};
+
+function ConfidenceBadge({
+  level,
+  t,
+}: {
+  level: ConfidenceLevel;
+  t: Translations;
+}) {
+  const Icon = CONFIDENCE_ICON[level];
+  const label =
+    t.findings.confidence[level] ?? level.charAt(0).toUpperCase() + level.slice(1);
+  return (
+    <span
+      className={
+        "inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[10.5px] font-medium uppercase tracking-[0.06em] " +
+        CONFIDENCE_STYLES[level]
+      }
+      title={t.findings.confidenceTooltip[level]}
+    >
+      <Icon className="h-2.5 w-2.5" />
+      {label}
+    </span>
+  );
+}
+

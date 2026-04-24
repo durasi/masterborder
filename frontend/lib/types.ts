@@ -8,6 +8,7 @@
 export type CountryCode = "US" | "DE" | "GB" | "TR" | "JP";
 
 export type RiskLevel = "low" | "medium" | "high" | "blocked";
+export type ConfidenceLevel = "high" | "medium" | "low";
 
 export interface Product {
   name: string;
@@ -31,6 +32,7 @@ export interface ComplianceFinding {
   title: string;
   detail: string;
   risk_level: RiskLevel;
+  confidence?: ConfidenceLevel;
   source_url?: string | null;
   citation?: string | null;
 }

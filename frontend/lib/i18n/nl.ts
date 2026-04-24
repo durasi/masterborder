@@ -326,4 +326,17 @@ export const nl: Translations = {
       other: "Overig",
     },
   },
+  findings: {
+    verify: "Controleren",
+    confidence: {
+      high: "Hoge betrouwbaarheid",
+      medium: "Gemiddelde betrouwbaarheid",
+      low: "Lage betrouwbaarheid",
+    },
+    confidenceTooltip: {
+      high: "Ondersteund door expliciete regelgevingsverwijzing of gezaghebbende bron-URL.",
+      medium: "Verwijst naar gevestigde praktijk of gerespecteerde secundaire bron.",
+      low: "Inschatting zonder geciteerde autoriteit — controleer voor actie.",
+    },
+  },
 };

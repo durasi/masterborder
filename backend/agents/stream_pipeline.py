@@ -21,6 +21,7 @@ from typing import AsyncIterator
 
 from backend.agents.harmonizer import harmonize
 from backend.agents.conflict_extractor import extract_conflicts
+from backend.agents.confidence_grader import grade_confidence
 from backend.countries.agent import analyze_country
 from backend.schemas.models import (
     AnalysisRequest,
@@ -159,11 +160,11 @@ async def stream_pipeline(
         token_usage=TokenUsage.from_counts(total_in, total_out),
     )
 
-    # Run the harmonizer and the conflict extractor in parallel. The extractor
-    # is best-effort (Haiku 4.5, ~2-3 s) and typically finishes well before
-    # the harmonizer (Opus 4.7, ~15-20 s), so it's effectively free latency.
-    # Any extractor failure is contained: we fall back to an empty conflicts
-    # list and continue serving the primary result.
+    # Run the harmonizer, the conflict extractor, and the confidence grader
+    # in parallel. All three are Opus 4.7 calls, and all three are
+    # best-effort: any of them can fail without taking down the primary
+    # analysis. asyncio.gather keeps the latency bounded by the slowest of
+    # the three, which in practice is the harmonizer.
     async def _safe_harmonize():
         try:
             return await harmonize(response, request.preferred_language)
@@ -178,13 +179,32 @@ async def stream_pipeline(
         except Exception:  # noqa: BLE001
             return [], (0, 0)
 
-    harmonize_result, extract_result = await asyncio.gather(
-        _safe_harmonize(), _safe_extract()
+    async def _safe_grade():
+        try:
+            return await grade_confidence(response)
+        except Exception:  # noqa: BLE001
+            return {}, (0, 0)
+
+    harmonize_result, extract_result, grade_result = await asyncio.gather(
+        _safe_harmonize(), _safe_extract(), _safe_grade()
     )
+
+    # Merge grader output into country_reports in place. Missing keys mean
+    # the UI simply hides the badge for that finding.
+    grade_map, (grade_in, grade_out) = grade_result
+    if grade_map:
+        for r in response.country_reports:
+            for f in r.findings:
+                key = (r.country, f.title)
+                if key in grade_map:
+                    f.confidence = grade_map[key]
 
     if isinstance(harmonize_result, Exception):
         response.summary = None
         response.conflicts = extract_result[0] if extract_result else []
+        response.token_usage = TokenUsage.from_counts(
+            total_in + grade_in, total_out + grade_out
+        )
         yield (
             "done",
             {
@@ -201,7 +221,8 @@ async def stream_pipeline(
     response.summary = summary_text
     response.conflicts = conflicts_list
     response.token_usage = TokenUsage.from_counts(
-        total_in + harm_in + conf_in, total_out + harm_out + conf_out
+        total_in + harm_in + conf_in + grade_in,
+        total_out + harm_out + conf_out + grade_out,
     )
     response.completed_at = datetime.utcnow()
 

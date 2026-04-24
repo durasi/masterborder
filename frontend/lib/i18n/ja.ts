@@ -326,4 +326,17 @@ export const ja: Translations = {
       other: "その他",
     },
   },
+  findings: {
+    verify: "検証",
+    confidence: {
+      high: "高信頼度",
+      medium: "中信頼度",
+      low: "低信頼度",
+    },
+    confidenceTooltip: {
+      high: "明示的な規制引用または権威ある出典URLに裏付けられています。",
+      medium: "確立された慣行または信頼できる二次情報源を参照しています。",
+      low: "引用された権威のない推論 — 実行前に検証してください。",
+    },
+  },
 };

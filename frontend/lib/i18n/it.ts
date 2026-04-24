@@ -326,4 +326,17 @@ export const it: Translations = {
       other: "Altro",
     },
   },
+  findings: {
+    verify: "Verifica",
+    confidence: {
+      high: "Alta affidabilità",
+      medium: "Media affidabilità",
+      low: "Bassa affidabilità",
+    },
+    confidenceTooltip: {
+      high: "Supportato da citazione regolatoria esplicita o URL di fonte autorevole.",
+      medium: "Fa riferimento a pratica consolidata o fonte secondaria affidabile.",
+      low: "Inferenza senza autorità citata — verificare prima di agire.",
+    },
+  },
 };

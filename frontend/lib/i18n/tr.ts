@@ -326,4 +326,17 @@ export const tr: Translations = {
       other: "Diğer",
     },
   },
+  findings: {
+    verify: "Doğrula",
+    confidence: {
+      high: "Yüksek güven",
+      medium: "Orta güven",
+      low: "Düşük güven",
+    },
+    confidenceTooltip: {
+      high: "Açık düzenleyici atıf veya resmi kaynak URL'i ile destekleniyor.",
+      medium: "Yerleşik bir uygulamaya veya saygın ikincil kaynağa atıfta bulunuyor.",
+      low: "Atıflı bir otorite olmadan yapılan çıkarım — işlem öncesi doğrulayın.",
+    },
+  },
 };

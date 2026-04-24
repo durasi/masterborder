@@ -327,6 +327,19 @@ export const en = {
       other: "Other",
     },
   },
+  findings: {
+    verify: "Verify",
+    confidence: {
+      high: "High confidence",
+      medium: "Medium confidence",
+      low: "Low confidence",
+    },
+    confidenceTooltip: {
+      high: "Backed by an explicit regulatory citation or an authoritative source URL.",
+      medium: "References an established practice or reputable secondary source.",
+      low: "Best-effort inference without a cited authority — verify before acting.",
+    },
+  },
 };
 
 export type Translations = {
@@ -563,6 +576,20 @@ export type Translations = {
       documentation: string;
       tariff: string;
       other: string;
+    };
+  };
+
+  findings: {
+    verify: string;
+    confidence: {
+      high: string;
+      medium: string;
+      low: string;
+    };
+    confidenceTooltip: {
+      high: string;
+      medium: string;
+      low: string;
     };
   };
 };

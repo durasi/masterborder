@@ -24,6 +24,24 @@ class RiskLevel(str, Enum):
     BLOCKED = "blocked"
 
 
+class ConfidenceLevel(str, Enum):
+    """How well supported a finding is by authoritative sources.
+
+    The grader agent assigns this per finding:
+      - HIGH:   backed by an explicit regulatory citation or a verifiable
+                URL in an authoritative domain (gov, europa.eu, customs
+                authorities, standards bodies).
+      - MEDIUM: references an established trade practice or a reputable
+                secondary source without a pinpoint citation.
+      - LOW:    best-effort inference from general knowledge without any
+                cited authority.
+    """
+    HIGH = "high"
+    MEDIUM = "medium"
+    LOW = "low"
+
+
+
 class QuantityUnit(str, Enum):
     """Units of measurement for product quantity — critical for tariff calculation.
 
@@ -89,6 +107,12 @@ class ComplianceFinding(BaseModel):
     title: str
     detail: str
     risk_level: RiskLevel
+    confidence: Optional[ConfidenceLevel] = Field(
+        None,
+        description="How well supported this finding is by cited sources. "
+                    "Filled in by the confidence grader agent after the country "
+                    "agents run; None means not graded.",
+    )
     source_url: Optional[str] = None
     citation: Optional[str] = None
 

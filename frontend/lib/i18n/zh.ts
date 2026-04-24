@@ -326,4 +326,17 @@ export const zh: Translations = {
       other: "其他",
     },
   },
+  findings: {
+    verify: "验证",
+    confidence: {
+      high: "高可信度",
+      medium: "中等可信度",
+      low: "低可信度",
+    },
+    confidenceTooltip: {
+      high: "有明确的法规引用或权威来源URL支持。",
+      medium: "参考既定实践或权威二手资料。",
+      low: "无引用权威的推断 — 行动前请核实。",
+    },
+  },
 };

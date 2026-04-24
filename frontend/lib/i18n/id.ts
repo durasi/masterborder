@@ -326,4 +326,17 @@ export const id: Translations = {
       other: "Lainnya",
     },
   },
+  findings: {
+    verify: "Verifikasi",
+    confidence: {
+      high: "Keyakinan tinggi",
+      medium: "Keyakinan sedang",
+      low: "Keyakinan rendah",
+    },
+    confidenceTooltip: {
+      high: "Didukung oleh kutipan regulasi eksplisit atau URL sumber otoritatif.",
+      medium: "Merujuk pada praktik mapan atau sumber sekunder terkemuka.",
+      low: "Inferensi tanpa otoritas yang dikutip — verifikasi sebelum bertindak.",
+    },
+  },
 };
