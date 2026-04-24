@@ -36,6 +36,8 @@ from backend.schemas.models import (
     CountryCode,
     TokenUsage,
 )
+from backend.utils import storage
+
 
 # ───────────────────────────────────────────────────────────────
 # Rate limiter (per-IP)
@@ -101,8 +103,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# In-memory caches (process-local, reset on restart — acceptable for hackathon MVP)
-_job_cache: dict[str, AnalysisResponse] = {}
+# Persistent storage (SQLite, see backend/utils/storage.py). The in-memory
+# dict approach lost jobs across worker / container restarts on Railway; the
+# SQLite store survives that while staying zero-dependency.
+#
+# _conversation_cache is kept as a per-process fast path for deep-dive
+# follow-ups; the authoritative copy is persisted via storage.save_conversation.
 _conversation_cache: dict[tuple[str, str], list[dict[str, str]]] = {}
 
 
@@ -125,7 +131,7 @@ async def root() -> dict[str, Any]:
             "GET /health": "Health check",
             "GET /docs": "Interactive API documentation (Swagger UI)",
         },
-        "jobs_cached": len(_job_cache),
+        "jobs_cached": storage.count_jobs(),
     }
 
 
@@ -171,7 +177,7 @@ async def analyze(
     except Exception as exc:
         raise HTTPException(status_code=500, detail=f"Analysis failed: {exc}") from exc
 
-    _job_cache[response.job_id] = response
+    storage.save_job(response.job_id, response)
     # Track usage (privacy-preserving: only hashed IP is stored)
     client_ip = request.client.host if request.client else "unknown"
     stats.record_analysis(client_ip, [c.value for c in body.target_countries])
@@ -218,7 +224,7 @@ async def analyze_stream(
                         final_response = AnalysisResponse.model_validate(
                             payload["response"]
                         )
-                        _job_cache[final_response.job_id] = final_response
+                        storage.save_job(final_response.job_id, final_response)
                     except Exception:  # noqa: BLE001
                         # If validation fails we still want to forward the raw
                         # event to the client so it can show an error; the
@@ -260,12 +266,13 @@ async def analyze_stream(
 @app.get("/api/jobs/{job_id}", response_model=AnalysisResponse)
 async def get_job(job_id: str) -> AnalysisResponse:
     """Retrieve a cached analysis result by job_id."""
-    if job_id not in _job_cache:
+    cached = storage.get_job(job_id)
+    if cached is None:
         raise HTTPException(
             status_code=404,
             detail=f"Job {job_id} not found. It may have expired or the backend restarted.",
         )
-    return _job_cache[job_id]
+    return cached
 
 
 # ───────────────────────────────────────────────────────────────
@@ -312,13 +319,14 @@ async def recommend(
 
     Rate limit: 20 recommendations per IP per day.
     """
-    if job_id not in _job_cache:
+    cached_job = storage.get_job(job_id)
+    if cached_job is None:
         raise HTTPException(
             status_code=404,
             detail=f"Job {job_id} not found. Run POST /api/analyze first.",
         )
 
-    response = _job_cache[job_id]
+    response = cached_job
     cache_key = (job_id, country.value)
 
     if body.reset_conversation:

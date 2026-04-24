@@ -20,4 +20,4 @@ ENV PORT=8000
 EXPOSE 8000
 
 # Bind to 0.0.0.0 so Railway's proxy can reach the container
-CMD uvicorn backend.api.main:app --host 0.0.0.0 --port ${PORT}
+CMD uvicorn backend.api.main:app --host 0.0.0.0 --port ${PORT} --workers 1
