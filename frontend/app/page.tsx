@@ -40,7 +40,7 @@ export default function HomePage() {
   const router = useRouter();
   const { t, locale } = useLocale();
 
-  // Form state (preserved from previous implementation)
+  // Form state
   const [productName, setProductName] = useState("");
   const [productDescription, setProductDescription] = useState("");
   const [category, setCategory] = useState("");
@@ -63,9 +63,12 @@ export default function HomePage() {
   const [streamElapsedS, setStreamElapsedS] = useState(0);
   const [error, setError] = useState<string | null>(null);
 
-  // Auto-submit trigger — set to true by fillSampleProduct; a useEffect
-  // watches it and calls runAnalysis() on the next tick, so the form state
-  // is guaranteed to be flushed before we read it.
+  // Telemetry anchor — we scroll here when analysis kicks off so the user
+  // sees the live agent activity instead of watching a blank form.
+  const telemetryRef = useRef<HTMLDivElement>(null);
+
+  // Auto-submit trigger set by fillSampleProduct(true); the effect below
+  // watches it and fires runAnalysis after the form state flushes.
   const [autoSubmitPending, setAutoSubmitPending] = useState(false);
 
   useEffect(() => {
@@ -99,13 +102,8 @@ export default function HomePage() {
     });
   };
 
-  // Origin country is filtered out of the target picker entirely.
   const targetCountries = ALL_COUNTRIES.filter((c) => c !== originCountry);
 
-  // Pull the analysis logic out of the form handler so it can be invoked
-  // either from the <form onSubmit> OR programmatically (by the Try sample
-  // auto-submit path). Reads state directly — callers must ensure state is
-  // already set before calling.
   async function runAnalysis() {
     setError(null);
 
@@ -126,6 +124,16 @@ export default function HomePage() {
     setStreamTokens(0);
     setStreamStartedAt(Date.now());
     setLoading(true);
+
+    // Wait a tick for the telemetry overlay to mount, then scroll to it.
+    // Without the rAF, the node isn't in the DOM yet on the first frame so
+    // scrollIntoView would target nothing.
+    requestAnimationFrame(() => {
+      telemetryRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    });
 
     const valueNum = estimatedValue.trim()
       ? Number.parseFloat(estimatedValue)
@@ -512,12 +520,14 @@ export default function HomePage() {
               </Button>
 
               {loading && streamAgents.length > 0 && (
-                <AgentTelemetryOverlay
-                  agents={streamAgents}
-                  harmonizer={streamHarmonizer}
-                  totalTokens={streamTokens}
-                  elapsedS={streamElapsedS}
-                />
+                <div ref={telemetryRef} className="scroll-mt-24">
+                  <AgentTelemetryOverlay
+                    agents={streamAgents}
+                    harmonizer={streamHarmonizer}
+                    totalTokens={streamTokens}
+                    elapsedS={streamElapsedS}
+                  />
+                </div>
               )}
             </form>
           </div>
