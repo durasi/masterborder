@@ -295,11 +295,11 @@ cd frontend && npm run build   # Next.js type check + build
 ## Author
 
 **Seçkin Sefa Durası**
-- Web: https://seckin.ws
-- Email: i@seckin.ws
+- Web: https://ssd.nz
+- Email: i@ssd.nz
 - GitHub: https://github.com/durasi
 - LinkedIn: https://linkedin.com/in/durasi
-- X: https://x.com/seckinws
+- X: https://x.com/wssdnz
 
 ## License
 
